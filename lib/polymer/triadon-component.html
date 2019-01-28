@@ -1,0 +1,1317 @@
+<!-- 
+@todo Login : Désactiver les boutons tant que les input ne valident pas.
+@todo Login : Ne pas effacer la boîte si le login n'est pas valide
+@todo Modif : Ne pas effacer la boîte si le formulaire n'est pas valide
+	
+	
+	
+	
+-->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../../bower_components/core-list/core-list.html">
+<link rel="import" href="../../bower_components/core-tooltip/core-tooltip.html">
+<link rel="import" href="../../bower_components/core-icon-button/core-icon-button.html">
+<link rel="import" href="../../bower_components/core-iconset/core-iconset.html">
+<link rel="import" href="../../bower_components/core-menu-button/core-menu-button.html">
+<link rel="import" href="../../bower_components/core-menu/core-menu.html">
+<link rel="import" href="../../bower_components/core-item/core-item.html">
+<link rel="import" href="../../bower_components/core-icons/core-icons.html">
+
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+
+<polymer-element name="triadon-liste-equipe" attributes="monURL">
+	<template>
+		<style>
+			:host {
+				width: 90%;
+				max-width: 1024px;
+				/*display: block;
+				 position: relative;
+				 background-color: white;
+				 padding: 15px;
+				 cursor: default;
+
+				 font-size: 1.2 rem;
+				 font-weight: 300;
+				 border: 1px solid #DDDDDD;*/
+			}
+			triadon-liste-equipe {
+				margin-bottom: 16px;
+			}
+			core-list {
+				height: 100%;
+			}
+
+			.item {
+				box-sizing: border-box;
+				min-height: 100px;
+				border-bottom: 1px solid #ddd;
+				padding: 4px;
+				cursor: default;
+				background-color: white;
+				overflow: hidden;
+			}
+
+			.selected {
+				background: silver;
+			}
+
+			.participants {
+				/*padding-left: 77px;*/
+				line-height: 167%;
+				background-repeat: no-repeat;
+				background-position: 10px 10px;
+				background-size: 60px;
+				float: left;
+			}
+
+			.nom-equipe {
+				display: inline;
+				font-weight: bold;
+				font-size: 16px;
+				padding-bottom:6px;
+			}
+
+			.numero {
+				margin-right: 16px;
+				margin-left: 11px;
+				padding-top: 5px;
+				font-size: 36px;
+				opacity: 0.8;
+				float: left;
+				background: url("./img/cercle.svg") no-repeat;
+				color: #FFFFFF;
+				max-width: 58px;
+				min-width: 58px;
+			}
+
+			.bouton_fab {
+				margin-right: 16px;
+				margin-left: 11px;
+				padding-top: 5px;
+				font-size: 36px;
+				float: left;
+				color: #FFFFFF;
+				max-width: 58px;
+				min-width: 58px;
+			}
+			#fabEquipe
+			{
+			 	background-color: #e85e30;	
+			}
+			.participants {
+
+			}
+			.participant {
+				height: 70px;
+			}
+
+			.sports {
+				width: 100%;
+			}
+
+			.nageur {
+				min-width: 180px;
+			}
+			.cycliste {
+				min-width: 180px;
+			}
+			.course {
+				min-width: 180px;
+			}
+			.nom {
+				font-weight: bold;
+				font-size:12px;
+				line-height: 12px;
+				padding-bottom:6px;
+			}
+			.departement {
+				color: #333333;
+				font-style: italic;
+				font-size:12px;
+				line-height: 12px;
+			}
+
+			.menuModif core-item {
+				min-height: 25px;
+				height: 25px;
+			}
+			.menuModif core-item:hover {
+				color: #03A9F4;
+			}
+
+			paper-dialog {
+				max-width: 900px;
+			}
+			
+			@media all and (max-width:600px)
+			{
+				.numero {
+					display:none !important;
+				}
+				.nageur {
+					min-width: 60px;
+					overflow:hidden;
+				}
+				.cycliste {
+					min-width: 60px;
+					overflow:hidden;
+				}
+				.course {
+					min-width: 60px;
+					overflow:hidden;
+				}
+				
+			}
+		</style>
+
+		<core-ajax id="ajax" url="{{monURL}}"
+		response="{{resp}}"
+		params='{"requete":"listeEquipe"}'
+		method='GET'
+		handleAs="json"
+		headers='{"Cache-Control": "no-cache",
+					"pragma": "no-cache"}' 
+		auto></core-ajax>
+
+		<core-list data="{{resp}}" height="100">
+			<template>
+				<div layout>
+					<div horizontal layout class="item">
+
+						<div vertical center layout flex class="numero">
+							{{index+1}}
+						</div>
+						<div vertical layout flex class="participants">
+							<div horizontal layout>
+
+								<span flex class="nom-equipe">{{nom}} </span>
+							</div>
+							<div horizontal layout>
+								<div flex class="nageur">
+									<div vertical layout>
+										<span class="nom">{{nageur.nom}}</span>
+										<span class="departement">{{nageur.departement}}</span>
+									</div>
+								</div>
+								<div flex class="cycliste">
+									<div vertical layout>
+										<span class="nom">{{cycliste.nom}}</span>
+										<span class="departement">{{cycliste.departement}}</span>
+									</div>
+								</div>
+								<div flex class="course">
+									<div vertical layout>
+										<span class="nom">{{coureur.nom}}</span>
+										<span class="departement">{{coureur.departement}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</template>
+
+		</core-list>
+		<!--<div layout>
+			<div horizontal layout class="item">
+				<div vertical center layout flex class="bouton_fab">
+					<core-tooltip position="right">
+						<paper-fab id="fabEquipe" icon="add" class="ajouterEquipe"></paper-fab>
+						<div tip>
+							Inscrire une équipe
+						</div>
+					</core-tooltip>
+				</div>
+				<div vertical layout flex class="participants">
+					<div horizontal layout>
+						<span flex class="nom-equipe">Ajouter votre équipe</span>
+					</div>
+
+				</div>
+			</div>
+		</div>-->
+
+	</template>
+
+	<script>
+		Polymer('triadon-liste-equipe', {
+			ready : function() {
+
+				this.$.fabEquipe.addEventListener('click', function(e) {
+					var formInscriptions = document.querySelectorAll(".list core-collapse");
+					for (var i = 0; i < formInscriptions.length; i++) {
+
+						formInscriptions[i].opened = false;
+					}
+					var inscription = document.querySelector("#formInscriptionEquipe");
+					inscription.opened = true;
+					var page = document.querySelector("#nav_principal");
+					page.selected = "inscription";
+					var menu = document.querySelector('paper-tabs');
+					menu.selected = 0;
+				});
+
+				this.addEventListener("core-response", function() {
+
+				});
+			},
+			rafraichir : function() {
+				this.ajax = this.$.ajax;
+				this.ajax.go();
+			},
+			selectionne : function(id) {
+				document.querySelector('#equipe-' + id).selected = true;
+
+			},
+			selectionItem : function(e) {
+				var aId = e.toElement.id.split('-');
+				var dialog = this.$[aId[0]];
+				//.querySelector
+				//var dialog = this.shadowRoot.querySelector('paper-dialog');
+				dialog.toggle();
+			},
+			publish : {
+				connecter : "true",
+				userid : 1,
+			},
+		});
+	</script>
+</polymer-element>
+
+<!--
+/**********************************************************************************************
+* Liste des participants seuls
+*
+**********************************************************************************************/
+-->
+<polymer-element name="triadon-liste-participant-seul" attributes="monURL">
+	<template>
+		<style>
+			:host {
+				width: 90%;
+				max-width: 1024px;
+				/*display: block;
+				 position: relative;
+				 background-color: white;
+				 padding: 15px;
+				 cursor: default;
+
+				 font-size: 1.2 rem;
+				 font-weight: 300;
+				 border: 1px solid #DDDDDD;*/
+			}
+			triadon-liste-equipe {
+				margin-bottom: 16px;
+			}
+			core-list {
+				height: 100%;
+			}
+
+			.item {
+				box-sizing: border-box;
+				min-height: 100px;
+				border-bottom: 1px solid #ddd;
+				padding: 4px;
+				cursor: default;
+				background-color: white;
+				overflow: hidden;
+			}
+
+			.selected {
+				background: silver;
+			}
+
+			.participants {
+				/*padding-left: 77px;*/
+				line-height: 167%;
+				background-repeat: no-repeat;
+				background-position: 10px 10px;
+				background-size: 60px;
+				float: left;
+			}
+
+			.nom-equipe {
+				display: inline;
+				font-weight: bold;
+				font-size: 24px;
+			}
+
+			.numero {
+				margin-right: 16px;
+				margin-left: 11px;
+				padding-top: 5px;
+				font-size: 36px;
+				opacity: 0.8;
+				float: left;
+				background: url("./img/cercle.svg") no-repeat;
+				color: #FFFFFF;
+				max-width: 58px;
+				min-width: 58px;
+			}
+
+			.bouton_fab {
+				margin-right: 16px;
+				margin-left: 11px;
+				padding-top: 5px;
+				font-size: 36px;
+				float: left;
+				color: #FFFFFF;
+				max-width: 58px;
+				min-width: 58px;
+			}
+			#fabEquipe
+			{
+			 	background-color: #e85e30;	
+			}
+			.participants {
+
+			}
+			.participant {
+				height: 70px;
+			}
+
+			.sports {
+				width: 100%;
+			}
+
+			.nageur {
+				min-width: 180px;
+			}
+			.cycliste {
+				min-width: 180px;
+			}
+			.course {
+				min-width: 180px;
+			}
+			.nom {
+				font-weight: bold;
+			}
+			.departement {
+				color: #333333;
+				font-style: italic;
+			}
+
+		</style>
+
+		<core-ajax id="ajax" url="{{monURL}}"
+		response="{{resp}}"
+		params='{"requete":"listeParticipantsSeul"}'
+		method='GET'
+		handleAs="json" 
+		headers='{"Cache-Control": "no-cache",
+					"pragma": "no-cache"}' 
+		auto></core-ajax>
+		
+		<core-list data="{{resp}}" height="100">
+			<template>
+				<div layout>
+					<div horizontal layout class="item">
+						<div vertical center layout flex class="numero">
+							{{index+1}}
+						</div>
+						<div vertical layout flex class="participants">
+							<div horizontal layout>
+								<span flex class="nom-equipe">{{nom}}</span>
+							</div>
+							<div horizontal layout>
+								<div flex class="nageur">
+									<div vertical layout>
+										<span class="nom">{{role}}</span>
+										<span class="departement">{{departement}}</span>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</template>
+
+		</core-list>
+		<!--<div layout>
+			<div horizontal layout class="item">
+				<div vertical center layout flex class="bouton_fab">
+					<core-tooltip position="right">
+						<paper-fab id="fabEquipe" icon="add" class="ajouterEquipe"></paper-fab>
+						<div tip>
+							Vous inscrire comme participant seul
+						</div>
+					</core-tooltip>
+				</div>
+				<div vertical layout flex class="participants">
+					<div horizontal layout>
+						<span flex class="nom-equipe">Vous inscrire comme participant seul</span>
+					</div>
+
+				</div>
+			</div>
+		</div>-->
+	</template>
+	<script>
+		Polymer('triadon-liste-participant-seul', {
+			ready : function() {
+
+				this.$.fabEquipe.addEventListener('click', function(e) {
+					var formInscriptions = document.querySelectorAll(".list core-collapse");
+					for (var i = 0; i < formInscriptions.length; i++) {
+
+						formInscriptions[i].opened = false;
+					}
+					var inscription = document.querySelector("#formInscriptionSolo");
+					inscription.opened = true;
+					var page = document.querySelector("#nav_principal");
+					page.selected = "inscription";
+					var menu = document.querySelector('paper-tabs');
+					menu.selected = 0;
+
+				});
+
+				this.addEventListener("core-response", function() {
+					//console.log(JSON.stringify(this.resp));
+				});
+			},
+			rafraichir : function() {
+				this.ajax = this.$.ajax;
+				this.ajax.go();
+			},
+			selectionne : function(id) {
+				document.querySelector('#equipe-' + id).selected = true;
+
+			}
+		});
+	</script>
+</polymer-element>
+
+<polymer-element name="triadon-ajout-equipe">
+	<template>
+		<style>
+			:host {
+				width: 90%;
+				max-width: 1024px;
+				
+			}
+			triadon-ajout-equipe {
+				margin-bottom: 16px;
+			}
+
+			.formNouvelleEquipe {
+				margin-left: 16px;
+			}
+			
+			paper-button[raisedButton] {
+				background: #4285f4;
+				color: #fff;
+				margin: 1em;
+				width: 250px;
+			}
+			paper-button[raisedButton]
+			{
+				margin-left:0px;
+			}
+			paper-button[raisedButton] #ripple, paper-button[raisedButton]::shadow #ripple {
+				color: #2a56c6;
+			}
+
+			paper-button[raisedButton] #focusBg, paper-button[raisedButton]::shadow #focusBg {
+				background: #3367d6;
+			}
+			paper-button::shadow #icon {
+				position: absolute;
+				right: 0px;
+				color: #a4c639;
+				fill: #FFFFFF;
+				margin-top: 4px;
+			}
+
+			paper-button::shadow #content span {
+				margin-left: 0px;
+				left: 0px;
+			}
+		</style>
+	
+		<div flex>
+			<div class="formNouvelleEquipe" vertical layout>
+				<paper-input id="nom_equipe" required autofocus="true" value="{{nom_equipe_val}}" value="{{nom_equipe_val}}" name="nom_equipe" floatinglabel="" label="Nom de l'équipe" layout="" vertical=""></paper-input>
+				<paper-input id="responsable_equipe" required value="{{nom_responsable_val}}"  value="{{nom_responsable_val}}" name="nom_responsable"  floatinglabel="" label="Nom du responsable (vous!)" layout="" vertical=""></paper-input>
+				<paper-input id="courriel_equipe" required value="{{courriel_val}}" name="courriel" type="email" floatinglabel="" label="Courriel du responsable"></paper-input>
+				<paper-input id="motpasse_equipe" required value="{{motpasse_val}}"  value="{{motpasse_val}}" name="motpasse" type="password" floatinglabel="" label="Mot de passe (pour modifier l'équipe ultérieurement)" layout="" vertical=""></paper-input>
+				<paper-button icon="arrow-forward" on-click="{{ajouterEquipe}}" label="Inscrire les membres" raisedButton></paper-button>
+			</div>
+		</div>
+
+	</template>
+	<script>
+		Polymer('triadon-ajout-equipe', {
+			ready : function() {
+				var btnSoumettre = this.$.btnCreerEquipe;
+				this.input = [this.$.nom_equipe, this.$.responsable_equipe, this.$.courriel_equipe, this.$.motpasse_equipe];
+				
+			},
+			ajouterEquipe : function() {
+				input = this.input;
+				//var input = document.querySelectorAll('triadon-ajout-equipe::shadow paper-input'); // Ne fonctionne pas sous FF et IE
+				var erreur = false;
+				for (var i = 0; i < input.length; i++) {
+					if (input[i].invalid) {
+						erreur = true;
+					}
+				}
+
+				if (!erreur) {
+					//this.ajax = this.$.ajax;
+
+					var param = {
+						'nom' : this.nom_equipe_val,
+						'responsable' : this.nom_responsable_val,
+						'courriel' : this.courriel_val,
+						'password' : this.motpasse_val,
+					};
+
+					var pages = document.querySelector("#nav_inscription");
+					pages.selected = "ajouteParticipants";
+					var ajoutPar = document.querySelector('triadon-ajout-participants');
+					ajoutPar.nomEquipe = this.nom_equipe_val;
+					ajoutPar.infoEquipe = JSON.stringify(param);
+				}
+
+			},
+			viderChamps : function() {
+				//var input = document.querySelectorAll('triadon-ajout-equipe::shadow paper-input');
+				input = this.input;
+				//console.log(input);
+				for (var i = 0; i < input.length; i++) {
+					input[i].value = '';
+				}
+			},
+		});
+	</script>
+</polymer-element>
+
+<polymer-element name="triadon-ajout-participants">
+	<template>
+		<style>
+			:host {
+				width: 90%;
+				max-width: 1024px;
+			}
+			triadon-ajout-participants {
+				margin-bottom: 16px;
+			}
+
+			.formNouvelleEquipe {
+				margin-left: 16px;
+			}
+			paper-button[raisedButton] {
+				background: #4285f4;
+				color: #fff;
+				margin: 1em;
+				width: 10em;
+			}
+			paper-button[raisedButton]
+			{
+				margin-left:0px;
+			}
+			paper-button[raisedButton] #ripple, paper-button[raisedButton]::shadow #ripple {
+				color: #2a56c6;
+			}
+
+			paper-button[raisedButton] #focusBg, paper-button[raisedButton]::shadow #focusBg {
+				background: #3367d6;
+			}
+
+			section.nageur, section.cycliste {
+				padding-top: 16px;
+				border-bottom: 1px solid #CCCCCC;
+				margin-right: 16px;
+			}
+			section.coureur {
+				padding-top: 16px;
+				margin-right: 16px;
+			}
+		</style>
+		<core-ajax id="ajax" url="http://triadon.cmaisonneuve.qc.ca/ajax.php?requete=ajouteEquipeEtParticipants"
+		response="{{resp}}"
+		method='POST'
+		headers='{"Cache-Control": "no-cache",
+					"pragma": "no-cache"}' 
+		handleAs="json"
+		></core-ajax>
+		<div flex>
+			<div class="formNouvelleEquipe" vertical layout>
+				<h1>Équipe : {{nomEquipe}}</h1>
+				<section class="nageur">
+					<h3>Nageur</h3>
+					<paper-input required id="nageur_nom" on-input="{{changeInputNom}}" value="{{nageur_nom_val}}" floatinglabel="" label="Nom" layout="" vertical=""></paper-input>
+					<paper-input required id="nageur_courriel" hidden type="email" value="{{nageur_courriel_val}}"  floatinglabel="" label="Courriel" layout="" vertical=""></paper-input>
+					<paper-input required id="nageur_service" hidden value="{{nageur_service_val}}"  floatinglabel="" label="Service, département ou programme" layout="" vertical=""></paper-input>
+				</section>
+				<section class="cycliste">
+					<h3>Cycliste</h3>
+					<paper-input required id="cycliste_nom"  value="{{cycliste_nom_val}}" on-input="{{changeInputNom}}"   floatinglabel="" label="Nom" layout="" vertical=""></paper-input>
+					<paper-input required id="cycliste_courriel"  hidden type="email" value="{{cycliste_courriel_val}}"  floatinglabel="" label="Courriel" layout="" vertical=""></paper-input>
+					<paper-input required id="cycliste_service"  hidden value="{{cycliste_service_val}}"  floatinglabel="" label="Service, département ou programme" layout="" vertical=""></paper-input>
+				</section>
+				<section class="coureur">
+					<h3>Coureur</h3>
+					<paper-input required id="coureur_nom"  value="{{coureur_nom_val}}" on-input="{{changeInputNom}}"  floatinglabel="" label="Nom" layout="" vertical=""></paper-input>
+					<paper-input required id="coureur_courriel"  hidden type="email" value="{{coureur_courriel_val}}"  floatinglabel="" label="Courriel" layout="" vertical=""></paper-input>
+					<paper-input required id="coureur_service"  hidden value="{{coureur_service_val}}"   floatinglabel="" label="Service, département ou programme" layout="" vertical=""></paper-input>
+				</section>
+				<paper-button on-click="{{ajouterParticipants}}" label="Confirmer" raisedButton></paper-button>
+			</div>
+		</div>
+
+	</template>
+	<script>
+		Polymer('triadon-ajout-participants', {
+			ready : function() {
+				var btnSoumettre = this.$.btnCreerEquipe;
+
+				//this.input = document.querySelectorAll('triadon-ajout-participants::shadow paper-input');
+				this.input = [this.$.nageur_nom, this.$.nageur_courriel, this.$.nageur_service, this.$.cycliste_nom, this.$.cycliste_courriel, this.$.cycliste_service, this.$.coureur_nom, this.$.coureur_courriel, this.$.coureur_service];
+				input = this.input
+				//console.log(input);
+				for (var i = 0; i < input.length; i++) {
+					input[i].commit();
+				}
+
+				this.addEventListener('core-response', function(e) {
+					//console.log(this.resp);
+					if (this.resp.bool == true) {
+						var pages = document.querySelector("#nav_principal");
+						pages.selected = "equipeInscrite";
+						var msg = document.querySelector('#message');
+						msg.text = "Les membres de l'équipe ont été ajoutés avec succès";
+						msg.show();
+						var menu = document.querySelector('paper-tabs');
+						menu.selected = 1;
+						document.querySelector('triadon-ajout-equipe').viderChamps();
+						this.viderChamps();
+					} else {
+						var msg = document.querySelector('#message');
+						msg.text = "Erreur dans l'enregistrement des membres de votre équipe.";
+						msg.show();
+					}
+
+				});
+			},
+			changeInputNom : function(e) {
+				if (this.$.nageur_nom.inputValue != '') {
+					this.$.nageur_courriel.hidden = false;
+					this.$.nageur_service.hidden = false;
+
+				} else {
+					this.$.nageur_courriel.hidden = true;
+					this.$.nageur_courriel.value = "";
+					this.$.nageur_service.hidden = true;
+					this.$.nageur_service.value = "";
+				}
+
+				if (this.$.cycliste_nom.inputValue != '') {
+					this.$.cycliste_courriel.hidden = false;
+					this.$.cycliste_service.hidden = false;
+				} else {
+					this.$.cycliste_courriel.hidden = true;
+					this.$.cycliste_courriel.value = "";
+					this.$.cycliste_service.hidden = true;
+					this.$.cycliste_service.value = "";
+				}
+
+				if (this.$.coureur_nom.inputValue != '') {
+					this.$.coureur_courriel.hidden = false;
+					this.$.coureur_service.hidden = false;
+				} else {
+					this.$.coureur_courriel.hidden = true;
+					this.$.coureur_courriel.value = "";
+					this.$.coureur_service.hidden = true;
+					this.$.coureur_service.value = "";
+				}
+			},
+			ajouterParticipants : function() {
+
+				var param = [];
+
+				//var input = document.querySelectorAll('triadon-ajout-participants::shadow paper-input')
+				input = this.input;
+				var erreur = false;
+				//console.log(input);
+				for (var i = 0; i < input.length; i++) {
+					if (input[i].invalid) {
+						erreur = true;
+					}
+				}
+
+				if (!erreur) {
+					this.ajax = this.$.ajax;
+					if (this.nageur_nom_val) {
+						param.push({
+							'nom' : this.nageur_nom_val,
+							'courriel' : this.nageur_courriel_val,
+							'service' : this.nageur_service_val,
+							'role' : "nageur",
+							'nom_equipe' : this.nomEquipe,
+						});
+					}
+					if (this.cycliste_nom_val) {
+						param.push({
+							'nom' : this.cycliste_nom_val,
+							'courriel' : this.cycliste_courriel_val,
+							'service' : this.cycliste_service_val,
+							'role' : "cycliste",
+							'nom_equipe' : this.nomEquipe
+						});
+					}
+					if (this.coureur_nom_val) {
+						param.push({
+							'nom' : this.coureur_nom_val,
+							'courriel' : this.coureur_courriel_val,
+							'service' : this.coureur_service_val,
+							'role' : "coureur",
+							'nom_equipe' : this.nomEquipe
+						});
+					}
+					if (param.length) {
+						param = JSON.stringify(param);
+						this.ajax.params = JSON.stringify({
+							data : param,
+							equipe : this.infoEquipe
+						});
+						this.$.ajax.go();
+					} else {
+						var msg = document.querySelector('#message');
+						msg.text = "Une erreur s'est produite lors de l'ajout des participants.";
+						msg.show();
+					}
+				} else {
+					var msg = document.querySelector('#message');
+					msg.text = "Veuillez corriger les erreurs dans les champs requis.";
+					msg.show();
+				}
+
+			},
+			publish : {
+				nomEquipe : "",
+				infoEquipe : "",
+
+			},
+			viderChamps : function() {
+				input = this.input;
+				for (var i = 0; i < input.length; i++) {
+					input[i].value = '';
+				}
+			},
+		});
+	</script>
+</polymer-element>
+
+<polymer-element name="triadon-ajout-participant-seul" attributes="role" role='nageur'>
+	<template>
+		<style>
+			:host {
+				width: 90%;
+				max-width: 1024px;
+			}
+			triadon-ajout-participants {
+				margin-bottom: 16px;
+			}
+
+			.formNouvelleEquipe {
+				margin-left: 16px;
+			}
+			paper-button[raisedButton] {
+				background: #4285f4;
+				color: #fff;
+				margin: 1em;
+				width: 10em;
+			}
+			paper-button[raisedButton]
+			{
+				margin-left:0px;
+			}
+			paper-button[raisedButton] #ripple, paper-button[raisedButton]::shadow #ripple {
+				color: #2a56c6;
+			}
+
+			paper-button[raisedButton] #focusBg, paper-button[raisedButton]::shadow #focusBg {
+				background: #3367d6;
+			}
+
+			section.nageur, section.cycliste {
+				padding-top: 16px;
+				border-bottom: 1px solid #CCCCCC;
+				margin-right: 16px;
+			}
+			section.coureur {
+				padding-top: 16px;
+				margin-right: 16px;
+			}
+
+			li {
+				height: 30px;
+			}
+
+			li.core-selected:after {
+				content: "\2713";
+				position: absolute;
+				padding-left: 10px;
+			}
+		</style>
+		<core-ajax id="ajax" url="http://triadon.cmaisonneuve.qc.ca/ajax.php?requete=ajouteParticipantSeul"
+		response="{{resp}}"
+		method='POST'
+		handleAs="json"
+		headers='{"Cache-Control": "no-cache",
+					"pragma": "no-cache"}' 
+		></core-ajax>
+		<div flex>
+			<div class="formNouvelleEquipe" vertical layout>
+				<section class="{{role}}">
+
+					<paper-input required id="nom" on-input="{{changeInputNom}}" value="{{nom_val}}" floatinglabel="" label="Nom" layout="" vertical=""></paper-input>
+					<paper-input required id="courriel" hidden type="email" value="{{courriel_val}}"  floatinglabel="" label="Courriel" layout="" vertical=""></paper-input>
+					<paper-input required id="service" hidden value="{{service_val}}"  floatinglabel="" label="Service, département ou programme" layout="" vertical=""></paper-input>
+					<!--<paper-input required id="role" hidden value="{{role}}"  floatinglabel="" label="Role" layout="" vertical=""></paper-input>-->
+					<div id="sport" hidden>
+						<core-selector id="selectSport"  on-core-select="{{selectRole}}" target="{{$.role}}" valueattr="label" selected="{{ role }}"></core-selector>
+						Sport :
+						<ul id="role">
+							<li label="nageur">
+								Nageur
+							</li>
+							<li label="cycliste">
+								Cycliste
+							</li>
+							<li label="coureur">
+								Coureur
+							</li>
+							<li label="benevole" hidden>
+								Benevole
+							</li>
+						</ul>
+					</div>
+				</section>
+				<paper-button on-click="{{ajouterParticipant}}" label="Confirmer" raisedButton></paper-button>
+			</div>
+		</div>
+
+	</template>
+	<script>
+		Polymer('triadon-ajout-participant-seul', {
+			ready : function() {
+				//var btnSoumettre = this.$.btnCreerEquipe;
+
+				//this.input = document.querySelectorAll('triadon-ajout-participants::shadow paper-input');
+				this.input = [this.$.nom, this.$.courriel, this.$.service];
+				input = this.input
+				//console.log(input);
+				for (var i = 0; i < input.length; i++) {
+					input[i].commit();
+				}
+
+				this.addEventListener('core-response', function(e) {
+
+					if (this.resp != false) {
+						//var pages = document.querySelector("#nav_principal");
+						//console.log(pages);
+						//pages.selected = "equipeInscrite";
+						var msg = document.querySelector('#message');
+						if (this.role == 'benevole') {
+							msg.text = "Vous avez été ajoutés à la liste de bénévoles avec succès";
+						} else {
+							msg.text = "Vous avez été ajoutés à la liste avec succès";
+							var menu = document.querySelector('paper-tabs');
+							menu.selected = 2;
+
+						}
+						this.viderChamps();
+						msg.show();
+
+					} else {
+						var msg = document.querySelector('#message');
+						msg.text = "Erreur dans l'enregistrement des membres de votre équipe.";
+						msg.show();
+					}
+
+				});
+			},
+			selectRole : function(e) {
+				this.role = this.$.selectSport.selected;
+				//console.log(this.role);
+			},
+			changeInputNom : function(e) {
+				if (this.$.nom.inputValue != '') {
+					this.$.courriel.hidden = false;
+					this.$.service.hidden = false;
+					if (this.role == 'benevole') {
+						this.$.sport.hidden = true;
+					} else {
+						this.$.sport.hidden = false;
+					}
+
+				} else {
+					this.$.courriel.hidden = true;
+					this.$.courriel.value = "";
+					this.$.service.hidden = true;
+					this.$.service.value = "";
+
+					if (this.role != 'benevole') {
+						this.$.sport.hidden = true;
+					}
+
+				}
+
+			},
+			ajouterParticipant : function() {
+
+				var param = [];
+
+				//var input = document.querySelectorAll('triadon-ajout-participants::shadow paper-input')
+				input = this.input;
+				var erreur = false;
+				//console.log(input);
+				for (var i = 0; i < input.length; i++) {
+					if (input[i].invalid) {
+						erreur = true;
+					}
+				}
+
+				if (!erreur) {
+					this.ajax = this.$.ajax;
+					if (this.nom_val) {
+						param.push({
+							'nom' : this.nom_val,
+							'courriel' : this.courriel_val,
+							'service' : this.service_val,
+							'role' : this.role,
+						});
+					}
+					if (param.length) {
+						param = JSON.stringify(param);
+						this.ajax.params = JSON.stringify({
+							data : param
+						});
+						this.$.ajax.go();
+					} else {
+						var msg = document.querySelector('#message');
+						msg.text = "Une erreur s'est produite lors de votre inscription'.";
+						msg.show();
+					}
+				} else {
+					var msg = document.querySelector('#message');
+					msg.text = "Veuillez corriger les erreurs dans les champs requis.";
+					msg.show();
+				}
+
+			},
+			viderChamps : function() {
+				//var input = document.querySelectorAll('triadon-ajout-equipe::shadow paper-input');
+				input = this.input;
+				//console.log(input);
+				for (var i = 0; i < input.length; i++) {
+					input[i].value = '';
+				}
+			}
+		});
+	</script>
+</polymer-element>
+
+<polymer-element name="triadon-login">
+	<template>
+		<style>
+			:host {
+				width: 90%;
+				max-width: 1024px;
+			}
+			.formLogin {
+				height: 50px;
+			}
+			paper-dialog {
+				margin-top: 20px;
+				margin-bottom: 20px;
+				min-width: 500px;
+				
+			}
+			
+			paper-dialog #main {
+				max-height: 400px;
+				
+			}
+			.formLogin paper-button
+			{
+				color : #FFFFFF;
+			}
+		</style>
+		<div flex>
+			<div class="formLogin" horizontal layout reverse>
+				<paper-button on-click="{{ouvrirLogin}}" label="{{etiquette}}"></paper-button>
+				<template if="{{etat == 'connecter'}}">
+					<paper-button on-click="{{modifierEquipe}}" label="Modifier mon équipe"></paper-button>
+				</template>
+			</div>
+		</div>
+		<core-ajax id="ajaxLogin" url="http://triadon.cmaisonneuve.qc.ca/ajax.php?requete=login"
+		response="{{respLogin}}"
+		method='POST'
+		headers='{"Cache-Control": "no-cache",
+					"pragma": "no-cache"}' 
+		handleAs="json"></core-ajax>
+		<paper-dialog id="connecter" heading="Se connecter" transition="paper-dialog-transition-bottom">
+			<div class="contenu">
+				<p>
+					Veuillez entrer votre courriel et mot de passe. Seul la personne responsables d'une équipe peut effectuer des modifications.
+				</p>
+				<paper-input id="courriel" required value="{{courriel_val}}" name="courriel" type="email" floatinglabel="" label="Courriel du responsable"></paper-input>
+				<paper-input id="motpasse" required value="{{motpasse_val}}"  name="motpasse" type="password" floatinglabel="" label="Mot de passe" layout="" vertical=""></paper-input>
+
+			</div>
+			<paper-button label="Annuler" dismissive></paper-button>
+			<paper-button on-click="{{confirmeLogin}}" label="Se connecter" affirmative autofocus></paper-button>
+
+		</paper-dialog>
+		<paper-dialog id="modifier" heading="Modifier l'équipe" transition="paper-dialog-transition-bottom">
+			<core-ajax id="ajaxModifEquipe" url="http://triadon.cmaisonneuve.qc.ca/ajax.php?requete=modifEquipe"
+			response="{{respModif}}"
+			method='POST'
+			headers='{"Cache-Control": "no-cache",
+					"pragma": "no-cache"}' 
+			handleAs="json"></core-ajax>
+			<div class="formNouvelleEquipe" vertical layout>
+				<paper-input id="nom_equipe" required autofocus="true" value="{{nom_equipe_val}}" value="{{nom_equipe_val}}" name="nom_equipe" floatinglabel="" label="Nom de l'équipe" layout="" vertical=""></paper-input>
+				<section class="nageur">
+					<h3>Nageur</h3>
+					<paper-input required id="nageur_nom" value="{{nageur_nom_val}}" floatinglabel="" label="Nom" layout="" vertical=""></paper-input>
+					<paper-input required id="nageur_courriel" type="email" value="{{nageur_courriel_val}}"  floatinglabel="" label="Courriel" layout="" vertical=""></paper-input>
+					<paper-input required id="nageur_service" value="{{nageur_service_val}}"  floatinglabel="" label="Service, département ou programme" layout="" vertical=""></paper-input>
+				</section>
+				<section class="cycliste">
+					<h3>Cycliste</h3>
+					<paper-input required id="cycliste_nom"  value="{{cycliste_nom_val}}"  floatinglabel="" label="Nom" layout="" vertical=""></paper-input>
+					<paper-input required id="cycliste_courriel"  type="email" value="{{cycliste_courriel_val}}"  floatinglabel="" label="Courriel" layout="" vertical=""></paper-input>
+					<paper-input required id="cycliste_service"  value="{{cycliste_service_val}}"  floatinglabel="" label="Service, département ou programme" layout="" vertical=""></paper-input>
+				</section>
+				<section class="coureur">
+					<h3>Coureur</h3>
+					<paper-input required id="coureur_nom"  value="{{coureur_nom_val}}" floatinglabel="" label="Nom" layout="" vertical=""></paper-input>
+					<paper-input required id="coureur_courriel"  type="email" value="{{coureur_courriel_val}}"  floatinglabel="" label="Courriel" layout="" vertical=""></paper-input>
+					<paper-input required id="coureur_service"  value="{{coureur_service_val}}"   floatinglabel="" label="Service, département ou programme" layout="" vertical=""></paper-input>
+				</section>
+			</div>
+			<paper-button label="Annuler" dismissive></paper-button>
+			<paper-button on-click="{{confirmeModification}}" label="Modifier" affirmative autofocus></paper-button>
+
+		</paper-dialog>
+	</template>
+	<script>
+		Polymer('triadon-login', {
+			ready : function() {
+
+				if (this.etat == null) {
+					this.etat = 'deconnecter';
+				}
+				this.input = [this.$.courriel, this.$.motpasse];
+				input = this.input
+				for (var i = 0; i < input.length; i++) {
+					input[i].commit();
+				}
+				if (this.etat = 'deconnecter') {
+					this.etiquette = "Se connecter";
+				} else {
+					this.etiquette = this.usager;
+				}
+
+				this.addEventListener("core-response", function() {
+					//console.log(JSON.stringify(this.respLogin));
+					if (this.etat == 'deconnecter') {
+						if (this.respLogin) {
+							this.etiquette = "Se déconnecter";
+							this.etat = 'connecter';
+
+							this.nom_equipe_val = this.respLogin.nom;
+							
+							for (var i = 0; i < this.respLogin.participants.length; i++) {
+								var parti = this.respLogin.participants[i];
+								if (parti.role == 'nageur') {
+									this.nageur_nom_val = parti.nom;
+									this.nageur_courriel_val = parti.courriel;
+									this.nageur_service_val = parti.departement;
+									this.nageur_id_val = parti.id;
+								} else if (parti.role == 'cycliste') {
+									this.cycliste_nom_val = parti.nom;
+									this.cycliste_courriel_val = parti.courriel;
+									this.cycliste_service_val = parti.departement;
+									this.cycliste_id_val = parti.id;
+								} else if (parti.role == 'coureur') {
+									this.coureur_nom_val = parti.nom;
+									this.coureur_courriel_val = parti.courriel;
+									this.coureur_service_val = parti.departement;
+									this.coureur_id_val = parti.id;
+								}
+							}
+						} else {
+							var msg = document.querySelector('#message');
+							msg.text = "Mauvaise combinaison courriel/mot de passe.";
+							msg.show();
+						}
+					}
+					else
+					{
+						//console.log(this.respModif);
+						if (this.respModif) {
+							this.nom_equipe_val = this.respModif.nom;
+							this.respLogin.participants = this.respModif.participants;
+							this.respLogin.nom = this.respModif.nom;
+							//console.log(this.nom_equipe_val);
+							for (var i = 0; i < this.respModif.participants.length; i++) {
+								var parti = this.respModif.participants[i];
+								if (parti.role == 'nageur') {
+									this.nageur_nom_val = parti.nom;
+									this.nageur_courriel_val = parti.courriel;
+									this.nageur_service_val = parti.departement;
+									this.nageur_id_val = parti.id;
+								} else if (parti.role == 'cycliste') {
+									this.cycliste_nom_val = parti.nom;
+									this.cycliste_courriel_val = parti.courriel;
+									this.cycliste_service_val = parti.departement;
+									this.cycliste_id_val = parti.id;
+								} else if (parti.role == 'coureur') {
+									this.coureur_nom_val = parti.nom;
+									this.coureur_courriel_val = parti.courriel;
+									this.coureur_service_val = parti.departement;
+									this.coureur_id_val = parti.id;
+								}
+							
+							}
+							var msg = document.querySelector('#message');
+							msg.text = "Votre modification a été effectuée.";
+							msg.show();
+							document.querySelector('triadon-liste-equipe').rafraichir();
+						}
+						else
+						{
+							var msg = document.querySelector('#message');
+							msg.text = "Un problème s'est produit lors de la modification.";
+							msg.show();
+						}
+					}
+
+				});
+			},
+			confirmeLogin : function(e) {
+				this.input = {
+					"Courriel" : this.courriel_val,
+					"MotPasse" : this.motpasse_val
+				};
+				this.ajaxLogin = this.$.ajaxLogin;
+				this.ajaxLogin.params = this.input;
+				this.ajaxLogin.go();
+			},
+			ouvrirLogin : function(e) {
+				if (this.etat == 'deconnecter') {
+					this.$.connecter.opened = true;
+				} else if (this.etat == 'connecter') {
+
+					this.etat = 'deconnecter';
+					this.etiquette = 'Se connecter';
+					var liste = document.querySelector('triadon-liste-equipe');
+
+					liste.connecter = false;
+					liste.userid = '';
+				}
+
+			},
+			modifierEquipe : function() {
+				this.$.modifier.opened = true;
+				
+				// Replace les valeurs de base
+				this.nom_equipe_val = this.respLogin.nom;
+				
+				for (var i = 0; i < this.respLogin.participants.length; i++) {
+					var parti = this.respLogin.participants[i];
+					if (parti.role == 'nageur') {
+						this.nageur_nom_val = parti.nom;
+						this.nageur_courriel_val = parti.courriel;
+						this.nageur_service_val = parti.departement;
+						this.nageur_id_val = parti.id;
+					} else if (parti.role == 'cycliste') {
+						this.cycliste_nom_val = parti.nom;
+						this.cycliste_courriel_val = parti.courriel;
+						this.cycliste_service_val = parti.departement;
+						this.cycliste_id_val = parti.id;
+					} else if (parti.role == 'coureur') {
+						this.coureur_nom_val = parti.nom;
+						this.coureur_courriel_val = parti.courriel;
+						this.coureur_service_val = parti.departement;
+						this.coureur_id_val = parti.id;
+					}
+				}
+			},
+			confirmeModification : function(){
+				var param = [];
+				var erreur = false;
+				this.inputModif = [this.$.nom_equipe, this.$.nageur_nom, this.$.nageur_courriel, this.$.nageur_service, this.$.cycliste_nom, this.$.cycliste_courriel, this.$.cycliste_service, this.$.coureur_nom, this.$.coureur_courriel, this.$.coureur_service];
+				for (var i = 0; i < this.inputModif.length; i++) {
+					if (this.inputModif[i].invalid) {
+						erreur = true;
+					}
+				}
+				if (!erreur) {
+					this.ajaxModif = this.$.ajaxModifEquipe;
+					param.push({
+						'nom' : this.nageur_nom_val,
+						'courriel' : this.nageur_courriel_val,
+						'service' : this.nageur_service_val,
+						'id' : this.nageur_id_val,
+					});
+					param.push({
+						'nom' : this.cycliste_nom_val,
+						'courriel' : this.cycliste_courriel_val,
+						'service' : this.cycliste_service_val,
+						'id' : this.cycliste_id_val
+					});
+					param.push({
+						'nom' : this.coureur_nom_val,
+						'courriel' : this.coureur_courriel_val,
+						'service' : this.coureur_service_val,
+						'id' : this.coureur_id_val
+					});
+					if (param.length) {
+						param = JSON.stringify(param);
+						this.ajaxModif.params = JSON.stringify({
+							nom : this.nom_equipe_val,
+							id_equipe : this.respLogin.id,
+							data : param
+						});
+						//console.log(this.ajaxModif.params);
+						this.ajaxModif.go();
+					} else {
+						var msg = document.querySelector('#message');
+						msg.text = "Veuillez corriger les erreurs dans les champs requis.";
+						msg.show();
+					}
+				
+					
+				} else {
+					var msg = document.querySelector('#message');
+					msg.text = "Veuillez corriger les erreurs dans les champs requis.";
+					msg.show();
+				}
+
+				
+				
+				
+			},
+			publish : {
+				etat : '',
+				usager : '',
+			}
+
+		});
+	</script>
+</polymer-element>

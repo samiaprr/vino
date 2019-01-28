@@ -1,0 +1,286 @@
+<link rel="import" href="../../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../../bower_components/core-list/core-list.html">
+<link href="../../bower_components/core-icons/core-icons.html" rel="import">
+<link href="../../bower_components/paper-fab/paper-fab.html" rel="import">
+<link href="../../bower_components/paper-dialog/paper-dialog.html" rel="import">
+<link href="../../bower_components/paper-dialog/paper-action-dialog.html" rel="import">
+<link href="../../bower_components/paper-input/paper-input.html" rel="import">
+<link href="../../bower_components/paper-button/paper-button.html" rel="import">
+
+<polymer-element name="vino-cellier">
+	<template>
+		<style>
+			:host {
+				
+				
+				display: block;
+				height: 100%;
+				/*
+				 position: relative;
+				 background-color: white;
+				 padding: 15px;
+				 cursor: default;
+
+				 font-size: 1.2 rem;
+				 font-weight: 300;
+				 border: 1px solid #DDDDDD;*/
+			}
+			core-list {
+				height: 100%;
+				display:block;
+			}
+
+			.item {
+				box-sizing: border-box;
+				height: 170px;
+				width: 120px;
+				padding: 8px;
+				cursor: default;
+				overflow: hidden;
+			}
+			.bouteille {
+				background-color: #FFFFFF;
+				height: 150px;
+				width: 100px;
+				margin-left: 10px;
+			}
+			.bouteille[data-quantite="0"]
+			{
+				opacity:.8;
+			}
+			.bouteille .options
+			{
+				display:none;
+			}
+			.bouteille:hover .options
+			{
+				display:block;
+				position:absolute;
+				top:8px;
+				height: 150px;
+				z-index : 2;
+				background-color:rgba(255, 255, 255, .8);
+			}
+			.bouteille[data-quantite="0"]:hover #btnBoire
+			{
+				display:none;
+			}
+			.img img {
+				width: 80px;
+				overflow: hidden;
+			}
+			
+			.img .quantite
+			{
+				position:absolute;
+				top:5px;
+				right: 5px;
+			}
+			.nom {
+				text-align: center;
+				max-width: 100px;
+			}
+		</style>
+
+		<core-ajax id="ajax" url="http://jmartel.webdev.cmaisonneuve.qc.ca/vino/ajax.php"
+		on-core-response="{{fctResp}}"
+		response="{{resp}}"
+		params='{"requete":"listeBouteille"}'
+		method='GET'
+		handleAs="json"
+		headers='{"Cache-Control": "no-cache",
+		"pragma": "no-cache"}'
+		auto></core-ajax>
+		
+		<core-ajax id="ajaxCellier" url="http://jmartel.webdev.cmaisonneuve.qc.ca/vino/ajax.php"
+		method='GET'
+		on-core-response="{{fctCellierResp}}"
+		handleAs="json"
+		headers='{"Cache-Control": "no-cache",
+		"pragma": "no-cache"}'></core-ajax>
+		<core-list data="{{resp}}" grid width="120" height="170" class="liste">
+			<template>
+				<div class="item" >
+					<div class="bouteille" data-quantite="{{model.quantite}}" vertical center-justified layout>
+						<div class="img">
+							<span class="quantite">{{model.quantite}}</span>	
+							<img src="{{model.image}}">
+						</div>
+						<div class="nom">
+							{{model.nom}}
+						</div>
+						<div class="options" data-id="{{model.idCellier}}">
+							<paper-button>Modifier</paper-button>
+							<paper-button>Ajouter</paper-button>
+							<paper-button id="btnBoire" on-click="{{fctBoire}}">Boire</paper-button>
+						</div>
+					</div>
+				</div>
+			</template>
+		</core-list>
+ 
+	</template>
+
+	<script>
+		Polymer({
+			ready : function() {
+				this.addEventListener("core-response", function(e) {
+					
+				});
+				this.ajax = this.$.ajax;
+				this.ajaxCellier = this.$.ajaxCellier;
+			},
+			fctResp : function()
+			{
+				console.log(this.resp);
+				var asc = false;
+				var prop = "quantite";
+				this.resp.sort(function(a, b) {
+    				if (asc)  
+    				{
+    					return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
+    				}
+    				else 
+    				{
+    					return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
+    				}
+				});
+			},
+			fctBoire: function(e, d, s){
+				var param = {
+							"requete":"boireBouteilleCellier",
+							"id":s.parentElement.dataset.id 
+						};
+						
+				param = JSON.stringify(param);
+				this.ajaxCellier.params =param;
+				this.ajaxCellier.go();
+			},
+			fctCellierResp : function(e,d,s)
+			{
+				this.ajax.go();
+			},
+			rafraichir : function() {
+				console.log("rafraichir");
+				this.ajax.go();
+			},
+		});
+	</script>
+</polymer-element>
+
+<polymer-element name="vino-ajout-bouteille-cellier">
+	<template>
+		<style>
+			:host {
+				min-width: 500px;
+				max-width: 1024px;
+			}
+
+			.nouvelleBouteille {
+				height: 500px;
+			}
+			#listeAutocomplete {
+				background-color: #03A9F4;
+				margin-top: 50px;
+			}
+			
+			core-selector core-item
+			{
+				height: 20px;
+			}
+
+		</style>
+
+		<core-ajax id="ajax_autocomplete" url="http://jmartel.webdev.cmaisonneuve.qc.ca/vino/ajax.php?requete=autocompleteBouteille"
+		response="{{resp_auto}}"
+		params='{"nom":"{{nom_bouteille}}"}'
+		method='POST'
+		handleAs="json"
+		headers='{"Cache-Control": "no-cache",
+		"pragma": "no-cache"}'></core-ajax>
+		
+		<core-ajax id="ajax_ajoutebouteille" url="http://jmartel.webdev.cmaisonneuve.qc.ca/vino/ajax.php?requete=ajouterBouteilleCellier"
+		response="{{resp_ajout}}"
+		method='POST'
+		handleAs="json"
+		headers='{"Cache-Control": "no-cache",
+		"pragma": "no-cache"}'></core-ajax>
+		
+		<paper-action-dialog heading="Ajouter une nouvelle bouteille au cellier" opened="{{opened}}">
+			<div flex>
+				<div class="nouvelleBouteille" vertical layout>
+					<paper-input data-id="" id="nom_bouteille" on-keyup="{{autocomplete}}" required autofocus="true" value="{{nom_bouteille}}" name="nom_bouteille" floatinglabel="" label="Nom" layout="" vertical=""></paper-input>
+					<core-selector id="listeAutocomplete" on-core-activate="{{selectBouteille}}" selected="" selectedAttribute="">
+						<template repeat="{{bte in resp_auto}}">
+							<core-item data-id="{{bte.id}}">{{bte.nom}}</core-item>
+						</template>
+					</core-selector>
+					<div>
+						<paper-input id="millesime" name="millesime" floatinglabel label="Millésime" layout vertical></paper-input>
+						<paper-input id="quantite" required name="quantite" floatinglabel label="Quantité" layout vertical></paper-input>
+						<paper-input id="date_achat" name="date_achat" floatinglabel label="Date d'acquisition" layout vertical></paper-input>
+						<paper-input id="prix" name="prix" floatinglabel label="Prix" layout vertical></paper-input>
+						<paper-input id="garde_jusqua" name="garde_jusqua" floatinglabel label="Boire en (année)" layout vertical></paper-input>
+						<paper-input id="notes" name="notes" floatinglabel label="Notes" layout vertical></paper-input>
+					</div>
+				</div>
+			</div>
+
+			<paper-button affirmative>
+				Annuler
+			</paper-button>
+			<paper-button affirmative autofocus on-click="{{ajouterBouteille}}">
+				Ajouter
+			</paper-button>
+		</paper-action-dialog>
+
+	</template>
+
+	<script>
+		Polymer({
+			ready : function() {
+				this.addEventListener("core-response", function(e) {
+					console.log(this.resp_auto);
+				});
+				this.ajax = this.$.ajax_autocomplete;
+				//this.ajax.go();
+			},
+			ajouterBouteille : function(){
+				console.log('ajax ajout bouteille');
+				var param = {
+							"id_bouteille":this.$.nom_bouteille.getAttribute('data-id'),
+							"date_achat":this.$.date_achat.value,
+							"garde_jusqua":this.$.garde_jusqua.value,
+							"notes":this.$.notes.value,
+							"prix":this.$.prix.value,
+							"quantite":this.$.quantite.value,
+							"millesime":this.$.millesime.value,
+						};
+						var ajax = this.$.ajax_ajoutebouteille;
+						
+						param = JSON.stringify(param);
+						ajax.params = JSON.stringify({
+							data : param,
+						});
+						
+						console.log(ajax.params);
+						ajax.go();
+						var moncellier = document.querySelector("#moncellier");
+						console.log(moncellier);
+						moncellier.rafraichir();
+			},
+			autocomplete : function(e) {
+				//console.log('clé');
+				//console.log(this);
+				this.ajax.go();
+			},
+			selectBouteille : function(e) {
+
+				console.log(this.$.listeAutocomplete.selectedItem);
+				this.$.nom_bouteille.value = this.$.listeAutocomplete.selectedItem.innerHTML.trim();
+				this.$.nom_bouteille.setAttribute('data-id', this.$.listeAutocomplete.selectedItem.getAttribute('data-id'));
+				this.resp_auto = [];
+			}
+		});
+	</script>
+</polymer-element>
