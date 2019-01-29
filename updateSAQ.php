@@ -6,6 +6,7 @@
 	</head>
 	<body>
 <?php
+	require("dataconf.php");
 	require("config.php");
 	$debut = 0;
 	$nombreProduit = 10;
@@ -14,7 +15,7 @@
 	//for($i=0; $i<6;$i++)
 	//{
 		$nombre = $saq->getProduits($nombreProduit,$debut);
-		echo "importation ". $i ." : ". $nombre. "<br>";
+		echo "importation : ". $nombre. "<br>";
 	//	$debut += $nombreProduit;	
 	//}
 	
