@@ -11,6 +11,9 @@
  * 
  */
 	
+	
+
+
 	function mon_autoloader($class) 
 	{
 		$dossierClasse = array('modeles/', 'vues/', 'lib/', 'lib/mysql/', '' );	// Ajouter les dossiers au besoin
@@ -30,6 +33,6 @@
 	spl_autoload_register('mon_autoloader');
 	
 	
-	require_once('db.php');
+	
 	
 ?>
