@@ -8,8 +8,9 @@
  *
  */
 
- const BaseURL = "http://vino.jonathanmartel.info/";
-
+// const BaseURL = "http://vino.jonathanmartel.info/";
+const BaseURL = document.baseURI;
+console.log(BaseURL);
 window.addEventListener('load', function() {
     console.log("load");
     document.querySelectorAll(".btnBoire").forEach(function(element){
