@@ -14,7 +14,7 @@ console.log(BaseURL);
 window.addEventListener('load', function() {
     console.log("load");
     document.querySelectorAll(".btnBoire").forEach(function(element){
-        console.log(element);
+        //console.log(element);
         element.addEventListener("click", function(evt){
             let id = evt.target.parentElement.dataset.id;
             let requete = new Request(BaseURL+"index.php?requete=boireBouteilleCellier", {method: 'POST', body: '{"id": '+id+'}'});
@@ -35,9 +35,17 @@ window.addEventListener('load', function() {
         })
 
     });
+    document.querySelectorAll(".btnModif").forEach(function(element){
+      //console.log(element);
+      element.addEventListener("click", function(evt){
+          let id = evt.target.parentElement.dataset.id;
+          let url = (BaseURL+"index.php?requete=ModificationFormulaireId="+id);
+        });
+  });
 
+      
     document.querySelectorAll(".btnAjouter").forEach(function(element){
-        console.log(element);
+        //console.log(element);
         element.addEventListener("click", function(evt){
             let id = evt.target.parentElement.dataset.id;
             let requete = new Request(BaseURL+"index.php?requete=ajouterBouteilleCellier", {method: 'POST', body: '{"id": '+id+'}'});

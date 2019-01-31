@@ -34,6 +34,9 @@ class Controler
 				case 'ajouterBouteilleCellier':
 					$this->ajouterBouteilleCellier();
 					break;
+				case 'ModificationFormulaire':
+					$this->FormModif();
+					break;
 				case 'boireBouteilleCellier':
 					$this->boireBouteilleCellier();
 					break;
@@ -74,6 +77,13 @@ class Controler
             echo json_encode($listeBouteille);
                   
 		}
+		private function FormModif()
+		{		
+			include("vues/entete.php");
+			include("vues/modif.php");
+			include("vues/pied.php");		
+            
+		}
 		private function ajouterNouvelleBouteilleCellier()
 		{
 			$body = json_decode(file_get_contents('php://input'));
@@ -87,7 +97,7 @@ class Controler
 			}
 			else{
 				include("vues/entete.php");
-				include("vues/ajouter.php");
+				include("vues/modif.php");
 				include("vues/pied.php");
 			}
 			
