@@ -33,6 +33,7 @@ window.addEventListener('load', function() {
             fetch(requete)
                 .then(response => {
                     if (response.status === 200) {
+                        console.dir(response);
                         return response.json();
                     } else {
                         throw new Error('Erreur');
@@ -41,14 +42,17 @@ window.addEventListener('load', function() {
                 .then(response => {
                     // Si la reponse est Ok changer la quantité dans le cellier sans recharger la page.
                     console.dir(quantite);
+
                     if (parseInt(qt) == 0) {
                         quantite.innerHTML = parseInt(qt);
                         // Je reéactive le bouton pour un ajout futur.
                         element.disabled = false;
+
                     } else {
                         quantite.innerHTML = parseInt(qt) - 1;
                         element.disabled = false;
                     }
+
                     console.debug(response);
                 }).catch(error => {
                     console.error(error);
@@ -82,18 +86,22 @@ window.addEventListener('load', function() {
             fetch(requete)
                 .then(response => {
                     if (response.status === 200) {
-                        console.log(response);
-                        return console.log(response.json());
+                        console.log(response.ok);
+
+                        return response.json();
                     } else {
                         throw new Error('Erreur');
                     }
                 })
                 .then(response => {
+                    console.log(response);
                     // Si la reponse est Ok changer la quantité dans le cellier sans recharger la page.
+
                     console.dir(quantite);
                     quantite.innerHTML = parseInt(qt) + 1;
                     // Je reéactive le bouton pour un ajout futur.
                     element.disabled = false;
+
                     console.debug(response);
                 }).catch(error => {
                     console.error(error);
