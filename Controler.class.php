@@ -37,6 +37,9 @@ class Controler
 				case 'ModificationFormulaire':
 					$this->FormModif();
 					break;
+				case 'ModifBouteille':
+					$this->ModifBouteille();
+					break;
 				case 'boireBouteilleCellier':
 					$this->boireBouteilleCellier();
 					break;
@@ -77,13 +80,17 @@ class Controler
             echo json_encode($listeBouteille);
                   
 		}
+
 		private function FormModif()
 		{		
+			$bte = new Bouteille();
+			$infos = $bte->bouteilleParId($_GET['Id']);
 			include("vues/entete.php");
 			include("vues/modif.php");
 			include("vues/pied.php");		
             
 		}
+
 		private function ajouterNouvelleBouteilleCellier()
 		{
 			$body = json_decode(file_get_contents('php://input'));
@@ -101,10 +108,9 @@ class Controler
 				include("vues/ajouter.php");
 				include("vues/pied.php");
 			}
-			
-            
+			 
 		}
-		
+
 		private function boireBouteilleCellier()
 		{
 			$body = json_decode(file_get_contents('php://input'));
@@ -119,6 +125,20 @@ class Controler
 			$bte = new Bouteille();
 			$resultat = $bte->modifierQuantiteBouteilleCellier($body->id, 1);
 			echo json_encode($resultat);
+		}
+
+		private function ModifBouteille()
+		{
+			$bte = new Bouteille();
+			$resultat = $bte->ModifBouteille($_GET);
+
+			/*if (isset($erreur)) {
+				$this->FormModif();
+			}
+			else{*/
+				$this->accueil();
+			//}
+			
 		}
 		
 }
