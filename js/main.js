@@ -40,6 +40,7 @@ window.addEventListener('load', function() {
       element.addEventListener("click", function(evt){
           let id = evt.target.parentElement.dataset.id;
           let url = (BaseURL+"index.php?requete=ModificationFormulaireId="+id);
+          console.log("test");
         });
   });
 

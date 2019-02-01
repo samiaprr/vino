@@ -52,7 +52,7 @@ CREATE TABLE `usager` (
 
 
 
-INSERT INTO `vino__type` VALUES('customer', 'vinolover420');
+INSERT INTO `usager` VALUES('customer', 'vinolover420');
 
 
 -- --------------------------------------------------------
@@ -97,14 +97,14 @@ CREATE TABLE `bouteille__cellier` (
   `id_bouteille_saq` int(11) NOT NULL,
   `date_achat` date DEFAULT NULL,
   `garde_jusqua` varchar(200) DEFAULT NULL,
-  `nom` varchar(200) DEFAULT NULL,
-  `pays` varchar(50) DEFAULT NULL,
+  `nom` varchar(200) DEFAULT NULL,*
+  `pays` varchar(50) DEFAULT NULL,*
   `notes` varchar(200) DEFAULT NULL,
   `prix` float DEFAULT NULL,
-  `type` int(11) NOT NULL,
+  `type` int(11) NOT NULL,*
   `quantite` int(11) DEFAULT NULL,
   `millesime` int(11) DEFAULT NULL,
-  `id_cellier` int(11) NOT NULL,
+  `id_cellier` int(11) NOT NULL,*
   FOREIGN KEY (`id_bouteille_saq`) REFERENCES `vino__saq`(`id`),
   FOREIGN KEY (`id_cellier`) REFERENCES `cellier`(`id_cellier`),
   FOREIGN KEY (`type`) REFERENCES `vino__type`(`id`)
@@ -114,15 +114,13 @@ CREATE TABLE `bouteille__cellier` (
 -- Contenu de la table `vino__cellier`
 --
 
-INSERT INTO `bouteille__cellier` VALUES(1, 10, '0000-00-00', '', '', 0, 3, 0);
-INSERT INTO `bouteille__cellier` VALUES(2, 10, '0000-00-00', '', '', 0, 1, 0);
-INSERT INTO `bouteille__cellier` VALUES(3, 5, '2019-01-16', '2020', '2019-01-16', 22, 10, 1999);
-INSERT INTO `bouteille__cellier` VALUES(4, 5, '0000-00-00', '', '', 0, 1, 0);
-INSERT INTO `bouteille__cellier` VALUES(5, 5, '0000-00-00', '', '', 0, 1, 0);
-INSERT INTO `bouteille__cellier` VALUES(6, 0, '0000-00-00', '', '', 0, 1, 0);
-INSERT INTO `bouteille__cellier` VALUES(7, 0, '0000-00-00', '', '', 0, 1, 0);
-INSERT INTO `bouteille__cellier` VALUES(8, 5, '0000-00-00', '', '', 0, 10, 2000);
-INSERT INTO `bouteille__cellier` VALUES(9, 3, '2019-01-26', 'non', '2019-01-26', 23.52, 1, 2015);
+INSERT INTO `bouteille__cellier` VALUES(1, 10, '0000-00-00', '','nom1','pays1', '', 0,1, 3, 0,1);
+INSERT INTO `bouteille__cellier` VALUES(10, 5, '0000-00-00', '','nom2','pays2', '', 0,1, 3, 0,1);
+INSERT INTO `bouteille__cellier` VALUES(12, 5, '0000-00-00', '','nom3','pays3', '', 0,1, 3, 0,1);
+INSERT INTO `bouteille__cellier` VALUES(13, 5, '0000-00-00', '','nom4','pays4', '', 0,1, 3, 0,1);
+INSERT INTO `bouteille__cellier` VALUES(14, 0, '0000-00-00', '','nom5','pays1', '', 0,1, 3, 0,1);
+INSERT INTO `bouteille__cellier` VALUES(15, 0, '0000-00-00', '','nom1','pays1', '', 0,1, 3, 0,1);
+INSERT INTO `bouteille__cellier` VALUES(16, 10, '0000-00-00', '','nom1','pays1', '', 0,1, 3, 0,1);
 
 -- --------------------------------------------------------
 
