@@ -169,7 +169,7 @@ class Bouteille extends Modele {
 		return $res;
 	}
 
-	public function modifierBouteilleCellier($id, $nombre)
+	public function bouteilleParId($id)
 	{
 		//TODO : Valider les données.
 			

@@ -7,8 +7,7 @@ DROP TABLE IF EXISTS `cellier`;
 DROP TABLE IF EXISTS `usager`;
 DROP TABLE IF EXISTS `vino__saq`;
 
--- Structure de la table `vino__bouteille`
---
+-- Structure de la table `vino__bouteille`--
 
 
 CREATE TABLE `vino__saq` (
@@ -97,14 +96,14 @@ CREATE TABLE `bouteille__cellier` (
   `id_bouteille_saq` int(11) NOT NULL,
   `date_achat` date DEFAULT NULL,
   `garde_jusqua` varchar(200) DEFAULT NULL,
-  `nom` varchar(200) DEFAULT NULL,*
-  `pays` varchar(50) DEFAULT NULL,*
+  `nom` varchar(200) DEFAULT NULL,
+  `pays` varchar(50) DEFAULT NULL,
   `notes` varchar(200) DEFAULT NULL,
   `prix` float DEFAULT NULL,
-  `type` int(11) NOT NULL,*
+  `type` int(11) NOT NULL,
   `quantite` int(11) DEFAULT NULL,
   `millesime` int(11) DEFAULT NULL,
-  `id_cellier` int(11) NOT NULL,*
+  `id_cellier` int(11) NOT NULL,
   FOREIGN KEY (`id_bouteille_saq`) REFERENCES `vino__saq`(`id`),
   FOREIGN KEY (`id_cellier`) REFERENCES `cellier`(`id_cellier`),
   FOREIGN KEY (`type`) REFERENCES `vino__type`(`id`)
@@ -118,9 +117,6 @@ INSERT INTO `bouteille__cellier` VALUES(1, 10, '0000-00-00', '','nom1','pays1', 
 INSERT INTO `bouteille__cellier` VALUES(10, 5, '0000-00-00', '','nom2','pays2', '', 0,1, 3, 0,1);
 INSERT INTO `bouteille__cellier` VALUES(12, 5, '0000-00-00', '','nom3','pays3', '', 0,1, 3, 0,1);
 INSERT INTO `bouteille__cellier` VALUES(13, 5, '0000-00-00', '','nom4','pays4', '', 0,1, 3, 0,1);
-INSERT INTO `bouteille__cellier` VALUES(14, 0, '0000-00-00', '','nom5','pays1', '', 0,1, 3, 0,1);
-INSERT INTO `bouteille__cellier` VALUES(15, 0, '0000-00-00', '','nom1','pays1', '', 0,1, 3, 0,1);
-INSERT INTO `bouteille__cellier` VALUES(16, 10, '0000-00-00', '','nom1','pays1', '', 0,1, 3, 0,1);
 
 -- --------------------------------------------------------
 
