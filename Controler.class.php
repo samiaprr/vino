@@ -98,7 +98,7 @@ class Controler
 			}
 			else{
 				include("vues/entete.php");
-				include("vues/modif.php");
+				include("vues/ajouter.php");
 				include("vues/pied.php");
 			}
 			
@@ -108,7 +108,6 @@ class Controler
 		private function boireBouteilleCellier()
 		{
 			$body = json_decode(file_get_contents('php://input'));
-			
 			$bte = new Bouteille();
 			$resultat = $bte->modifierQuantiteBouteilleCellier($body->id, -1);
 			echo json_encode($resultat);

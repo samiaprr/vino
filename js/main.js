@@ -41,10 +41,14 @@ window.addEventListener('load', function() {
                 .then(response => {
                     // Si la reponse est Ok changer la quantité dans le cellier sans recharger la page.
                     console.dir(quantite);
-                    quantite.innerHTML = parseInt(qt) - 1;
-                    // Je reéactive le bouton pour un ajout futur.
-                    element.disabled = false;
-
+                    if (parseInt(qt) == 0) {
+                        quantite.innerHTML = parseInt(qt);
+                        // Je reéactive le bouton pour un ajout futur.
+                        element.disabled = false;
+                    } else {
+                        quantite.innerHTML = parseInt(qt) - 1;
+                        element.disabled = false;
+                    }
                     console.debug(response);
                 }).catch(error => {
                     console.error(error);
