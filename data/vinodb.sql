@@ -7,8 +7,7 @@ DROP TABLE IF EXISTS `cellier`;
 DROP TABLE IF EXISTS `usager`;
 DROP TABLE IF EXISTS `vino__saq`;
 
--- Structure de la table `vino__bouteille`
---
+-- Structure de la table `vino__bouteille`--
 
 
 CREATE TABLE `vino__saq` (
@@ -118,7 +117,6 @@ INSERT INTO `bouteille__cellier` VALUES(1, 10, '0000-00-00', '','nom1','pays1', 
 INSERT INTO `bouteille__cellier` VALUES(10, 5, '0000-00-00', '','nom2','pays2', '', 0,1, 3, 0,1);
 INSERT INTO `bouteille__cellier` VALUES(12, 5, '0000-00-00', '','nom3','pays3', '', 0,1, 3, 0,1);
 INSERT INTO `bouteille__cellier` VALUES(13, 5, '0000-00-00', '','nom4','pays4', '', 0,1, 3, 0,1);
-
 
 -- --------------------------------------------------------
 

@@ -168,6 +168,18 @@ class Bouteille extends Modele {
         
 		return $res;
 	}
+
+	public function bouteilleParId($id)
+	{
+		//TODO : Valider les données.
+			
+			
+		$requete = "UPDATE vino__cellier SET quantite = GREATEST(quantite + ". $nombre. ", 0) WHERE id = ". $id;
+		//echo $requete;
+        $res = $this->_db->query($requete);
+        
+		return $res;
+	}
 }
 
 
