@@ -52,7 +52,7 @@ CREATE TABLE `usager` (
 
 
 
-INSERT INTO `vino__type` VALUES('customer', 'vinolover420');
+INSERT INTO `usager` VALUES('customer', 'vinolover420');
 
 
 -- --------------------------------------------------------
@@ -114,15 +114,11 @@ CREATE TABLE `bouteille__cellier` (
 -- Contenu de la table `vino__cellier`
 --
 
-INSERT INTO `bouteille__cellier` VALUES(1, 10, '0000-00-00', '', '', 0, 3, 0);
-INSERT INTO `bouteille__cellier` VALUES(2, 10, '0000-00-00', '', '', 0, 1, 0);
-INSERT INTO `bouteille__cellier` VALUES(3, 5, '2019-01-16', '2020', '2019-01-16', 22, 10, 1999);
-INSERT INTO `bouteille__cellier` VALUES(4, 5, '0000-00-00', '', '', 0, 1, 0);
-INSERT INTO `bouteille__cellier` VALUES(5, 5, '0000-00-00', '', '', 0, 1, 0);
-INSERT INTO `bouteille__cellier` VALUES(6, 0, '0000-00-00', '', '', 0, 1, 0);
-INSERT INTO `bouteille__cellier` VALUES(7, 0, '0000-00-00', '', '', 0, 1, 0);
-INSERT INTO `bouteille__cellier` VALUES(8, 5, '0000-00-00', '', '', 0, 10, 2000);
-INSERT INTO `bouteille__cellier` VALUES(9, 3, '2019-01-26', 'non', '2019-01-26', 23.52, 1, 2015);
+INSERT INTO `bouteille__cellier` VALUES(1, 10, '0000-00-00', '','nom1','pays1', '', 0,1, 3, 0,1);
+INSERT INTO `bouteille__cellier` VALUES(10, 5, '0000-00-00', '','nom2','pays2', '', 0,1, 3, 0,1);
+INSERT INTO `bouteille__cellier` VALUES(12, 5, '0000-00-00', '','nom3','pays3', '', 0,1, 3, 0,1);
+INSERT INTO `bouteille__cellier` VALUES(13, 5, '0000-00-00', '','nom4','pays4', '', 0,1, 3, 0,1);
+
 
 -- --------------------------------------------------------
 

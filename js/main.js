@@ -21,7 +21,6 @@ window.addEventListener('load', function() {
             // Je disabled le btn ajouter le temps de la requête.
             element.disabled = true;
             // Je vais chercher la quantite de cette bouteille.
-            console.dir(evt.parentElement);
             let quantite = evt.composedPath();
             console.dir(quantite);
             quantite = quantite[2].children[1].children[1];
@@ -52,6 +51,14 @@ window.addEventListener('load', function() {
                 });
         })
 
+    });
+    document.querySelectorAll(".btnModif").forEach(function(element) {
+        //console.log(element);
+        element.addEventListener("click", function(evt) {
+            let id = evt.target.parentElement.dataset.id;
+            let url = (BaseURL + "index.php?requete=ModificationFormulaireId=" + id);
+            console.log("test");
+        });
     });
 
     document.querySelectorAll(".btnAjouter").forEach(function(element) {
