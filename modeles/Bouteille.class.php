@@ -167,16 +167,59 @@ class Bouteille extends Modele {
         
 		return $res;
 	}
+	/**
+	 * Cette méthode met à jour une certaine bouteille qui a été modifié
+	 * 
+	 * @param void $data void reçoit tous les paramètres en GET du formulaire de modification
+	 * 
+	 * @return Boolean Succès ou échec de la modification.
+	 */
+	public function ModifBouteille($data)
+	{
+		//$erreur = "";
 
+		/*if(strlen($data['nom'] > 40) || strlen($data['notes'] > 40) || strlen($data['pays'] > 40)){
+			$erreur += "Un de vos champs contient trop de caractères<br>";
+		}
+		
+		if(!is_numeric($data['millesime']) || !is_numeric($data['quantite']) || !is_numeric($data['prix'])){
+			$erreur += "Veuillez entrez une valeur numérique dans les champs millesime/quantité et prix<br>";
+		}
+
+		//Si il y a des erreurs
+		if($erreur !== ""){
+			return $erreur;
+		}
+		else{*/
+			$requete = "UPDATE bouteille__cellier
+			SET
+			nom = '". $data['nom'] ."',
+			millesime = ". $data['millesime'] .",
+			quantite = ". $data['quantite'] .",
+			date_achat = '". $data['date_achat'] ."',
+			garde_jusqua = '". $data['garde_jusqua'] ."',
+			prix = ". $data['prix'] .",
+			notes = '". $data['notes'] ."',
+			pays = '". $data['pays'] ."'
+			WHERE id =" .$data['id'];
+
+			$res = $this->_db->query($requete);
+			
+			return $res;
+		}
+	
+
+	/**
+	 * Cette méthode nous donne tous les infos d'une bouteille spécifique
+	 * 
+	 * @param int $id est l'id de la bouteille en question
+	 * 
+	 * @return void le résultat de la requête
+	 */
 	public function bouteilleParId($id)
 	{
-		//TODO : Valider les données.
-			
-			
-		$requete = "UPDATE bouteille__cellier SET quantite = GREATEST(quantite + ". $nombre. ", 0) WHERE id = ". $id;
-		//echo $requete;
-        $res = $this->_db->query($requete);
-        
+		$requete = "SELECT * FROM `bouteille__cellier` WHERE id =". $id;
+        $res = $this->_db->query($requete); 
 		return $res;
 	}
 }
