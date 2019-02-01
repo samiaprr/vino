@@ -18,8 +18,15 @@ window.addEventListener('load', function() {
         console.log(element);
 
         element.addEventListener("click", function(evt) {
+            // Je disabled le btn ajouter le temps de la requête.
+            element.disabled = true;
+            // Je vais chercher la quantite de cette bouteille.
+            console.dir(evt.parentElement);
             let quantite = evt.composedPath();
+            console.dir(quantite);
             quantite = quantite[2].children[1].children[1];
+            quantite = quantite.children[0];
+            qt = quantite.innerHTML;
 
             let id = evt.target.parentElement.dataset.id;
             let requete = new Request(BaseURL + "index.php?requete=boireBouteilleCellier", { method: 'POST', body: '{"id": ' + id + '}' });
@@ -27,15 +34,17 @@ window.addEventListener('load', function() {
             fetch(requete)
                 .then(response => {
                     if (response.status === 200) {
-                        // Si la reponse est Ok changer la quantité dans le cellier sans recharger la page.
-                        // console.dir(quantite[2].children[1].children[1].innerHTML);
                         return response.json();
                     } else {
                         throw new Error('Erreur');
                     }
                 })
                 .then(response => {
+                    // Si la reponse est Ok changer la quantité dans le cellier sans recharger la page.
                     console.dir(quantite);
+                    quantite.innerHTML = parseInt(qt) - 1;
+                    // Je reéactive le bouton pour un ajout futur.
+                    element.disabled = false;
 
                     console.debug(response);
                 }).catch(error => {
@@ -50,7 +59,15 @@ window.addEventListener('load', function() {
         element.addEventListener("click", function(evt) {
             let id = evt.target.parentElement.dataset.id;
             let requete = new Request(BaseURL + "index.php?requete=ajouterBouteilleCellier", { method: 'POST', body: '{"id": ' + id + '}' });
-
+            console.dir(element);
+            element.disabled = true;
+            // Je vais chercher la quantite de cette bouteille.
+            console.dir(evt.parentElement);
+            let quantite = evt.composedPath();
+            console.dir(quantite);
+            quantite = quantite[2].children[1].children[1];
+            quantite = quantite.children[0];
+            qt = quantite.innerHTML;
             fetch(requete)
                 .then(response => {
                     if (response.status === 200) {
@@ -61,6 +78,11 @@ window.addEventListener('load', function() {
                     }
                 })
                 .then(response => {
+                    // Si la reponse est Ok changer la quantité dans le cellier sans recharger la page.
+                    console.dir(quantite);
+                    quantite.innerHTML = parseInt(qt) + 1;
+                    // Je reéactive le bouton pour un ajout futur.
+                    element.disabled = false;
                     console.debug(response);
                 }).catch(error => {
                     console.error(error);
