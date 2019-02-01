@@ -81,9 +81,10 @@ class Controler
 			if(!empty($body)){
 				$bte = new Bouteille();
 				//var_dump($_POST['data']);
-				$data = json_decode($_REQUEST['data']);
+				
 				//var_dump($data);
 				$resultat = $bte->ajouterBouteilleCellier($body);
+				echo json_encode($resultat);
 			}
 			else{
 				include("vues/entete.php");
