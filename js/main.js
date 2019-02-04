@@ -9,7 +9,7 @@
  */
 
 // const BaseURL = "http://vino.jonathanmartel.info/";
-const BaseURL = document.baseURI;
+const BaseURL = "http://127.0.0.1/vino/";
 console.log(BaseURL);
 window.addEventListener('load', function() {
     console.log("load");
@@ -26,7 +26,7 @@ window.addEventListener('load', function() {
             quantite = quantite[2].children[1].children[1];
             quantite = quantite.children[0];
             qt = quantite.innerHTML;
-
+            console.log(document.baseURI);
             let id = evt.target.parentElement.dataset.id;
             let requete = new Request(BaseURL + "index.php?requete=boireBouteilleCellier", { method: 'POST', body: '{"id": ' + id + '}' });
 
@@ -42,7 +42,6 @@ window.addEventListener('load', function() {
                 .then(response => {
                     // Si la reponse est Ok changer la quantité dans le cellier sans recharger la page.
                     console.dir(quantite);
-
                     if (parseInt(qt) == 0) {
                         quantite.innerHTML = parseInt(qt);
                         // Je reéactive le bouton pour un ajout futur.
