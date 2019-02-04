@@ -63,8 +63,8 @@ window.addEventListener('load', function() {
         //console.log(element);
         element.addEventListener("click", function(evt) {
             let id = evt.target.parentElement.dataset.id;
-            let url = (BaseURL + "index.php?requete=ModificationFormulaireId=" + id);
-            console.log("test");
+            let url = ("index.php?requete=ModificationFormulaire&Id=" + id);
+            window.location.href = url;
         });
     });
 
