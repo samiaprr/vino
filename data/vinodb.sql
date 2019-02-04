@@ -113,10 +113,10 @@ CREATE TABLE `bouteille__cellier` (
 -- Contenu de la table `vino__cellier`
 --
 
-INSERT INTO `bouteille__cellier` VALUES(1, 10, '0000-00-00', '','nom1','pays1', '', 0,1, 3, 0,1);
-INSERT INTO `bouteille__cellier` VALUES(10, 5, '0000-00-00', '','nom2','pays2', '', 0,1, 3, 0,1);
-INSERT INTO `bouteille__cellier` VALUES(12, 5, '0000-00-00', '','nom3','pays3', '', 0,1, 3, 0,1);
-INSERT INTO `bouteille__cellier` VALUES(13, 5, '0000-00-00', '','nom4','pays4', '', 0,1, 3, 0,1);
+INSERT INTO `bouteille__cellier` VALUES(1, 10, '0000-00-00', '','nom1','pays1', '', 13.55,1, 3, 0,1);
+INSERT INTO `bouteille__cellier` VALUES(10, 5, '0000-00-00', '','nom2','pays2', '', 10.16,1, 3, 0,1);
+INSERT INTO `bouteille__cellier` VALUES(12, 5, '0000-00-00', '','nom3','pays3', '', 12.81,1, 3, 0,1);
+INSERT INTO `bouteille__cellier` VALUES(13, 5, '0000-00-00', '','nom4','pays4', '', 17.99,1, 3, 0,1);
 
 -- --------------------------------------------------------
 
