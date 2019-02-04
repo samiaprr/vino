@@ -34,26 +34,26 @@ class Bouteille extends Modele {
 		
 		$rows = Array();
 		$requete ='SELECT 
-						c.id as id_bouteille_cellier,
-						c.id_bouteille_saq, 
-						c.date_achat, 
-						c.garde_jusqua, 
-						c.notes, 
-						c.prix, 
-						c.quantite,
-						c.millesime, 
-						b.id,
-						b.nom, 
-						b.type, 
-						b.image, 
-						b.code_saq, 
-						b.url_saq, 
-						b.pays, 
-						b.description,
-						t.type 
-						from bouteille__cellier c 
-						INNER JOIN vino__saq b ON c.id_bouteille_saq = b.id
-						INNER JOIN vino__type t ON t.id = b.type
+			c.id as id_bouteille_cellier,
+				c.id_bouteille_saq, 
+				c.date_achat, 
+				c.garde_jusqua, 
+				c.notes, 
+				c.prix, 
+				c.quantite,
+				c.millesime, 
+				b.id,
+				c.nom, 
+				b.type, 
+				b.image, 
+				b.code_saq, 
+				b.url_saq, 
+				c.pays, 
+				b.description,
+				t.type 
+					from bouteille__cellier c 
+					INNER JOIN vino__saq b ON c.id_bouteille_saq = b.id
+					INNER JOIN vino__type t ON t.id = b.type
 						'; 
 		if(($res = $this->_db->query($requete)) ==	 true)
 		{
@@ -177,6 +177,7 @@ class Bouteille extends Modele {
 	{
 		//$erreur = "";
 
+		//Doit refaire les validations
 		/*if(strlen($data['nom'] > 40) || strlen($data['notes'] > 40) || strlen($data['pays'] > 40)){
 			$erreur += "Un de vos champs contient trop de caractères<br>";
 		}
