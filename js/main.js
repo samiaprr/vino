@@ -9,7 +9,7 @@
  */
 
 // const BaseURL = "http://vino.jonathanmartel.info/";
-const BaseURL = document.baseURI;
+const BaseURL = "http://127.0.0.1/vino/";
 console.log(BaseURL);
 window.addEventListener('load', function() {
     console.log("load");
@@ -26,13 +26,14 @@ window.addEventListener('load', function() {
             quantite = quantite[2].children[1].children[1];
             quantite = quantite.children[0];
             qt = quantite.innerHTML;
-
+            console.log(document.baseURI);
             let id = evt.target.parentElement.dataset.id;
             let requete = new Request(BaseURL + "index.php?requete=boireBouteilleCellier", { method: 'POST', body: '{"id": ' + id + '}' });
 
             fetch(requete)
                 .then(response => {
                     if (response.status === 200) {
+                        console.dir(response);
                         return response.json();
                     } else {
                         throw new Error('Erreur');
@@ -45,10 +46,12 @@ window.addEventListener('load', function() {
                         quantite.innerHTML = parseInt(qt);
                         // Je reéactive le bouton pour un ajout futur.
                         element.disabled = false;
+
                     } else {
                         quantite.innerHTML = parseInt(qt) - 1;
                         element.disabled = false;
                     }
+
                     console.debug(response);
                 }).catch(error => {
                     console.error(error);
@@ -82,18 +85,22 @@ window.addEventListener('load', function() {
             fetch(requete)
                 .then(response => {
                     if (response.status === 200) {
-                        console.log(response);
-                        return console.log(response.json());
+                        console.log(response.ok);
+
+                        return response.json();
                     } else {
                         throw new Error('Erreur');
                     }
                 })
                 .then(response => {
+                    console.log(response);
                     // Si la reponse est Ok changer la quantité dans le cellier sans recharger la page.
+
                     console.dir(quantite);
                     quantite.innerHTML = parseInt(qt) + 1;
                     // Je reéactive le bouton pour un ajout futur.
                     element.disabled = false;
+
                     console.debug(response);
                 }).catch(error => {
                     console.error(error);
