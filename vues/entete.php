@@ -23,17 +23,14 @@
 
 <body>
     <header>
-         <!--<h1>Un petit verre de vino ?</h1>-->
+        <img src="images/logoClear.png" alt="logo de Vino" />
+        <div class="pointsMenu">
+            <img src="./images/quatrePoints.png" alt="menu mobile" />
+        </div>
         <nav>
-            <div class="pointsMenu">
-                <img src="./images/quatrePoints.png" alt="menu mobile" />
-
-            </div>
-            <ul>
-                <li><a href="?requete=accueil">Mon cellier</a></li>
-                <li><a href="?requete=ajouterNouvelleBouteilleCellier">Ajouter une bouteille au cellier</a></li>
-            </ul>
-            <img src="images/logoClear.png" alt="logo de Vino" width="35%" height="35%" />
+            <a href="?requete=accueil">Mon cellier</a>
+            <a href="?requete=ajouterNouvelleBouteilleCellier">Ajouter une bouteille au cellier</a>
         </nav>
+
     </header>
     <main>
