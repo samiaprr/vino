@@ -43,12 +43,25 @@ class Controler
 				case 'boireBouteilleCellier':
 					$this->boireBouteilleCellier();
 					break;
+				case 'triBouteille':
+				//	var_dump($_POST["categorie"]);
+				//	var_dump($_POST["ordre"]);
+					$this->triBouteille();
+
+				break;
 				default:
 					$this->accueil();
 					break;
 			}
 		}
-
+		private function triBouteille()
+		{
+			$bte = new Bouteille();
+			$data = $bte->getTriBouteille($_POST["categorie"],$_POST["ordre"]);
+			include("vues/entete.php");
+			include("vues/cellier.php");
+			include("vues/pied.php");
+		}
 		private function accueil()
 		{
 			$bte = new Bouteille();

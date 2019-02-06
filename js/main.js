@@ -8,16 +8,17 @@
  *
  */
 
-// const BaseURL = "http://vino.jonathanmartel.info/";
-const BaseURL = "http://localhost:8888/projet%20web/vino/";
+// const BaseURL = "http://localhost:8888/projet%20web/vino/";
+
+const BaseURL = "http://127.0.0.1/vino/";
 console.log(BaseURL);
-window.addEventListener('load', function () {
+window.addEventListener('load', function() {
     console.log("load");
     console.log("allo");
-    document.querySelectorAll(".btnBoire").forEach(function (element) {
+    document.querySelectorAll(".btnBoire").forEach(function(element) {
         console.log(element);
 
-        element.addEventListener("click", function (evt) {
+        element.addEventListener("click", function(evt) {
             // Je disabled le btn ajouter le temps de la requête.
             element.disabled = true;
             // Je vais chercher la quantite de cette bouteille.
@@ -62,18 +63,18 @@ window.addEventListener('load', function () {
         })
 
     });
-    document.querySelectorAll(".btnModif").forEach(function (element) {
+    document.querySelectorAll(".btnModif").forEach(function(element) {
         //console.log(element);
-        element.addEventListener("click", function (evt) {
+        element.addEventListener("click", function(evt) {
             let id = evt.target.parentElement.dataset.id;
             let url = ("index.php?requete=ModificationFormulaire&Id=" + id);
             window.location.href = url;
         });
     });
 
-    document.querySelectorAll(".btnAjouter").forEach(function (element) {
+    document.querySelectorAll(".btnAjouter").forEach(function(element) {
         console.log(element);
-        element.addEventListener("click", function (evt) {
+        element.addEventListener("click", function(evt) {
             let id = evt.target.parentElement.dataset.id;
             let requete = new Request(BaseURL + "index.php?requete=ajouterBouteilleCellier", {
                 method: 'POST',
@@ -120,7 +121,7 @@ window.addEventListener('load', function () {
     let liste = document.querySelector('.listeAutoComplete');
 
     if (inputNomBouteille) {
-        inputNomBouteille.addEventListener("keyup", function (evt) {
+        inputNomBouteille.addEventListener("keyup", function(evt) {
             console.log(evt);
             let nom = inputNomBouteille.value;
             liste.innerHTML = "";
@@ -141,7 +142,7 @@ window.addEventListener('load', function () {
                         console.log(response);
 
 
-                        response.forEach(function (element) {
+                        response.forEach(function(element) {
                             liste.innerHTML += "<li data-id='" + element.id + "'>" + element.nom + "</li>";
                         })
                     }).catch(error => {
@@ -163,7 +164,7 @@ window.addEventListener('load', function () {
         };
 
 
-        liste.addEventListener("click", function (evt) {
+        liste.addEventListener("click", function(evt) {
             console.dir(evt.target)
             if (evt.target.tagName == "LI") {
                 bouteille.nom.dataset.id = evt.target.dataset.id;
@@ -177,7 +178,7 @@ window.addEventListener('load', function () {
 
         let btnAjouter = document.querySelector("[name='ajouterBouteilleCellier']");
         if (btnAjouter) {
-            btnAjouter.addEventListener("click", function (evt) {
+            btnAjouter.addEventListener("click", function(evt) {
                 var param = {
                     "id_bouteille": bouteille.nom.dataset.id,
                     "date_achat": bouteille.date_achat.value,
@@ -214,7 +215,7 @@ window.addEventListener('load', function () {
     let btnMenuMobile = document.querySelector(".pointsMenu > img");
     let menu = document.querySelector(" nav");
 
-    btnMenuMobile.addEventListener("click", function () {
+    btnMenuMobile.addEventListener("click", function() {
 
         console.log("menu");
         menu.classList.toggle("active");

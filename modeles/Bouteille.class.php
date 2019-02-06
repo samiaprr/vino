@@ -12,7 +12,6 @@
  */
 class Bouteille extends Modele {
 	const TABLE = 'vino__bouteille';
-    
 	public function getListeBouteille()
 	{
 		
@@ -87,7 +86,47 @@ class Bouteille extends Modele {
 	 * 
 	 * @return array id et nom de la bouteille trouvée dans le catalogue
 	 */
-       
+	public function getTriBouteille($categorie,$ordre){
+		$rows = Array();
+		$categorie = $this->_db->real_escape_string($categorie);
+		$ordre = $this->_db->real_escape_string($ordre);
+		
+		// echo $categorie . $ordre ;
+		$requete ='SELECT 
+		c.id as id_bouteille_cellier,
+			c.id_bouteille_saq, 
+			c.date_achat, 
+			c.garde_jusqua, 
+			c.notes, 
+			c.prix, 
+			c.quantite,
+			c.millesime, 
+			b.id,
+			c.nom, 
+			b.type, 
+			b.image, 
+			b.code_saq, 
+			b.url_saq, 
+			c.pays, 
+			b.description,
+			t.type 
+				from bouteille__cellier c 
+				INNER JOIN vino__saq b ON c.id_bouteille_saq = b.id
+				INNER JOIN vino__type t ON t.id = b.type ORDER BY '. $categorie . ' '.$ordre; 
+		if(($res = $this->_db->query($requete)) == true){
+			if($res->num_rows)
+			{
+				while($row = $res->fetch_assoc())
+				{
+					//var_dump($row);
+					$rows[] = $row;
+				}
+			}	
+		}
+	//	var_dump($rows);
+		return $rows;
+	}
+ 
 	public function autocomplete($nom, $nb_resultat=10)
 	{
 		
