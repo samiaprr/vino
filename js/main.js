@@ -8,7 +8,8 @@
  *
  */
 
-// const BaseURL = "http://vino.jonathanmartel.info/";
+// const BaseURL = "http://localhost:8888/projet%20web/vino/";
+
 const BaseURL = "http://127.0.0.1/vino/";
 console.log(BaseURL);
 window.addEventListener('load', function() {
@@ -28,7 +29,10 @@ window.addEventListener('load', function() {
             qt = quantite.innerHTML;
             console.log(document.baseURI);
             let id = evt.target.parentElement.dataset.id;
-            let requete = new Request(BaseURL + "index.php?requete=boireBouteilleCellier", { method: 'POST', body: '{"id": ' + id + '}' });
+            let requete = new Request(BaseURL + "index.php?requete=boireBouteilleCellier", {
+                method: 'POST',
+                body: '{"id": ' + id + '}'
+            });
 
             fetch(requete)
                 .then(response => {
@@ -63,8 +67,8 @@ window.addEventListener('load', function() {
         //console.log(element);
         element.addEventListener("click", function(evt) {
             let id = evt.target.parentElement.dataset.id;
-            let url = (BaseURL + "index.php?requete=ModificationFormulaireId=" + id);
-            console.log("test");
+            let url = ("index.php?requete=ModificationFormulaire&Id=" + id);
+            window.location.href = url;
         });
     });
 
@@ -72,7 +76,10 @@ window.addEventListener('load', function() {
         console.log(element);
         element.addEventListener("click", function(evt) {
             let id = evt.target.parentElement.dataset.id;
-            let requete = new Request(BaseURL + "index.php?requete=ajouterBouteilleCellier", { method: 'POST', body: '{"id": ' + id + '}' });
+            let requete = new Request(BaseURL + "index.php?requete=ajouterBouteilleCellier", {
+                method: 'POST',
+                body: '{"id": ' + id + '}'
+            });
             console.dir(element);
             element.disabled = true;
             // Je vais chercher la quantite de cette bouteille.
@@ -119,7 +126,10 @@ window.addEventListener('load', function() {
             let nom = inputNomBouteille.value;
             liste.innerHTML = "";
             if (nom) {
-                let requete = new Request(BaseURL + "index.php?requete=autocompleteBouteille", { method: 'POST', body: '{"nom": "' + nom + '"}' });
+                let requete = new Request(BaseURL + "index.php?requete=autocompleteBouteille", {
+                    method: 'POST',
+                    body: '{"nom": "' + nom + '"}'
+                });
                 fetch(requete)
                     .then(response => {
                         if (response.status === 200) {
@@ -178,7 +188,10 @@ window.addEventListener('load', function() {
                     "quantite": bouteille.quantite.value,
                     "millesime": bouteille.millesime.value,
                 };
-                let requete = new Request(BaseURL + "index.php?requete=ajouterNouvelleBouteilleCellier", { method: 'POST', body: JSON.stringify(param) });
+                let requete = new Request(BaseURL + "index.php?requete=ajouterNouvelleBouteilleCellier", {
+                    method: 'POST',
+                    body: JSON.stringify(param)
+                });
                 fetch(requete)
                     .then(response => {
                         if (response.status === 200) {
@@ -198,5 +211,14 @@ window.addEventListener('load', function() {
         }
     }
 
+
+    let btnMenuMobile = document.querySelector(".pointsMenu > img");
+    let menu = document.querySelector(" nav");
+
+    btnMenuMobile.addEventListener("click", function() {
+
+        console.log("menu");
+        menu.classList.toggle("active");
+    });
 
 });
