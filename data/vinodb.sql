@@ -2,7 +2,7 @@
 -- Base de données: `vinodb`
 --
 DROP TABLE IF EXISTS `bouteille__cellier`;
-DROP TABLE IF EXISTS `vino__type`;
+DROP TABLE IF EXISTS `vino__types`;
 DROP TABLE IF EXISTS `cellier`;
 DROP TABLE IF EXISTS `usager`;
 DROP TABLE IF EXISTS `vino__saq`;
@@ -21,7 +21,7 @@ CREATE TABLE `vino__saq` (
   `url_saq` varchar(200) DEFAULT NULL,
   `url_img` varchar(200) DEFAULT NULL,
   `format` varchar(20) DEFAULT NULL,
-  `type` int(11) DEFAULT NULL,
+  `types` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
@@ -69,22 +69,22 @@ FOREIGN KEY (`id_user`) REFERENCES `usager`(`username`)
 
 INSERT INTO `cellier` VALUES('customer', 1 , "mycellar" );
 --
--- Structure de la table `vino__type`
+-- Structure de la table `vino__types`
 --
 
-DROP TABLE IF EXISTS `vino__type`;
-CREATE TABLE `vino__type` (
+DROP TABLE IF EXISTS `vino__types`;
+CREATE TABLE `vino__types` (
   `id` int(11) NOT NULL,
-  `type` varchar(20) NOT NULL,
+  `types` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `vino__type`
+-- Contenu de la table `vino__types`
 --
 
-INSERT INTO `vino__type` VALUES(1, 'Vin rouge');
-INSERT INTO `vino__type` VALUES(2, 'Vin blanc');
+INSERT INTO `vino__types` VALUES(1, 'Vin rouge');
+INSERT INTO `vino__types` VALUES(2, 'Vin blanc');
 
 --
 -- Structure de la table `bouteille__cellier`
@@ -100,13 +100,13 @@ CREATE TABLE `bouteille__cellier` (
   `pays` varchar(50) DEFAULT NULL,
   `notes` varchar(200) DEFAULT NULL,
   `prix` float(7,2) DEFAULT NULL,
-  `type` int(11) NOT NULL,
+  `types` int(11) NOT NULL,
   `quantite` int(11) DEFAULT NULL,
   `millesime` int(11) DEFAULT NULL,
   `id_cellier` int(11) NOT NULL,
   FOREIGN KEY (`id_bouteille_saq`) REFERENCES `vino__saq`(`id`),
   FOREIGN KEY (`id_cellier`) REFERENCES `cellier`(`id_cellier`),
-  FOREIGN KEY (`type`) REFERENCES `vino__type`(`id`)
+  FOREIGN KEY (`types`) REFERENCES `vino__types`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1 AUTO_INCREMENT = 10;
 
 --

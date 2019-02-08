@@ -17,20 +17,23 @@
     <link href="https://fonts.googleapis.com/css?family=Galada|Istok+Web|Major+Mono+Display|Playfair+Display|Yeseva+One" rel="stylesheet">
     <base href="<?php echo BASEURL; ?>">
     <!--<script src="./js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>-->
-    <script src="./js/plugins.js"></script>
     <script src="./js/main.js"></script>
 </head>
 
 <body>
     <header>
-         <!--<h1>Un petit verre de vino ?</h1>-->
+
         <nav>
+
             <div class="pointsMenu">
                 <img src="./images/quatrePoints.png" alt="menu mobile" />
 
             </div>
-            <ul>
-                <li><a href="?requete=accueil">Mon cellier</a></li>
+            
+			
+            <img src="images/logoClear.png" alt="logo de Vino" width="35%" height="35%" />
+			<ul>
+              <li><a href="?requete=accueil">Mon cellier</a></li>
                 <li><a href="?requete=ajouterNouvelleBouteilleCellier">Ajouter une bouteille au cellier</a></li>
 				<li id="signup"><a href="?requete=FormSignup">Sign Up</a></li>
 				<li id="login"><a href="?requete=FormLogin">Login</a></li>
@@ -50,8 +53,24 @@
 ?></span>]</a></li>
 				
             </ul>
-			
-            <img src="images/logoClear.png" alt="logo de Vino" width="35%" height="35%" />
         </nav>
+		<form class="filtre" action="?requete=triBouteille" method="POST">
+			<p> Trier les bouteille dans le cellier.</p>
+			<select name="categorie" class="categorieBouteille">
+				<option value="nom">Nom</option>
+				<option value="prix">Prix</option>
+				<option value="types">Type de vin</option>
+				<option value="quantite">Quantité</option>
+				<option value="millesime">Millesime</option>
+				<option value="pays">Pays</option>
+
+			</select>
+			
+			<select name="ordre" class="ordre">
+				<option value="ASC">Croissant</option>
+				<option value="DESC">Décroissant</option>				
+			</select>
+			<input type="submit" value="filtre"/>
+		</form>
     </header>
     <main>

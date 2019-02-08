@@ -33,40 +33,67 @@ li {
     list-style: none;
 }
 
-nav {
+
+header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 15px;
     background-color: #F8EEE2;
+    overflow: hidden;
+
 }
 
-ul > li:hover {
+header > img {
+    grid-area: logo;
+    width: 10%;
+    height: 10%;
+}
+
+nav {
+    grid-area: menu;
+    margin-right: 50px;
+}
+
+
+nav a:hover {
     border-bottom: 5px solid;
     border-bottom-color: #C49242;
 }
 
-ul li > a {
+nav > a {
     font-family: 'Yeseva One', cursive;
     color: #297373;
+    margin: 20px;
 
 }
 
 /* menu "points" */
 
 .pointsMenu > img {
-    width: 50%;
-    height: 50%;
+    width: 50px;
+    height: 50px;
+    display: grid;
+    justify-items: center;
+    margin-right: 20px;
+
 }
 
 h1 {
     font-family: 'Yeseva One', cursive;
+    text-align: center;
+}
+
+.pointsMenu {
+    grid-area: mobileMenuIcon;
 }
 
 
-
+.active {
+    display: block;
 }
+
 
 .liste {
     display: block;
@@ -167,13 +194,42 @@ form input {
 }
 
 
-@media all and (max-width:640px) {
+@media all and (max-width:765px) {
+    header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: " logo mobileMenuIcon" "menu menu";
+        justify-items: end;
+        padding: 15px;
+        background-color: #F8EEE2;
+        overflow: hidden;
+
+    }
+
+    nav {
+        grid-area: menu;
+        margin-right: 50px;
+    }
+
     footer {
         display: none;
     }
 
-    ul li > a {
+    header > img {
         display: none;
+    }
+
+
+    nav a {
+        font-size: 17px;
+        display: block;
+    }
+
+    nav {
+        height: auto;
+        position: relative;
+        display: none;
+        font-size: 0.9em;
     }
 
 }
