@@ -14,6 +14,7 @@ console.log(BaseURL);
 window.addEventListener('load', function() {
     console.log("load");
     console.log("allo");
+	DisplayLogin();
     document.querySelectorAll(".btnBoire").forEach(function(element) {
         console.log(element);
 
@@ -200,3 +201,35 @@ window.addEventListener('load', function() {
 
 
 });
+
+function DisplayLogin()
+{
+	var UserID=trim(document.getElementById('UserID').textContent);
+	
+	var login=document.getElementById('login');
+	var logout=document.getElementById('logout');
+	var signup = document.getElementById('signup');
+	var myaccount = document.getElementById('myaccount');
+	
+
+	if(UserID=="NULL")
+	{
+		myaccount.style.display="none";
+		logout.style.display="none";	
+	}
+	else
+	{
+		myaccount.style.display="block";
+		logout.style.display="block";
+		signup.style.display="none";
+		login.style.display="none";
+		
+		
+	}
+	
+	
+}
+
+function trim(str){ 
+　　     return str.replace(/(^\s*)|(\s*$)/g, "");
+}

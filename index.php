@@ -15,6 +15,7 @@
 	 /***************************************************/
     /** Fichier de configuration, contient les define et l'autoloader **/
     /***************************************************/
+	session_start();
     require_once('./dataconf.php');
 	require_once("./config.php");
 	

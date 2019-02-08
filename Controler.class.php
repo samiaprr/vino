@@ -43,6 +43,31 @@ class Controler
 				case 'boireBouteilleCellier':
 					$this->boireBouteilleCellier();
 					break;
+				case 'FormSignup':
+					$this->FormSignup();
+					
+					break;
+				case 'FormLogin':
+					$this->FormLogin();
+					
+					break;
+				case 'FormModifyAccount':
+					$this->FormModifyAccount();
+					
+					break;
+				case 'signup':
+					$this->signup($_GET['username'],$_GET['password']);
+					break;
+				case 'login':
+					$this->login($_GET['username'],$_GET['password']);
+					break;
+				case 'updateUser':
+					$this->updateUser($_GET['username'],$_GET['password']);
+					break;
+				case "Logout":
+					$this->Logout();
+					$this->accueil();
+					break;
 				default:
 					$this->accueil();
 					break;
@@ -138,6 +163,122 @@ class Controler
 			else{*/
 				$this->accueil();
 			//}
+			
+		}
+
+        private function FormSignup()
+        {
+			include("vues/entete.php");
+			include("vues/FormSignup.php");
+			include("vues/pied.php");
+        }		
+		private function signup($username,$password)
+		{
+            $u = new User();
+			$resultat = $u->getUserByUsername($username);
+            
+            if(!$resultat){
+                $res = $u->insertUser($username,$password);
+                if($res){
+                    echo json_encode('Signup Success!');
+                }else{
+                     echo json_encode($res);
+                }
+            }else
+            {
+                echo json_encode('Username already Signup');
+            }
+            //$resultat = $u->getAllUser();
+            
+			//echo json_encode($resultat);
+            /*
+			echo 'signup' . $username . ' ' . $password;
+			if(trim($username) != "" && trim($password) != "")
+			{
+				 $passwordEncrypte = password_hash($password, PASSWORD_DEFAULT);
+				//insérer dans la BD
+				//InsertUser($_POST["username"],$passwordEncrypte);
+				echo $passwordEncrypte;
+			}
+			else
+			{
+				echo 'Signup error';
+			}*/
+		}
+
+        private function FormLogin()
+        {
+			include("vues/entete.php");
+			include("vues/FormLogin.php");
+			include("vues/pied.php");
+        }
+
+        private function FormModifyAccount()
+        {
+			include("vues/entete.php");
+			include("vues/FormModifyAccount.php");
+			include("vues/pied.php");
+        }		
+		
+		private function login($username,$password)
+		{
+			$u = new User();
+			$resultat = $u->getUserByUsername($username);
+            
+            if(!$resultat){
+    
+                echo json_encode('Username pas correct!');
+
+            }else
+            {
+				if($resultat['password'] != $password){
+					echo json_encode('Password pas correct!');
+				}else{
+					$_SESSION["UserID"] =$username;
+					echo json_encode('true');
+				}
+            }
+		}
+		
+		private function updateUser($username,$password)
+		{
+			$u = new User();
+			$resultat = $u->updateUser($username,$password);
+            
+            if(!$resultat){
+    
+                echo json_encode('Username pas correct!');
+				  
+
+            }else
+            {
+
+					
+				echo json_encode('true');
+			
+            }
+			
+			
+		}
+		
+		private function Logout(){
+			// Détruit toutes les variables de session
+			$_SESSION = array();
+
+			// Si vous voulez détruire complètement la session, effacez également
+			// le cookie de session.
+			// Note : cela détruira la session et pas seulement les données de session !
+			if (ini_get("session.use_cookies")) {
+				$params = session_get_cookie_params();
+				setcookie(session_name(), '', time() - 42000,
+					$params["path"], $params["domain"],
+					$params["secure"], $params["httponly"]
+				);
+			}
+
+			// Finalement, on détruit la session.
+		//	session_destroy();
+			
 			
 		}
 		
