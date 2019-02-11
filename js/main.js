@@ -223,22 +223,16 @@ window.addEventListener('load', function () {
 
     // Description expanding 
 
-    let btnVoirPlus = document.querySelector(".voir-plus");
-    let divDescription = document.querySelector(".description");
+    document.querySelectorAll(".voir-plus").forEach(function (element) {
+        if (element) {
+            element.addEventListener("click", function (e) {
+                let divDescription = next(e.target);
+                divDescription.classList.toggle("active-flex");
+                fadeIn(divDescription);
+            });
+        }
 
-    if (btnVoirPlus) {
-
-        btnVoirPlus.addEventListener("click", function () {
-
-            console.log("plus");
-            divDescription.classList.toggle("active-flex");
-            fadeIn(divDescription);
-        });
-
-    }
-
-
-
+    })
 
 });
 
@@ -284,4 +278,11 @@ function fadeIn(el) {
     };
 
     tick();
+}
+
+function next(elem) {
+    do {
+        elem = elem.nextSibling;
+    } while (elem && elem.nodeType !== 1);
+    return elem;
 }

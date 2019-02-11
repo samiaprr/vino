@@ -1,10 +1,29 @@
 <div class="cellier column--center">
-    <h1>Un petit verre de vino ?</h1>
+    <section class="cellier-header row--center">
+        <form class="filtre row--center" action="?requete=triBouteille" method="POST">
+            <p> Trier:</p>
+            <select name="categorie" class="categorieBouteille">
+				<option value="nom">Nom</option>
+				<option value="prix">Prix</option>
+				<option value="types">Type de vin</option>
+				<option value="quantite">Quantité</option>
+				<option value="millesime">Millesime</option>
+				<option value="pays">Pays</option>
+
+			</select>
+
+            <select name="ordre" class="ordre">
+				<option value="ASC">Croissant</option>
+				<option value="DESC">Décroissant</option>				
+			</select>
+            <input type="submit" value="filtre" />
+        </form>
+    </section>
     <?php
 foreach ($data as $cle => $bouteille) {
  
     ?>
-        <div class="bouteille column--center" data-quantite="">
+        <div class="bouteille column--center" data-quantite="" data-id="<?php echo $bouteille['id_bouteille_cellier'] ?>">
             <img class="bouteille--img" src="https:<?php echo $bouteille['image'] ?>">
 
             <h1>

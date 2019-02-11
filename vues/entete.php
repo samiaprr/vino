@@ -21,17 +21,13 @@
 </head>
 
 <body>
-    <header class="row--center">
+    <header>
+        <div class="pointsMenu">
+            <img src="./images/quatrePoints.png" alt="menu mobile" />
 
+        </div>
+        <img src="images/logoClear.png" alt="logo de Vino" width="35%" height="35%" />
         <nav>
-
-            <div class="pointsMenu">
-                <img src="./images/quatrePoints.png" alt="menu mobile" />
-
-            </div>
-
-
-            <img src="images/logoClear.png" alt="logo de Vino" width="35%" height="35%" />
             <ul>
                 <li><a href="?requete=accueil">Mon cellier</a></li>
                 <li><a href="?requete=ajouterNouvelleBouteilleCellier">Ajouter une bouteille au cellier</a></li>
@@ -54,23 +50,6 @@
 
             </ul>
         </nav>
-        <form class="filtre" action="?requete=triBouteille" method="POST">
-            <p> Trier les bouteille dans le cellier.</p>
-            <select name="categorie" class="categorieBouteille">
-				<option value="nom">Nom</option>
-				<option value="prix">Prix</option>
-				<option value="types">Type de vin</option>
-				<option value="quantite">Quantité</option>
-				<option value="millesime">Millesime</option>
-				<option value="pays">Pays</option>
 
-			</select>
-
-            <select name="ordre" class="ordre">
-				<option value="ASC">Croissant</option>
-				<option value="DESC">Décroissant</option>				
-			</select>
-            <input type="submit" value="filtre" />
-        </form>
     </header>
     <main>
