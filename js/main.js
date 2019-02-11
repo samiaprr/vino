@@ -12,6 +12,7 @@ const BaseURL = window.location.origin + window.location.pathname;
 //const BaseURL = "http://127.0.0.1/vino/";
 console.log(BaseURL);
 window.addEventListener('load', function () {
+    const BaseURL = window.location.origin + window.location.pathname;
     console.log("load");
     console.log("allo");
     DisplayLogin();
@@ -29,7 +30,7 @@ window.addEventListener('load', function () {
             qt = quantite.innerHTML;
             console.log(document.baseURI);
             let id = evt.target.parentElement.dataset.id;
-            let requete = new Request(BaseURL + "index.php?requete=boireBouteilleCellier", {
+            let requete = new Request(BaseURL + "?requete=boireBouteilleCellier", {
                 method: 'POST',
                 body: '{"id": ' + id + '}'
             });
@@ -67,7 +68,7 @@ window.addEventListener('load', function () {
         //console.log(element);
         element.addEventListener("click", function (evt) {
             let id = evt.target.parentElement.dataset.id;
-            let url = ("index.php?requete=ModificationFormulaire&Id=" + id);
+            let url = ("?requete=ModificationFormulaire&Id=" + id);
             window.location.href = url;
         });
     });
@@ -76,7 +77,7 @@ window.addEventListener('load', function () {
         console.log(element);
         element.addEventListener("click", function (evt) {
             let id = evt.target.parentElement.dataset.id;
-            let requete = new Request(BaseURL + "index.php?requete=ajouterBouteilleCellier", {
+            let requete = new Request(BaseURL + "?requete=ajouterBouteilleCellier", {
                 method: 'POST',
                 body: '{"id": ' + id + '}'
             });
@@ -126,7 +127,7 @@ window.addEventListener('load', function () {
             let nom = inputNomBouteille.value;
             liste.innerHTML = "";
             if (nom) {
-                let requete = new Request(BaseURL + "index.php?requete=autocompleteBouteille", {
+                let requete = new Request(BaseURL + "?requete=autocompleteBouteille", {
                     method: 'POST',
                     body: '{"nom": "' + nom + '"}'
                 });
@@ -223,22 +224,16 @@ window.addEventListener('load', function () {
 
     // Description expanding 
 
-    let btnVoirPlus = document.querySelector(".voir-plus");
-    let divDescription = document.querySelector(".description");
+    document.querySelectorAll(".voir-plus").forEach(function (element) {
+        if (element) {
+            element.addEventListener("click", function (e) {
+                let divDescription = next(e.target);
+                divDescription.classList.toggle("active-flex");
+                fadeIn(divDescription);
+            });
+        }
 
-    if (btnVoirPlus) {
-
-        btnVoirPlus.addEventListener("click", function () {
-
-            console.log("plus");
-            divDescription.classList.toggle("active-flex");
-            fadeIn(divDescription);
-        });
-
-    }
-
-
-
+    })
 
 });
 
@@ -284,4 +279,11 @@ function fadeIn(el) {
     };
 
     tick();
+}
+
+function next(elem) {
+    do {
+        elem = elem.nextSibling;
+    } while (elem && elem.nodeType !== 1);
+    return elem;
 }
