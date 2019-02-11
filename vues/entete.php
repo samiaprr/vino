@@ -28,13 +28,13 @@
         </div>
         <img src="images/logoClear.png" alt="logo de Vino" width="35%" height="35%" />
         <nav>
-            <ul>
-                <li><a href="?requete=accueil">Mon cellier</a></li>
-                <li><a href="?requete=ajouterNouvelleBouteilleCellier">Ajouter une bouteille au cellier</a></li>
-                <li id="signup"><a href="?requete=FormSignup">Sign Up</a></li>
-                <li id="login"><a href="?requete=FormLogin">Login</a></li>
-                <li id="logout"><a href="?requete=Logout">Logout</a></li>
-                <li id="myaccount"><a href="?requete=FormModifyAccount">My Account[<span id="UserID">
+
+            <li><a href="?requete=accueil">Mon cellier</a></li>
+            <li><a href="?requete=ajouterNouvelleBouteilleCellier">Ajouter une bouteille au cellier</a></li>
+            <li id="signup"><a href="?requete=FormSignup">Sign Up</a></li>
+            <li id="login"><a href="?requete=FormLogin">Login</a></li>
+            <li id="logout"><a href="?requete=Logout">Logout</a></li>
+            <li id="myaccount"><a href="?requete=FormModifyAccount">My Account[<span id="UserID">
 <?php
 	if(isset($_SESSION["UserID"]))
             {

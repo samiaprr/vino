@@ -69,6 +69,7 @@ header > img {
 }
 
 nav {
+    font-size: 16px;
     grid-area: menu;
     margin-right: 50px;
 }
@@ -79,11 +80,15 @@ nav a:hover {
     border-bottom-color: #C49242;
 }
 
-nav > a {
+nav a {
     font-family: 'Yeseva One', cursive;
     color: #297373;
-    margin: 20px;
+    margin-bottom: 10px;
 
+}
+
+nav a:visited {
+    color: #297373;
 }
 
 /* menu "points" */
@@ -168,6 +173,7 @@ h1 {
 }
 
 .bouteille--img {
+    align-self: center;
     display: block;
     max-width: 100%;
     height: auto;
@@ -242,6 +248,22 @@ h1 {
 
 form input {
     border-radius: 5px;
+}
+
+
+/* Page login */
+
+#loginAccount {
+    justify-content: center;
+    margin: 15px;
+}
+
+#loginAccount > form {
+    justify-content: center;
+}
+
+#loginAccount input[type="button"] {
+    margin: 10px;
 }
 
 
