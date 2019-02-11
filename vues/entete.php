@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <header>
+    <header class="row--center">
 
         <nav>
 
@@ -29,16 +29,16 @@
                 <img src="./images/quatrePoints.png" alt="menu mobile" />
 
             </div>
-            
-			
+
+
             <img src="images/logoClear.png" alt="logo de Vino" width="35%" height="35%" />
-			<ul>
-              <li><a href="?requete=accueil">Mon cellier</a></li>
+            <ul>
+                <li><a href="?requete=accueil">Mon cellier</a></li>
                 <li><a href="?requete=ajouterNouvelleBouteilleCellier">Ajouter une bouteille au cellier</a></li>
-				<li id="signup"><a href="?requete=FormSignup">Sign Up</a></li>
-				<li id="login"><a href="?requete=FormLogin">Login</a></li>
-				<li id="logout"><a href="?requete=Logout">Logout</a></li>
-				<li id="myaccount"><a href="?requete=FormModifyAccount">My Account[<span id="UserID">
+                <li id="signup"><a href="?requete=FormSignup">Sign Up</a></li>
+                <li id="login"><a href="?requete=FormLogin">Login</a></li>
+                <li id="logout"><a href="?requete=Logout">Logout</a></li>
+                <li id="myaccount"><a href="?requete=FormModifyAccount">My Account[<span id="UserID">
 <?php
 	if(isset($_SESSION["UserID"]))
             {
@@ -51,12 +51,12 @@
 			echo $UserID;
 
 ?></span>]</a></li>
-				
+
             </ul>
         </nav>
-		<form class="filtre" action="?requete=triBouteille" method="POST">
-			<p> Trier les bouteille dans le cellier.</p>
-			<select name="categorie" class="categorieBouteille">
+        <form class="filtre" action="?requete=triBouteille" method="POST">
+            <p> Trier les bouteille dans le cellier.</p>
+            <select name="categorie" class="categorieBouteille">
 				<option value="nom">Nom</option>
 				<option value="prix">Prix</option>
 				<option value="types">Type de vin</option>
@@ -65,12 +65,12 @@
 				<option value="pays">Pays</option>
 
 			</select>
-			
-			<select name="ordre" class="ordre">
+
+            <select name="ordre" class="ordre">
 				<option value="ASC">Croissant</option>
 				<option value="DESC">Décroissant</option>				
 			</select>
-			<input type="submit" value="filtre"/>
-		</form>
+            <input type="submit" value="filtre" />
+        </form>
     </header>
     <main>
