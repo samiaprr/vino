@@ -7,19 +7,18 @@
  * @license http://creativecommons.org/licenses/by-nc/3.0/deed.fr
  *
  */
+const BaseURL = window.location.origin + window.location.pathname;
 
-// const BaseURL = "http://localhost:8888/projet%20web/vino/";
-
-const BaseURL = "http://127.0.0.1/vino/";
+//const BaseURL = "http://127.0.0.1/vino/";
 console.log(BaseURL);
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
     console.log("load");
     console.log("allo");
-	DisplayLogin();
-    document.querySelectorAll(".btnBoire").forEach(function(element) {
+    DisplayLogin();
+    document.querySelectorAll(".btnBoire").forEach(function (element) {
         console.log(element);
 
-        element.addEventListener("click", function(evt) {
+        element.addEventListener("click", function (evt) {
             // Je disabled le btn ajouter le temps de la requête.
             element.disabled = true;
             // Je vais chercher la quantite de cette bouteille.
@@ -64,18 +63,18 @@ window.addEventListener('load', function() {
         })
 
     });
-    document.querySelectorAll(".btnModif").forEach(function(element) {
+    document.querySelectorAll(".btnModif").forEach(function (element) {
         //console.log(element);
-        element.addEventListener("click", function(evt) {
+        element.addEventListener("click", function (evt) {
             let id = evt.target.parentElement.dataset.id;
             let url = ("index.php?requete=ModificationFormulaire&Id=" + id);
             window.location.href = url;
         });
     });
 
-    document.querySelectorAll(".btnAjouter").forEach(function(element) {
+    document.querySelectorAll(".btnAjouter").forEach(function (element) {
         console.log(element);
-        element.addEventListener("click", function(evt) {
+        element.addEventListener("click", function (evt) {
             let id = evt.target.parentElement.dataset.id;
             let requete = new Request(BaseURL + "index.php?requete=ajouterBouteilleCellier", {
                 method: 'POST',
@@ -122,7 +121,7 @@ window.addEventListener('load', function() {
     let liste = document.querySelector('.listeAutoComplete');
 
     if (inputNomBouteille) {
-        inputNomBouteille.addEventListener("keyup", function(evt) {
+        inputNomBouteille.addEventListener("keyup", function (evt) {
             console.log(evt);
             let nom = inputNomBouteille.value;
             liste.innerHTML = "";
@@ -143,7 +142,7 @@ window.addEventListener('load', function() {
                         console.log(response);
 
 
-                        response.forEach(function(element) {
+                        response.forEach(function (element) {
                             liste.innerHTML += "<li data-id='" + element.id + "'>" + element.nom + "</li>";
                         })
                     }).catch(error => {
@@ -165,7 +164,7 @@ window.addEventListener('load', function() {
         };
 
 
-        liste.addEventListener("click", function(evt) {
+        liste.addEventListener("click", function (evt) {
             console.dir(evt.target)
             if (evt.target.tagName == "LI") {
                 bouteille.nom.dataset.id = evt.target.dataset.id;
@@ -179,7 +178,7 @@ window.addEventListener('load', function() {
 
         let btnAjouter = document.querySelector("[name='ajouterBouteilleCellier']");
         if (btnAjouter) {
-            btnAjouter.addEventListener("click", function(evt) {
+            btnAjouter.addEventListener("click", function (evt) {
                 var param = {
                     "id_bouteille": bouteille.nom.dataset.id,
                     "date_achat": bouteille.date_achat.value,
@@ -211,50 +210,78 @@ window.addEventListener('load', function() {
             });
         }
     }
-    let btnMenuMobile = document.querySelector(".pointsMenu > img");
-    let menu = document.querySelector(" nav");
 
-    btnMenuMobile.addEventListener("click", function() {
+    //Menu Mobile
+    let btnMenuMobile = document.querySelector(".pointsMenu > img");
+    let menu = document.querySelector("nav");
+
+    btnMenuMobile.addEventListener("click", function () {
 
         console.log("menu");
         menu.classList.toggle("active");
     });
 
+    // Description expanding 
+
+    let btnVoirPlus = document.querySelector(".voir-plus");
+    let divDescription = document.querySelector(".description");
+
+    if (btnVoirPlus) {
+
+        btnVoirPlus.addEventListener("click", function () {
+
+            console.log("plus");
+            divDescription.classList.toggle("active-flex");
+            fadeIn(divDescription);
+        });
+
+    }
+
+
+
 
 });
 
-function DisplayLogin()
-{
-	var UserID=trim(document.getElementById('UserID').textContent);
-	
-	var login=document.getElementById('login');
-	var logout=document.getElementById('logout');
-	var signup = document.getElementById('signup');
-	var myaccount = document.getElementById('myaccount');
-	
+function DisplayLogin() {
+    var UserID = trim(document.getElementById('UserID').textContent);
 
-	if(UserID=="NULL")
-	{
-		myaccount.style.display="none";
-		logout.style.display="none";	
-	}
-	else
-	{
-		myaccount.style.display="block";
-		logout.style.display="block";
-		signup.style.display="none";
-		login.style.display="none";
-		
-		
-	}
-	
-	
+    var login = document.getElementById('login');
+    var logout = document.getElementById('logout');
+    var signup = document.getElementById('signup');
+    var myaccount = document.getElementById('myaccount');
+
+
+    if (UserID == "NULL") {
+        myaccount.style.display = "none";
+        logout.style.display = "none";
+    } else {
+        myaccount.style.display = "block";
+        logout.style.display = "block";
+        signup.style.display = "none";
+        login.style.display = "none";
+
+
+    }
+
+
 }
 
-function trim(str){ 
-　　     return str.replace(/(^\s*)|(\s*$)/g, "");
+function trim(str) {　　
+    return str.replace(/(^\s*)|(\s*$)/g, "");
 }
 
+function fadeIn(el) {
+    el.style.opacity = 0;
 
+    var last = +new Date();
+    var tick = function () {
+        el.style.opacity = +el.style.opacity + (new Date() - last) / 400;
+        last = +new Date();
 
+        if (+el.style.opacity < 1) {
+            (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+        }
+    };
 
+    tick();
+}
