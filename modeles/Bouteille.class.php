@@ -76,6 +76,57 @@ class Bouteille extends Modele {
 		return $rows;
 	}
 	
+	public function getListeBouteilleCellierByCellier($username)
+	{
+		
+		$rows = Array();
+		$requete ='SELECT 
+			c.id as id_bouteille_cellier,
+				c.id_bouteille_saq, 
+				c.date_achat, 
+				c.garde_jusqua, 
+				c.notes, 
+				c.prix, 
+				c.quantite,
+				c.millesime, 
+				b.id,
+				c.nom, 
+				b.types, 
+				b.image, 
+				b.code_saq, 
+				b.url_saq, 
+				c.pays, 
+				b.description,
+				t.types 
+					from bouteille__cellier c 
+					INNER JOIN vino__saq b ON c.id_bouteille_saq = b.id
+					INNER JOIN vino__types t ON t.id = b.types
+					INNER JOIN cellier l ON l.id_cellier = c.id_cellier
+					INNER JOIN usager u ON u.username = l.id_user
+					WHERE u.username="' . $username . '"
+						'; 
+		if(($res = $this->_db->query($requete)) ==	 true)
+		{
+			if($res->num_rows)
+			{
+				while($row = $res->fetch_assoc())
+				{
+					$row['nom'] = trim(utf8_encode($row['nom']));
+					$rows[] = $row;
+				}
+			}
+		}
+		else 
+		{
+			throw new Exception("Erreur de requête sur la base de donnée", 1);
+			 //$this->_db->error;
+		}
+		
+		
+		
+		return $rows;
+	}
+	
 	/**
 	 * Cette méthode permet de retourner les résultats de recherche pour la fonction d'autocomplete de l'ajout des bouteilles dans le cellier
 	 * 

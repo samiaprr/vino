@@ -65,11 +65,19 @@ class Controler
 				case 'updateUser':
 					$this->updateUser($_GET['username'],$_GET['password']);
 					break;
+				case 'updateCellierNom':
+					$this->updateCellierNom($_GET['username'],$_GET['nom']);
+					break;
 				case "Logout":
 					$this->Logout();
 					$this->accueil();
 					break;
-
+				case 'getCellierNom':
+					$this->getCellierNom($_GET['username']);
+					break;
+				case 'monCellier':
+					$this->monCellier();
+					break;
 				case 'triBouteille':
 				//	var_dump($_POST["categorie"]);
 				//	var_dump($_POST["ordre"]);
@@ -100,7 +108,23 @@ class Controler
                   
 		}
 		
-
+		private function monCellier()
+		{
+			$bte = new Bouteille();
+			if(isset($_SESSION["UserID"])){
+				$username = $_SESSION["UserID"];
+				$data = $bte->getListeBouteilleCellierByCellier($username);
+			}else{
+				 $data = $bte->getListeBouteilleCellier();
+				
+			}
+			
+			include("vues/entete.php");
+			include("vues/cellier.php");
+			include("vues/pied.php");
+                  
+		}
+		
 		private function listeBouteille()
 		{
 			$bte = new Bouteille();
@@ -196,6 +220,7 @@ class Controler
             if(!$resultat){
                 $res = $u->insertUser($username,$password);
                 if($res){
+					$this->creeCellier($username);
                     echo json_encode('Signup Success!');
                 }else{
                      echo json_encode($res);
@@ -222,6 +247,20 @@ class Controler
 			}*/
 		}
 
+        private function creeCellier($username)
+        {
+			$c = new Cellier();
+			$resultat = $c->insertCellier($username);
+		
+        }
+		
+		private function getCellierNom($username)
+        {
+			$c = new Cellier();
+			$resultat = $c->getCellierByUsername($username);
+			echo json_encode($resultat['nom']);
+        }
+		
         private function FormLogin()
         {
 			include("vues/entete.php");
@@ -276,6 +315,27 @@ class Controler
 			
 			
 		}
+		
+		private function updateCellierNom($username,$nom)
+		{
+			$c = new Cellier();
+			$resultat = $c->updateCellierNom($username,$nom);
+            
+            if(!$resultat){
+    
+                echo json_encode('Username pas correct!');
+				  
+
+            }else
+            {
+
+					
+				echo json_encode('true');
+			
+            }
+			
+			
+		}		
 		
 		private function Logout(){
 			// Détruit toutes les variables de session
