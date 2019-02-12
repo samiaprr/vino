@@ -261,6 +261,13 @@ class Bouteille extends Modele {
         $res = $this->_db->query($requete); 
 		return $res;
 	}
+	public function AjoutCellier($nom, $username)
+	{
+		$requete = "INSERT INTO cellier (id_user,nom) VALUES ('" . $username . "','" .  $nom . "')";
+		//var_dump($requete);
+        $res = $this->_db->query($requete); 
+		return $res;
+	}
 }
 
 

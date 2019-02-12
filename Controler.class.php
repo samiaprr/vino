@@ -43,19 +43,15 @@ class Controler
 				case 'boireBouteilleCellier':
 					$this->boireBouteilleCellier();
 					break;
-
 				case 'FormSignup':
 					$this->FormSignup();
-					
 					break;
 				case 'FormLogin':
 					$this->FormLogin();
-					
 					break;
 				case 'FormModifyAccount':
 					$this->FormModifyAccount();
-					
-					break;
+					break;		
 				case 'signup':
 					$this->signup($_GET['username'],$_GET['password']);
 					break;
@@ -69,12 +65,16 @@ class Controler
 					$this->Logout();
 					$this->accueil();
 					break;
-
+				case "FormCellier":
+					$this->formAjoutCellier($_GET['User']);
+					break;
+				case "AjoutCell":
+					$this->AjoutCell($_GET['nom'],$_GET['username']);
+					break;			
 				case 'triBouteille':
 				//	var_dump($_POST["categorie"]);
 				//	var_dump($_POST["ordre"]);
 					$this->triBouteille();
-
 				break;
 
 				default:
@@ -99,7 +99,20 @@ class Controler
 			include("vues/pied.php");
                   
 		}
-		
+
+		private function formAjoutCellier()
+		{
+			include("vues/entete.php");
+			include("vues/formAjoutCellier.php");
+			include("vues/pied.php");     
+		}
+
+		private function AjoutCell()
+		{
+			$bte = new Bouteille();
+			$data = $bte->AjoutCellier($_GET['nom'],$_GET['username']);
+			$this->accueil();
+		}
 
 		private function listeBouteille()
 		{
@@ -173,14 +186,24 @@ class Controler
 			$bte = new Bouteille();
 			$resultat = $bte->ModifBouteille($_GET);
 
-			/*if (isset($erreur)) {
-				$this->FormModif();
+			if (isset($erreur)) {
+				$this->FormModif($erreur);
 			}
-			else{*/
+			else{
 				$this->accueil();
-			//}
+			}
 			
 		}
+
+		private function AjoutCellier()
+        {
+			/*$bte = new Bouteille();
+			$resultat = $bte->AjoutUnCellier($_GET["User"]);*/
+			include("vues/entete.php");
+			include("vues/ajoutCellier.php");
+			include("vues/pied.php");
+
+        }
 
         private function FormSignup()
         {
@@ -297,6 +320,7 @@ class Controler
 			
 			
 		}
+
 		
 }
 ?>
