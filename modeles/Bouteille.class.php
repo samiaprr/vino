@@ -43,16 +43,16 @@ class Bouteille extends Modele {
 				c.millesime, 
 				b.id,
 				c.nom, 
-				b.type, 
+				b.types, 
 				b.image, 
 				b.code_saq, 
 				b.url_saq, 
 				c.pays, 
 				b.description,
-				t.type 
+				t.types 
 					from bouteille__cellier c 
 					INNER JOIN vino__saq b ON c.id_bouteille_saq = b.id
-					INNER JOIN vino__type t ON t.id = b.type
+					INNER JOIN vino__types t ON t.id = b.types
 						'; 
 		if(($res = $this->_db->query($requete)) ==	 true)
 		{

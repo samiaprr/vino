@@ -39,7 +39,7 @@ foreach ($data as $cle => $bouteille) {
                     <?php echo $bouteille['pays'] ?>
                 </p>
                 <p class="type">Type :
-                    <?php echo $bouteille['type'] ?>
+                    <?php echo $bouteille['types'] ?>
                 </p>
                 <p class="millesime">Millesime :
                     <?php echo $bouteille['millesime'] ?>
