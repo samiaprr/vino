@@ -47,6 +47,12 @@
 			echo $UserID;
 
 ?></span>]</a></li>
+<?php
+    if(isset($_SESSION["UserID"]))
+            {
+                echo "<li id='ajout'><a href='?requete=FormCellier&User=" . $_SESSION["UserID"] . "'>Ajouter un cellier</a></li>";
+            }
+            ?>
 
             </ul>
         </nav>
