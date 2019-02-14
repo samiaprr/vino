@@ -71,6 +71,7 @@
                 <button class='btnBoire'>Boire</button>
 
             </div>
+			
         </div>
         </div>";     
         }

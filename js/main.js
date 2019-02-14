@@ -239,19 +239,28 @@ window.addEventListener('load', function () {
 
 function DisplayLogin() {
     var UserID = trim(document.getElementById('UserID').textContent);
-
+	var monCellier = document.getElementById('monCellier');
+	var ajouterBouteilleCellier = document.getElementById('ajouterBouteilleCellier');
     var login = document.getElementById('login');
     var logout = document.getElementById('logout');
     var signup = document.getElementById('signup');
     var myaccount = document.getElementById('myaccount');
 
+	
 
     if (UserID == "NULL") {
         myaccount.style.display = "none";
         logout.style.display = "none";
+		monCellier.style.display = "none";
+		ajouterBouteilleCellier.style.display = "none";
+	
     } else {
+		monCellier.style.display = "block";
+		ajouterBouteilleCellier.style.display = "block";
         myaccount.style.display = "block";
         logout.style.display = "block";
+		
+	
         signup.style.display = "none";
         login.style.display = "none";
 
