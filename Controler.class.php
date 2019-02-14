@@ -104,11 +104,20 @@ class Controler
 		}
 		private function accueil()
 		{
-			$bte = new Bouteille();
-            $data = $bte->getListeBouteilleCellier();
-			include("vues/entete.php");
-			include("vues/cellier.php");
-			include("vues/pied.php");
+			if(isset($_SESSION["UserID"])){
+				$username = $_SESSION["UserID"];
+				$bte = new Bouteille();
+				$data1 = $bte->cellierParUsager($username);
+				$data = $bte->getListeBouteilleCellier();
+				include("vues/entete.php");
+				include("vues/cellier.php");
+				include("vues/pied.php");
+			}
+			else{
+				include("vues/entete.php");
+				include("vues/cellier.php");
+				include("vues/pied.php");
+			}
                   
 		}
 
