@@ -33,9 +33,17 @@
 			    </select>
             <input type='submit' value='filtre' />
             </form>
-            </section>";
+            </section>
+            <section>
+            <h3> Vos celliers </h3>
+            <ul>";
+            foreach ($data as $cle => $celli){
+                echo "<li><a href='index.php?requete=SelectionCellier&id=" . $celli['id_cellier'] . "'>" . $celli['nom']. "</a></li>";
+            }
+            echo "</select>
+            </ul>";
         
-    foreach ($data as $cle => $bouteille) {
+    foreach ($data1 as $cle => $bouteille) {
  
     
     echo    "<div class='bouteille column--center' data-quantite='' data-id='" . $bouteille['id_bouteille_cellier'] . "'>
