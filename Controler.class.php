@@ -75,24 +75,41 @@ class Controler
 				case 'monCellier':
 					$this->monCellier();
 					break;
-
 				case "FormCellier":
 					$this->formAjoutCellier($_GET['User']);
 					break;
 				case "AjoutCell":
 					$this->AjoutCell($_GET['nom'],$_GET['username']);
 					break;			
-
 				case 'triBouteille':
 				//	var_dump($_POST["categorie"]);
 				//	var_dump($_POST["ordre"]);
 					$this->triBouteille();
-				break;
-
+					break;
+				case 'SelectionCellier':
+					$this->SelectCellier($_GET['id']);
+					break;
 				default:
 					$this->accueil();
 					break;
 			}
+		}
+		private function SelectCellier()
+		{
+			if(isset($_SESSION["UserID"])){
+				$username = $_SESSION["UserID"];
+				$bte = new Bouteille();
+				$data1 = $bte->getListeBouteilleCellierByIdCellier($_GET['id']);
+				$data = $bte->cellierParUsager($username);
+				include("vues/entete.php");
+				include("vues/cellier.php");
+				include("vues/pied.php");
+			}
+			else{
+				//Si la personne n'est pas connecté
+				$this->FormLogin();
+			}
+                  
 		}
 		private function triBouteille()
 		{
@@ -104,19 +121,19 @@ class Controler
 		}
 		private function accueil()
 		{
+			//Si la personne est connecté
 			if(isset($_SESSION["UserID"])){
 				$username = $_SESSION["UserID"];
 				$bte = new Bouteille();
-				$data1 = $bte->cellierParUsager($username);
-				$data = $bte->getListeBouteilleCellier();
+				$data = $bte->cellierParUsager($username);
+				$data1 = $bte->getListeBouteilleCellierByCellier($username);
 				include("vues/entete.php");
 				include("vues/cellier.php");
 				include("vues/pied.php");
 			}
 			else{
-				include("vues/entete.php");
-				include("vues/cellier.php");
-				include("vues/pied.php");
+				//Si la personne n'est pas connecté
+				$this->FormLogin();
 			}
                   
 		}
@@ -152,7 +169,10 @@ class Controler
 		{
 			$bte = new Bouteille();
 			$data = $bte->AjoutCellier($_GET['nom'],$_GET['username']);
-			$this->accueil();
+			//$this->accueil();
+			// a changer lorsque qu'on mettera en live
+			header("Location: http://localhost/TestPush/vino/");
+			
 		}
 
 
@@ -236,16 +256,6 @@ class Controler
 			}
 			
 		}
-
-		private function AjoutCellier()
-        {
-			/*$bte = new Bouteille();
-			$resultat = $bte->AjoutUnCellier($_GET["User"]);*/
-			include("vues/entete.php");
-			include("vues/ajoutCellier.php");
-			include("vues/pied.php");
-
-        }
 
         private function FormSignup()
         {
