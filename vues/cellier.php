@@ -1,16 +1,3 @@
-<!--<div class="cellier column--center">
-    <section class="cellier-header row--center">
-        <form class="filtre row--center" action="?requete=triBouteille" method="POST">
-            <p> Trier:</p>
-            <select name="categorie" class="categorieBouteille">
-				<option value="nom">Nom</option>
-				<option value="prix">Prix</option>
-				<option value="types">Type de vin</option>
-				<option value="quantite">Quantité</option>
-				<option value="millesime">Millesime</option>
-				<option value="pays">Pays</option>
-
-			</select>-->
 <?php            
         if(isset($_SESSION["UserID"])){
 
@@ -87,4 +74,3 @@
         echo "<div><h1>Connectez-vous pour avoir accès à votre cellier</h1></div>";
     }
     ?>
-

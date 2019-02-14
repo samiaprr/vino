@@ -76,7 +76,7 @@ class Bouteille extends Modele {
 		return $rows;
 	}
 	
-	public function getListeBouteilleCellierByCellier($username)
+	public function getListeBouteilleCellierByCellier($id_cellier)
 	{
 		
 		$rows = Array();
@@ -102,8 +102,7 @@ class Bouteille extends Modele {
 					INNER JOIN vino__saq b ON c.id_bouteille_saq = b.id
 					INNER JOIN vino__types t ON t.id = b.types
 					INNER JOIN cellier l ON l.id_cellier = c.id_cellier
-					INNER JOIN usager u ON u.username = l.id_user
-					WHERE u.username="' . $username . '"
+					WHERE l.id_cellier="' . $id_cellier . '"
 						'; 
 		if(($res = $this->_db->query($requete)) ==	 true)
 		{

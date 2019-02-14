@@ -28,12 +28,21 @@
         </div>
         <img src="images/logoClear.png" alt="logo de Vino" width="35%" height="35%" />
         <nav>
-
-            <li id='monCellier'><a href="?requete=monCellier">Mon cellier</a></li>
+			<li><a href="?requete=acceuil">Acceuil</a></li>
+<?php
+    if(isset($_SESSION["cellier_nom"]))
+    {
+         echo "<li id='monCellier'><a href='?requete=monCellier'>Mon cellier[<span id=monCellierNom>".$_SESSION["cellier_nom"]."</span>]</a></li>";
+    }
+	else{
+		echo "<li id='monCellier'><a href='?requete=monCellier'>Mon cellier[NULL]</a></li>";
+	}
+            ?>
+            
             <li id="ajouterBouteilleCellier"><a href="?requete=ajouterNouvelleBouteilleCellier">Ajouter une bouteille au cellier</a></li>
             <li id="signup"><a href="?requete=FormSignup">Sign Up</a></li>
             <li id="login"><a href="?requete=FormLogin">Login</a></li>
-            <li id="logout"><a href="?requete=Logout">Logout</a></li>
+            
             <li id="myaccount"><a href="?requete=FormModifyAccount">My Account[<span id="UserID">
 <?php
 	if(isset($_SESSION["UserID"]))
@@ -53,7 +62,7 @@
                 echo "<li id='ajout'><a href='?requete=FormCellier&User=" . $_SESSION["UserID"] . "'>Ajouter un cellier</a></li>";
             }
             ?>
-
+			<li id="logout"><a href="?requete=Logout">Logout</a></li>
             </ul>
         </nav>
 

@@ -6,10 +6,13 @@
     <div id="loginAccount">
         <h1>My Account</h1>
         <form method="POST" class="column--center">
-            <h2><label for='usager'>Nom d'usager : <b> <em> <?php echo $UserID ?>   </b></em></label></h2><br>
-
+            <h2><label for='usager'>Nom d'usager : <b> <em id='usager'> <?php echo $UserID ?>   </b></em></label></h2>
+			
             <input type="button" value="Modify Mot de Passs" onclick='FormUpdateUser("<?php echo $UserID ?>")' />
-			<input type="button" value="Modify Nom de Cellier" onclick='FormUpdateCellierNom("<?php echo $UserID ?>")' />
+			<h2><label for='cellier'> Cellier : </label></h2>
+			<select id="cellier" name="cellier" ><option>Choissir Cellier</option></select>
+			<input type="button" value="Choissir le Cellier" onclick='ChoissirLeCellier(cellier.value)' />
+			<input type="button" value="Modify Nom de Cellier" onclick='FormUpdateCellierNom(cellier.value)' />
         </form>
 
     </div>
@@ -20,6 +23,8 @@
 
 ?>
 <script>
+ajaxGetCellierNomFunction();
+
 function showMessage(message) {
 
     var showMessage = document.getElementById('errMessage');
@@ -87,9 +92,9 @@ function trim(str) {　　
     }
 }
 
-function UpdateCellierNom(username) {
+function UpdateCellierNom(id_cellier) {
 	
-
+console.log('UpdateCellierNom id_cellier='+id_cellier );
     var cellierNom = document.querySelector('input[name="cellier"]').value;
 
 
@@ -102,10 +107,49 @@ function UpdateCellierNom(username) {
 
     } else {
 
-        ajaxUpdateCellierNomFunction(username);
+        ajaxUpdateCellierNomFunction(id_cellier);
     }
 }
 
+function ChoissirLeCellier(id_cellier){
+    
+	console.log('ChoissirLeCellier');
+    var ajaxRequest; // La variable pour Ajax 
+
+    ajaxRequest = new XMLHttpRequest();
+
+    // Créer une fonction qui recevra les données 
+    // envoyées par le serveur et mettra à jour 
+    // la div dans la page.
+    ajaxRequest.onreadystatechange = function() {
+
+        if (ajaxRequest.readyState == 4) {
+            var ajaxDisplay = document.getElementById('monCellierNom');
+            ajaxDisplay.innerHTML = ajaxRequest.responseText;
+            var temp = trim(ajaxRequest.responseText);
+
+            console.log('repose='+temp)
+   /*         if (temp != '"true"') {
+                showMessage(ajaxRequest.responseText);
+            } else {
+                showMessage('Choissir Success!');
+
+            }
+*/
+        }
+    }
+
+    // On récupère les valeurs pour les 
+    // transmettre au script serveur.
+
+  
+
+    var queryString = "?requete=choissirCellier&id_cellier=" + id_cellier;
+
+
+    ajaxRequest.open("GET", "./index.php" + queryString, true);
+    ajaxRequest.send(null);
+}
 
 function ajaxUpdateUserFunction(username) {
     var ajaxRequest; // La variable pour Ajax 
@@ -120,7 +164,7 @@ function ajaxUpdateUserFunction(username) {
         if (ajaxRequest.readyState == 4) {
             var ajaxDisplay = document.getElementById('errMessage');
             //ajaxDisplay.innerHTML = ajaxRequest.responseText;
-            var temp = trim(ajaxRequest.responseText);
+           var temp = trim(ajaxRequest.responseText);
 
             if (temp != '"true"') {
                 showMessage(ajaxRequest.responseText);
@@ -144,7 +188,7 @@ function ajaxUpdateUserFunction(username) {
     ajaxRequest.send(null);
 }
 
-function ajaxUpdateCellierNomFunction(username) {
+function ajaxUpdateCellierNomFunction(id_cellier) {
     var ajaxRequest; // La variable pour Ajax 
 
     ajaxRequest = new XMLHttpRequest();
@@ -172,7 +216,8 @@ function ajaxUpdateCellierNomFunction(username) {
     // On récupère les valeurs pour les 
     // transmettre au script serveur.
     var cellierNom = document.querySelector('input[name="cellier"]').value;
-    var queryString = "?requete=updateCellierNom&username=" + username;
+	console.log('cellierNom=' + cellierNom + ' ' + id_cellier);
+    var queryString = "?requete=updateCellierNom&id_cellier=" + id_cellier;
 
     queryString += "&nom=" + cellierNom;
     ajaxRequest.open("GET", "./index.php" + queryString, true);
@@ -183,9 +228,10 @@ function QuitUpdate() {
     location.href = "./index.php";
 }
 
-function ajaxGetCellierNomFunction(username) {
+function ajaxGetCellierNomFunction(username1) {
     var ajaxRequest; // La variable pour Ajax 
-
+	var username = trim(document.getElementById('usager').textContent);
+	console.log('username=' + username);
     ajaxRequest = new XMLHttpRequest();
 		
     // Créer une fonction qui recevra les données 
@@ -196,7 +242,7 @@ function ajaxGetCellierNomFunction(username) {
         if (ajaxRequest.readyState == 4) {
             var ajaxDisplay = document.getElementById('cellier');
 			console.log(ajaxRequest.responseText);
-            ajaxDisplay.value = ajaxRequest.responseText;
+            ajaxDisplay.innerHTML = ajaxRequest.responseText;
            var temp = trim(ajaxRequest.responseText);
 		 
 /*
@@ -243,17 +289,18 @@ function FormUpdateUser(username) {
 
 
 }
-
+/*
 function FormUpdateCellierNom(username) {
 	
 	var stringHTML = "";
 	stringHTML += `
 	<h1>My Account</h1>
 		<form method="POST" class="column--center">
-            <label for='cellier'>Nom de cellier : <b> </label><br>
+			<h2><label for='usager'>Nom d'usager : <b> <em id='usager'> <?php echo $UserID ?>   </b></em></label></h2><br>
+            <label for='cellier'>Nom de cellier : </label>
 
-            <input type="text" id="cellier" name="cellier" /><br>
-            
+          
+            <select id="cellier" name="cellier"></select>
             <input type="button" value="Modify" onclick='UpdateCellierNom("<?php echo $UserID ?>")' />
 
         </form>
@@ -266,6 +313,29 @@ function FormUpdateCellierNom(username) {
 
 
 }
+*/
+function FormUpdateCellierNom(id_cellier) {
+	console.log('FormUpdateCellierNom id_cellier=' +id_cellier);
+	var stringHTML = "";
+	stringHTML += `
+	<h1>My Account</h1>
+		<form method="POST" class="column--center">
+			<h2><label for='usager'>Nom d'usager : <b> <em id='usager'> <?php echo $UserID ?>   </b></em></label></h2><br>
+            <label for='cellier'>Nom de cellier : <b> </label><br>
 
+            <input type="text" id="cellier" name="cellier" /><br>
+            
+            <input type="button" value="Modify" onclick="UpdateCellierNom('`+id_cellier+`')" />
+			<input type="button" value="Cancel" onclick='QuitUpdate()' />
+        </form>
+        <div id="errMessage"></div>`;
+
+		var loginAccount = document.getElementById('loginAccount');
+		loginAccount.innerHTML = stringHTML;
+
+		ajaxGetCellierNomFunction(id_cellier);
+
+
+}
 
 </script>

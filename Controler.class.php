@@ -20,7 +20,10 @@ class Controler
 		 */
 		public function gerer()
 		{
-			
+			if(!(isset($_SESSION['UserID'])) && $_GET['requete'] != "FormSignup" && $_GET['requete'] != "FormLogin" && $_GET['requete'] != "signup" && $_GET['requete'] != "login"){
+				
+				$this->accueil();
+			}else{
 			switch ($_GET['requete']) {
 				case 'listeBouteille':
 					$this->listeBouteille();
@@ -62,7 +65,7 @@ class Controler
 					$this->updateUser($_GET['username'],$_GET['password']);
 					break;
 				case 'updateCellierNom':
-					$this->updateCellierNom($_GET['username'],$_GET['nom']);
+					$this->updateCellierNom($_GET['id_cellier'],$_GET['nom']);
 					break;
 				case "Logout":
 					$this->Logout();
@@ -75,6 +78,13 @@ class Controler
 				case 'monCellier':
 					$this->monCellier();
 					break;
+
+                case 'choissirCellier':
+					$this->choissirCellier($_GET['id_cellier']);
+                  
+					break;
+
+
 				case "FormCellier":
 					$this->formAjoutCellier($_GET['User']);
 					break;
@@ -94,6 +104,8 @@ class Controler
 					break;
 			}
 		}
+		}
+
 		private function SelectCellier()
 		{
 			if(isset($_SESSION["UserID"])){
@@ -110,6 +122,7 @@ class Controler
 				$this->FormLogin();
 			}
                   
+
 		}
 		private function triBouteille()
 		{
@@ -120,7 +133,7 @@ class Controler
 			include("vues/pied.php");
 		}
 		private function accueil()
-		{
+		{/*
 			//Si la personne est connecté
 			if(isset($_SESSION["UserID"])){
 				$username = $_SESSION["UserID"];
@@ -135,16 +148,23 @@ class Controler
 				//Si la personne n'est pas connecté
 				$this->FormLogin();
 			}
-                  
+			*/
+			
+			$bte = new Bouteille();
+            $data = $bte->getListeBouteilleCellier();
+			include("vues/entete.php");
+			include("vues/cellier.php");
+			include("vues/pied.php");
+                 
 		}
 
 		
 		private function monCellier()
 		{
 			$bte = new Bouteille();
-			if(isset($_SESSION["UserID"])){
-				$username = $_SESSION["UserID"];
-				$data = $bte->getListeBouteilleCellierByCellier($username);
+			if(isset($_SESSION["id_cellier"])){
+				$id_cellier = $_SESSION["id_cellier"];
+				$data = $bte->getListeBouteilleCellierByCellier($id_cellier);
 			}else{
 				 $data = $bte->getListeBouteilleCellier();
 				
@@ -308,8 +328,14 @@ class Controler
 		private function getCellierNom($username)
         {
 			$c = new Cellier();
-			$resultat = $c->getCellierByUsername($username);
-			echo json_encode($resultat['nom']);
+			$donnees["celliers"] = $c->getCellierByUsername($username);
+
+			foreach($donnees["celliers"]  as $c)
+			{
+				echo "<option value='{$c['id_cellier']}'>{$c['nom']}</option>";
+			
+			}
+			
         }
 		
         private function FormLogin()
@@ -326,6 +352,24 @@ class Controler
 			include("vues/pied.php");
         }		
 		
+        private function choissirCellier($id_cellier)
+        {
+					
+					$c = new Cellier();
+					$donnees["celliers"] = $c->getCellierByid_cellier($id_cellier);
+
+					foreach($donnees["celliers"]  as $c)
+					{
+						$_SESSION["id_cellier"] =$c['id_cellier'];
+						$_SESSION["cellier_nom"] =$c['nom'];
+					}
+					
+
+					echo ($c['nom']);    
+                   
+            
+        }
+    
 		private function login($username,$password)
 		{
 			$u = new User();
@@ -340,6 +384,16 @@ class Controler
 				if($resultat['password'] != $password){
 					echo json_encode('Password pas correct!');
 				}else{
+					
+					$c = new Cellier();
+					$donnees["celliers"] = $c->getCellierByUsername($username);
+
+					foreach($donnees["celliers"]  as $c)
+					{
+						$_SESSION["id_cellier"] =$c['id_cellier'];
+						$_SESSION["cellier_nom"] =$c['nom'];
+					}
+					
 					$_SESSION["UserID"] =$username;
 					echo json_encode('true');
 				}
@@ -367,10 +421,10 @@ class Controler
 			
 		}
 		
-		private function updateCellierNom($username,$nom)
+		private function updateCellierNom($id_cellier,$nom)
 		{
 			$c = new Cellier();
-			$resultat = $c->updateCellierNom($username,$nom);
+			$resultat = $c->updateCellierNom($id_cellier,$nom);
             
             if(!$resultat){
     

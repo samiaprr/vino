@@ -240,10 +240,12 @@ h1 {
 
 .ajouter,
 .modifier {
-    background-color: #F8EEE2;
+    background-color:whitesmoke;
+    margin: 20px;
     padding: 15px;
     border-radius: 10px;
     font-family: 'Playfair Display', serif;
+    text-align: center;
 }
 
 form input {
@@ -254,8 +256,10 @@ form input {
 /* Page login */
 
 #loginAccount {
+    background-color: whitesmoke;
+    width: 75%;
     justify-content: center;
-    margin: 15px;
+    margin: 0 auto;
 }
 
 #loginAccount > form {
