@@ -5,7 +5,7 @@
         <ul class="listeAutoComplete">
 
         </ul>
-            <div >
+            <div>
                 <p>Nom : <span data-id="" class="nom_bouteille"></span></p>
                 <p>Millesime : <input name="millesime"></p>
                 <p>Quantite : <input name="quantite" value="1"></p>

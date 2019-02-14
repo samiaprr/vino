@@ -268,6 +268,12 @@ class Bouteille extends Modele {
         $res = $this->_db->query($requete); 
 		return $res;
 	}
+	public function cellierParUsager($username)
+	{
+		$requete = "SELECT * from cellier where id_user = '" . $username . "'";
+		$res = $this->_db->query($requete); 
+		return $res;
+	}
 }
 
 
