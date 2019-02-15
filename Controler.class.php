@@ -154,11 +154,15 @@ class Controler
 		private function monCellier()
 		{
 			$bte = new Bouteille();
+			
 			if(isset($_SESSION["id_cellier"])){
+				$username = $_SESSION["UserID"];
 				$id_cellier = $_SESSION["id_cellier"];
-				$data = $bte->getListeBouteilleCellierByCellier($id_cellier);
+				$data = $bte->cellierParUsager($username);
+				$data1 = $bte->getListeBouteilleCellierByCellier($id_cellier);
 			}else{
-				 $data = $bte->getListeBouteilleCellier();
+				$data = $bte->cellierParUsager($username);
+				 $data1 = $bte->getListeBouteilleCellier();
 				
 			}
 			
