@@ -255,7 +255,7 @@ function DisplayLogin() {
     var myaccount = document.getElementById('myaccount');
 
 
-
+/* 
     if (UserID == "NULL") {
         myaccount.style.display = "none";
         logout.style.display = "none";
@@ -263,7 +263,7 @@ function DisplayLogin() {
         ajouterBouteilleCellier.style.display = "none";
 
     } else {
-        monCellier.style.display = "block";
+      
         ajouterBouteilleCellier.style.display = "block";
         myaccount.style.display = "block";
         logout.style.display = "block";
@@ -273,7 +273,7 @@ function DisplayLogin() {
         login.style.display = "none";
 
 
-    }
+    } */
 
 
 }
