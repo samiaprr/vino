@@ -22,7 +22,7 @@
             </form>
             </section>
             <section>    
-            <form class='filtre row--center' action='index.php?requete=rechercheBouteille' method='POST'>
+            <form class='filtre column--center' action='index.php?requete=rechercheBouteille' method='POST'>
             <p> Recherche :</p>
             <select name='categorie' class='categorieBouteille'>
                 <option value='nom'>Nom</option>
@@ -32,8 +32,10 @@
                 <option value='millesime'>Millesime</option>
                 <option value='pays'>Pays</option>
             </select>
-            <input type='text' name='recherche'>
-            <input type='submit' value='recherche' />
+            <fieldset class='row--center'>
+                <input type='text' name='recherche'>
+                <input type='submit' value='recherche' />
+            </fieldset>
         </form></section>
             <section>
             <h3> Vos celliers </h3>
