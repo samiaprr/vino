@@ -27,7 +27,7 @@
             foreach ($data as $cle => $celli){
                 echo "<li><a href='index.php?requete=SelectionCellier&id=" . $celli['id_cellier'] . "'>" . $celli['nom']. "</a></li>";
             }
-            echo "</ul>";
+            echo "</ul></section>";
         
     foreach ($data1 as $cle => $bouteille) {
  
@@ -67,7 +67,7 @@
             </div>
 			
         </div>
-        </div>";     
+        ";     
         }
     }
     else{
