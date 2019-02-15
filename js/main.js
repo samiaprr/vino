@@ -11,25 +11,26 @@ const BaseURL = window.location.origin + window.location.pathname;
 
 //const BaseURL = "http://127.0.0.1/vino/";
 console.log(BaseURL);
-window.addEventListener('load', function () {
+window.addEventListener('load', function() {
     const BaseURL = window.location.origin + window.location.pathname;
     console.log("load");
     console.log("allo");
     DisplayLogin();
-    document.querySelectorAll(".btnBoire").forEach(function (element) {
+    document.querySelectorAll(".btnBoire").forEach(function(element) {
         console.log(element);
 
-        element.addEventListener("click", function (evt) {
+        element.addEventListener("click", function(evt) {
             // Je disabled le btn ajouter le temps de la requête.
             element.disabled = true;
             // Je vais chercher la quantite de cette bouteille.
             let quantite = evt.composedPath();
             console.dir(quantite);
-            qt = quantite[2].children[3].children[1];
-            quantite = quantite[2].children[4].children[2];
-            
-            console.dir(evt.target);
-            qtValue = qt.querySelector(".int").innerHTML;
+            quantite = quantite[2].children[3].children[1];
+            console.dir(quantite);
+
+            quantite = quantite.firstElementChild;
+            console.dir(quantite);
+            qt = quantite.innerHTML;
             console.log(document.baseURI);
             let id = evt.target.parentElement.dataset.id;
             let requete = new Request(BaseURL + "?requete=boireBouteilleCellier", {
@@ -41,7 +42,6 @@ window.addEventListener('load', function () {
                 .then(response => {
                     if (response.status === 200) {
                         console.dir(response);
-                        //console.log( response.body.getReader())
                         return response.json();
                     } else {
                         throw new Error('Erreur');
@@ -49,16 +49,14 @@ window.addEventListener('load', function () {
                 })
                 .then(response => {
                     // Si la reponse est Ok changer la quantité dans le cellier sans recharger la page.
-                    console.dir(response.body.getReader());
-                    console.log(qtValue);
-                    if (parseInt(qtValue) == 0) {
-                        //quantite = quantite[2].children[3].children[1];
-                        qtValue = parseInt(qtValue);
+                    console.dir(quantite);
+                    if (parseInt(qt) == 0) {
+                        quantite.innerHTML = parseInt(qt);
                         // Je reéactive le bouton pour un ajout futur.
                         element.disabled = false;
 
                     } else {
-                        qtValue.innerHTML = parseInt(qtValue) - 1;
+                        quantite.innerHTML = parseInt(qt) - 1;
                         element.disabled = false;
                     }
 
@@ -69,18 +67,18 @@ window.addEventListener('load', function () {
         })
 
     });
-    document.querySelectorAll(".btnModif").forEach(function (element) {
+    document.querySelectorAll(".btnModif").forEach(function(element) {
         //console.log(element);
-        element.addEventListener("click", function (evt) {
+        element.addEventListener("click", function(evt) {
             let id = evt.target.parentElement.dataset.id;
             let url = ("?requete=ModificationFormulaire&Id=" + id);
             window.location.href = url;
         });
     });
 
-    document.querySelectorAll(".btnAjouter").forEach(function (element) {
+    document.querySelectorAll(".btnAjouter").forEach(function(element) {
         console.log(element);
-        element.addEventListener("click", function (evt) {
+        element.addEventListener("click", function(evt) {
             let id = evt.target.parentElement.dataset.id;
             let requete = new Request(BaseURL + "?requete=ajouterBouteilleCellier", {
                 method: 'POST',
@@ -89,17 +87,19 @@ window.addEventListener('load', function () {
             console.dir(element);
             element.disabled = true;
             // Je vais chercher la quantite de cette bouteille.
-            //console.dir(evt.parentElement);
+            console.dir(evt.parentElement);
             let quantite = evt.composedPath();
             console.dir(quantite);
-            qt = quantite[2].children[3].children[1];
-            quantite = quantite[2].children[4].children[1];
-            qtValue = qt.querySelector(".int").innerHTML;
-            
+            console.dir(quantite);
+            quantite = quantite[2].children[3].children[1];
+            console.dir(quantite);
+
+            quantite = quantite.firstElementChild;
+            qt = quantite.innerHTML;
             fetch(requete)
                 .then(response => {
                     if (response.status === 200) {
-                        
+                        console.log(response.ok);
 
                         return response.json();
                     } else {
@@ -110,8 +110,8 @@ window.addEventListener('load', function () {
                     console.log(response);
                     // Si la reponse est Ok changer la quantité dans le cellier sans recharger la page.
 
-                    console.dir(qtValue);
-                    qtValue.innerHTML = parseInt(qtValue) + 1;
+                    console.dir(quantite);
+                    quantite.innerHTML = parseInt(qt) + 1;
                     // Je reéactive le bouton pour un ajout futur.
                     element.disabled = false;
 
@@ -128,7 +128,7 @@ window.addEventListener('load', function () {
     let liste = document.querySelector('.listeAutoComplete');
 
     if (inputNomBouteille) {
-        inputNomBouteille.addEventListener("keyup", function (evt) {
+        inputNomBouteille.addEventListener("keyup", function(evt) {
             console.log(evt);
             let nom = inputNomBouteille.value;
             liste.innerHTML = "";
@@ -149,7 +149,7 @@ window.addEventListener('load', function () {
                         console.log(response);
 
 
-                        response.forEach(function (element) {
+                        response.forEach(function(element) {
                             liste.innerHTML += "<li data-id='" + element.id + "'>" + element.nom + "</li>";
                         })
                     }).catch(error => {
@@ -171,7 +171,7 @@ window.addEventListener('load', function () {
         };
 
 
-        liste.addEventListener("click", function (evt) {
+        liste.addEventListener("click", function(evt) {
             console.dir(evt.target)
             if (evt.target.tagName == "LI") {
                 bouteille.nom.dataset.id = evt.target.dataset.id;
@@ -185,7 +185,7 @@ window.addEventListener('load', function () {
 
         let btnAjouter = document.querySelector("[name='ajouterBouteilleCellier']");
         if (btnAjouter) {
-            btnAjouter.addEventListener("click", function (evt) {
+            btnAjouter.addEventListener("click", function(evt) {
                 var param = {
                     "id_bouteille": bouteille.nom.dataset.id,
                     "date_achat": bouteille.date_achat.value,
@@ -195,7 +195,7 @@ window.addEventListener('load', function () {
                     "quantite": bouteille.quantite.value,
                     "millesime": bouteille.millesime.value,
                 };
-                let requete = new Request(BaseURL + "index.php?requete=ajouterNouvelleBouteilleCellier", {
+                let requete = new Request(BaseURL + "?requete=ajouterNouvelleBouteilleCellier", {
                     method: 'POST',
                     body: JSON.stringify(param)
                 });
@@ -222,7 +222,7 @@ window.addEventListener('load', function () {
     let btnMenuMobile = document.querySelector(".pointsMenu > img");
     let menu = document.querySelector("nav");
 
-    btnMenuMobile.addEventListener("click", function () {
+    btnMenuMobile.addEventListener("click", function() {
 
         console.log("menu");
         menu.classList.toggle("active");
@@ -230,9 +230,11 @@ window.addEventListener('load', function () {
 
     // Description expanding 
 
-    document.querySelectorAll(".voir-plus").forEach(function (element) {
+    document.querySelectorAll(".voir-plus").forEach(function(element) {
+        
         if (element) {
-            element.addEventListener("click", function (e) {
+            element.addEventListener("click", function(e) {
+                console.log(e.target);
                 let divDescription = next(e.target);
                 divDescription.classList.toggle("active-flex");
                 fadeIn(divDescription);
@@ -245,28 +247,28 @@ window.addEventListener('load', function () {
 
 function DisplayLogin() {
     var UserID = trim(document.getElementById('UserID').textContent);
-	var monCellier = document.getElementById('monCellier');
-	var ajouterBouteilleCellier = document.getElementById('ajouterBouteilleCellier');
+    var monCellier = document.getElementById('monCellier');
+    var ajouterBouteilleCellier = document.getElementById('ajouterBouteilleCellier');
     var login = document.getElementById('login');
     var logout = document.getElementById('logout');
     var signup = document.getElementById('signup');
     var myaccount = document.getElementById('myaccount');
 
-	
+
 
     if (UserID == "NULL") {
         myaccount.style.display = "none";
         logout.style.display = "none";
-		monCellier.style.display = "none";
-		ajouterBouteilleCellier.style.display = "none";
-	
+        monCellier.style.display = "none";
+        ajouterBouteilleCellier.style.display = "none";
+
     } else {
-		monCellier.style.display = "block";
-		ajouterBouteilleCellier.style.display = "block";
+        monCellier.style.display = "block";
+        ajouterBouteilleCellier.style.display = "block";
         myaccount.style.display = "block";
         logout.style.display = "block";
-		
-	
+
+
         signup.style.display = "none";
         login.style.display = "none";
 
@@ -284,7 +286,7 @@ function fadeIn(el) {
     el.style.opacity = 0;
 
     var last = +new Date();
-    var tick = function () {
+    var tick = function() {
         el.style.opacity = +el.style.opacity + (new Date() - last) / 400;
         last = +new Date();
 
