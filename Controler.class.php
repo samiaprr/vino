@@ -143,12 +143,19 @@ class Controler
 		}
 		private function triBouteille()
 		{
-			$bte = new Bouteille();
-			$data1 = $bte->getTriBouteille($_POST["categorie"],$_POST["ordre"]);
-			include("vues/entete.php");
-			include("vues/cellier.php");
-			include("vues/pied.php");
+			if(isset($_SESSION["UserID"])){
+				$bte = new Bouteille();
+				$data = $bte->cellierParUsager($_SESSION['UserID']);
+				//var_dump($_POST);
+				$data1 = $bte->getTriBouteille($_POST["categorie"],$_POST["ordre"]);
+				include("vues/entete.php");
+				include("vues/cellier.php");
+				include("vues/pied.php");
+			}else{
+				$this->acceuil();
+			}
 		}
+
 		private function accueil()
 		{
 			//Si la personne est connecté
