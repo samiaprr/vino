@@ -83,8 +83,7 @@ class Controler
 					$this->choissirCellier($_GET['id_cellier']);
                   
 					break;
-
-
+					
 				case "FormCellier":
 					$this->formAjoutCellier($_GET['User']);
 					break;
@@ -133,7 +132,7 @@ class Controler
 			include("vues/pied.php");
 		}
 		private function accueil()
-		{/*
+		{
 			//Si la personne est connecté
 			if(isset($_SESSION["UserID"])){
 				$username = $_SESSION["UserID"];
@@ -148,13 +147,6 @@ class Controler
 				//Si la personne n'est pas connecté
 				$this->FormLogin();
 			}
-			*/
-			
-			$bte = new Bouteille();
-            $data = $bte->getListeBouteilleCellier();
-			include("vues/entete.php");
-			include("vues/cellier.php");
-			include("vues/pied.php");
                  
 		}
 
