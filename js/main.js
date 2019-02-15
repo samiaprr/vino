@@ -25,9 +25,11 @@ window.addEventListener('load', function () {
             // Je vais chercher la quantite de cette bouteille.
             let quantite = evt.composedPath();
             console.dir(quantite);
-            quantite = quantite[2].children[1].children[1];
-            quantite = quantite.children[0];
-            qt = quantite.innerHTML;
+            qt = quantite[2].children[3].children[1];
+            quantite = quantite[2].children[4].children[2];
+            
+            console.dir(evt.target);
+            qtValue = qt.querySelector(".int").innerHTML;
             console.log(document.baseURI);
             let id = evt.target.parentElement.dataset.id;
             let requete = new Request(BaseURL + "?requete=boireBouteilleCellier", {
@@ -39,6 +41,7 @@ window.addEventListener('load', function () {
                 .then(response => {
                     if (response.status === 200) {
                         console.dir(response);
+                        //console.log( response.body.getReader())
                         return response.json();
                     } else {
                         throw new Error('Erreur');
@@ -46,14 +49,16 @@ window.addEventListener('load', function () {
                 })
                 .then(response => {
                     // Si la reponse est Ok changer la quantité dans le cellier sans recharger la page.
-                    console.dir(quantite);
-                    if (parseInt(qt) == 0) {
-                        quantite.innerHTML = parseInt(qt);
+                    console.dir(response.body.getReader());
+                    console.log(qtValue);
+                    if (parseInt(qtValue) == 0) {
+                        //quantite = quantite[2].children[3].children[1];
+                        qtValue = parseInt(qtValue);
                         // Je reéactive le bouton pour un ajout futur.
                         element.disabled = false;
 
                     } else {
-                        quantite.innerHTML = parseInt(qt) - 1;
+                        qtValue.innerHTML = parseInt(qtValue) - 1;
                         element.disabled = false;
                     }
 
@@ -84,16 +89,17 @@ window.addEventListener('load', function () {
             console.dir(element);
             element.disabled = true;
             // Je vais chercher la quantite de cette bouteille.
-            console.dir(evt.parentElement);
+            //console.dir(evt.parentElement);
             let quantite = evt.composedPath();
             console.dir(quantite);
-            quantite = quantite[2].children[1].children[1];
-            quantite = quantite.children[0];
-            qt = quantite.innerHTML;
+            qt = quantite[2].children[3].children[1];
+            quantite = quantite[2].children[4].children[1];
+            qtValue = qt.querySelector(".int").innerHTML;
+            
             fetch(requete)
                 .then(response => {
                     if (response.status === 200) {
-                        console.log(response.ok);
+                        
 
                         return response.json();
                     } else {
@@ -104,8 +110,8 @@ window.addEventListener('load', function () {
                     console.log(response);
                     // Si la reponse est Ok changer la quantité dans le cellier sans recharger la page.
 
-                    console.dir(quantite);
-                    quantite.innerHTML = parseInt(qt) + 1;
+                    console.dir(qtValue);
+                    qtValue.innerHTML = parseInt(qtValue) + 1;
                     // Je reéactive le bouton pour un ajout futur.
                     element.disabled = false;
 
