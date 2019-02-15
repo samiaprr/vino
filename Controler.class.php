@@ -95,6 +95,11 @@ class Controler
 				//	var_dump($_POST["ordre"]);
 					$this->triBouteille();
 					break;
+				case 'rechercheBouteille':
+					//	var_dump($_POST["categorie"]);
+					//	var_dump($_POST["ordre"]);
+					$this->rechercheBouteille();
+					break;
 				case 'SelectionCellier':
 					$this->SelectCellier($_GET['id']);
 					break;
@@ -103,6 +108,19 @@ class Controler
 					break;
 			}
 		}
+		}
+
+
+		private function rechercheBouteille()
+		{
+			$bte = new Bouteille();
+			$data = $bte->cellierParUsager($_SESSION['UserID']);
+
+			$data1 = $bte->getRechercheBouteille($_POST["categorie"],$_POST["recherche"]);
+			// var_dump($data1);
+			include("vues/entete.php");
+			include("vues/cellierRecherche.php");
+			include("vues/pied.php");
 		}
 
 		private function SelectCellier()
@@ -126,7 +144,7 @@ class Controler
 		private function triBouteille()
 		{
 			$bte = new Bouteille();
-			$data = $bte->getTriBouteille($_POST["categorie"],$_POST["ordre"]);
+			$data1 = $bte->getTriBouteille($_POST["categorie"],$_POST["ordre"]);
 			include("vues/entete.php");
 			include("vues/cellier.php");
 			include("vues/pied.php");
@@ -158,6 +176,7 @@ class Controler
 			if(isset($_SESSION["id_cellier"])){
 				$username = $_SESSION["UserID"];
 				$id_cellier = $_SESSION["id_cellier"];
+				var_dump($id_cellier);
 				$data = $bte->cellierParUsager($username);
 				$data1 = $bte->getListeBouteilleCellierByCellier($id_cellier);
 			}else{
@@ -172,7 +191,7 @@ class Controler
                   
 		}
 		
-
+		
 
 		private function formAjoutCellier()
 		{
@@ -185,9 +204,9 @@ class Controler
 		{
 			$bte = new Bouteille();
 			$data = $bte->AjoutCellier($_GET['nom'],$_GET['username']);
-			//$this->accueil();
+			$this->accueil();
 			// a changer lorsque qu'on mettera en live
-			header("Location: http://localhost/TestPush/vino/");
+			//header("Location: http://localhost/TestPush/vino/");
 			
 		}
 
