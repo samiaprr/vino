@@ -126,7 +126,9 @@ class Controler
 		private function triBouteille()
 		{
 			$bte = new Bouteille();
-			$data = $bte->getTriBouteille($_POST["categorie"],$_POST["ordre"]);
+			$username = $_SESSION["UserID"];
+			$data = $data = $bte->cellierParUsager($username);
+			$data1 = $bte->getTriBouteille($_POST["categorie"],$_POST["ordre"]);
 			include("vues/entete.php");
 			include("vues/cellier.php");
 			include("vues/pied.php");
