@@ -2,25 +2,7 @@
         if(isset($_SESSION["UserID"])){
 
         
-                echo "<div class='cellier column--center'>
-                        <section class='cellier-header row--center'>
-                            <form class='filtre row--center' action='?requete=triBouteille' method='POST'>
-                                <p> Trier:</p>
-                                <select name='categorie' class='categorieBouteille'>
-                                    <option value='nom'>Nom</option>
-                                    <option value='prix'>Prix</option>
-                                    <option value='types'>Type de vin</option>
-                                    <option value='quantite'>Quantité</option>
-                                    <option value='millesime'>Millesime</option>
-                                    <option value='pays'>Pays</option>
-                                </select>
-                <select name='ordre' class='ordre'>
-				<option value='ASC'>Croissant</option>
-				<option value='DESC'>Décroissant</option>				
-			    </select>
-            <input type='submit' value='filtre' />
-            </form>
-            </section>
+                echo "
             <section>    
             <form class='filtre row--center' action='index.php?requete=rechercheBouteille' method='POST'>
             <p> Recherche :</p>

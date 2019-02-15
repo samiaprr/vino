@@ -125,6 +125,60 @@ class Bouteille extends Modele {
 		
 		return $rows;
 	}
+
+	/**
+	 * Cette méthode permet de retourner les résultats de recherche pour la fonction d'autocomplete de l'ajout des bouteilles dans le cellier
+	 * 
+	 * @param string $nom La chaine de caractère à rechercher
+	 * @param integer $nb_resultat Le nombre de résultat maximal à retourner.
+	 * 
+	 * @throws Exception Erreur de requête sur la base de données 
+	 * 
+	 * @return array id et nom de la bouteille trouvée dans le catalogue
+	 */
+	public function getRechercheBouteille($categorie,$recherche){
+		$rows = Array();
+		$categorie = $this->_db->real_escape_string($categorie);
+		$recherche = $this->_db->real_escape_string($recherche);
+		
+		// echo $categorie . $recherche ;
+		$requete ='SELECT 
+		c.id as id_bouteille_cellier,
+			c.id_bouteille_saq, 
+			c.date_achat, 
+			c.garde_jusqua, 
+			c.notes, 
+			c.prix, 
+			c.quantite,
+			c.millesime, 
+			b.id,
+			c.nom, 
+			b.types, 
+			b.image, 
+			b.code_saq, 
+			b.url_saq, 
+			c.pays, 
+			b.description,
+			t.types 
+				from bouteille__cellier c 
+				JOIN vino__saq b ON c.id_bouteille_saq = b.id
+				JOIN vino__types t ON t.id = b.types WHERE c.'.$categorie.' LIKE "%'.$recherche.'%"'; 
+		if(($res = $this->_db->query($requete)) == true){
+			if($res->num_rows)
+			{
+				while($row = $res->fetch_assoc())
+				{
+					//var_dump($row);
+					$rows[] = $row;
+				}
+			}	
+		}
+	//	var_dump($rows);
+		return $rows;
+	}
+
+
+
 	/**
 	 * Cette méthode permet de sortir tous les infos d'un cellier spécifique
 	 * 
@@ -212,16 +266,16 @@ class Bouteille extends Modele {
 			c.millesime, 
 			b.id,
 			c.nom, 
-			b.type, 
+			b.types, 
 			b.image, 
 			b.code_saq, 
 			b.url_saq, 
 			c.pays, 
 			b.description,
-			t.type 
+			t.types 
 				from bouteille__cellier c 
 				INNER JOIN vino__saq b ON c.id_bouteille_saq = b.id
-				INNER JOIN vino__type t ON t.id = b.type ORDER BY '. $categorie . ' '.$ordre; 
+				INNER JOIN vino__types t ON t.id = b.types ORDER BY '. $categorie . ' '.$ordre; 
 		if(($res = $this->_db->query($requete)) == true){
 			if($res->num_rows)
 			{
