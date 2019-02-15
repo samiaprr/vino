@@ -11,7 +11,7 @@
             <input type="button" value="Modify Mot de Passs" onclick='FormUpdateUser("<?php echo $UserID ?>")' />
 			<h2><label for='cellier'> Cellier : </label></h2>
 			<select id="cellier" name="cellier" ><option>Choissir Cellier</option></select>
-			<input type="button" value="Choissir le Cellier" onclick='ChoissirLeCellier(cellier.value)' />
+			
 			<input type="button" value="Modify Nom de Cellier" onclick='FormUpdateCellierNom(cellier.value)' />
         </form>
 
@@ -111,7 +111,7 @@ console.log('UpdateCellierNom id_cellier='+id_cellier );
     }
 }
 
-function ChoissirLeCellier(id_cellier){
+/* function ChoissirLeCellier(id_cellier){
     
 	console.log('ChoissirLeCellier');
     var ajaxRequest; // La variable pour Ajax 
@@ -121,10 +121,12 @@ function ChoissirLeCellier(id_cellier){
     // Créer une fonction qui recevra les données 
     // envoyées par le serveur et mettra à jour 
     // la div dans la page.
+
     ajaxRequest.onreadystatechange = function() {
 
         if (ajaxRequest.readyState == 4) {
             var ajaxDisplay = document.getElementById('monCellierNom');
+            console.log(ajaxDisplay);
             ajaxDisplay.innerHTML = ajaxRequest.responseText;
             var temp = trim(ajaxRequest.responseText);
 
@@ -135,21 +137,22 @@ function ChoissirLeCellier(id_cellier){
                 showMessage('Choissir Success!');
 
             }
-*/
+*//* 
         }
-    }
+    } */
 
     // On récupère les valeurs pour les 
     // transmettre au script serveur.
 
   
 
-    var queryString = "?requete=choissirCellier&id_cellier=" + id_cellier;
+    /* var queryString = "?requete=choissirCellier&id_cellier=" + id_cellier;
 
 
     ajaxRequest.open("GET", "./index.php" + queryString, true);
     ajaxRequest.send(null);
-}
+} 
+*/ 
 
 function ajaxUpdateUserFunction(username) {
     var ajaxRequest; // La variable pour Ajax 
