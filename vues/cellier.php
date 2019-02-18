@@ -40,10 +40,11 @@
         </form></section>
             <section>
             <h3> Vos celliers </h3>
-            <form action='?requete=SelectionCellier' method='POST'>
-            <select>";
+            <form action='index.php' method='GET'>
+            <input type='hidden' name='requete' value='SelectionCellier'/>
+            <select name='id'>";
             foreach ($data as $cle => $celli){
-                echo "<option value='" . $celli['id_cellier'] . "'>" . $celli['nom']. "<option>";
+                echo "<option value='" . $celli['id_cellier'] . "'>" . $celli['nom']. "</option>";
             }
             echo "</select><input type='submit' value='Choisir cellier'></form></section>";
         
