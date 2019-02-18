@@ -61,7 +61,7 @@ header {
 
 }
 
-header > img {
+#logo {
     grid-area: logo;
     width: 15%;
     height: auto;
@@ -146,21 +146,32 @@ h1 {
 /* Affichage Cellier */
 
 /*  Cellier - triage */
+ #recherche{
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: auto; 
+    margin-bottom: 20px;
+ }
 
 .cellier-header {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: auto; 
     font-size: 0.80em;
     background-color: whitesmoke;
-    margin: 20px;
     align-self: center;
     height: 5%;
     border-radius: 10px;
+   
 
 }
 
 .filtre {
     width: 50%;
     max-width: 90%;
-    margin-left: 20px;
+    /* margin-left: 20px; */
 
 }
 
@@ -294,11 +305,10 @@ form input {
         display: none;
     }
 
-    header > img {
-        display: none;
+    #logo {
+        width: 50%;
+        height: auto;
     }
-
-
     nav a {
         font-size: 17px;
         display: block;

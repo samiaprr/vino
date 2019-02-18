@@ -3,7 +3,16 @@
 
         
                 echo "<div class='cellier column--center'>
-                        <section class='cellier-header row--center'>
+                    <section>
+                    <h3> Vos celliers </h3>
+                    <form action='index.php' method='GET'>
+            <input type='hidden' name='requete' value='SelectionCellier'/>
+            <select name='id'>";
+            foreach ($data as $cle => $celli){
+                echo "<option value='" . $celli['id_cellier'] . "'>" . $celli['nom']. "</option>";
+            }
+            echo "</select><input type='submit' value='Choisir cellier'></form></section>";
+                      echo "<section class='cellier-header column--center'>
                         <li id='ajouterBouteilleCellier'><a href='?requete=ajouterNouvelleBouteilleCellier'>Ajouter une bouteille au cellier</a></li>
                             <form class='filtre row--center' action='?requete=triBouteille' method='POST'>
                                 <p> Trier:</p>
@@ -22,9 +31,8 @@
             <input type='submit' value='filtre' />
             </form>
             </section>
-            <section>    
-            <form class='filtre column--center' action='index.php?requete=rechercheBouteille' method='POST'>
-            <p> Recherche :</p>
+            <section id='recherche' class='row--center'>    
+            <form class='filtre row--center' action='index.php?requete=rechercheBouteille' method='POST'>
             <select name='categorie' class='categorieBouteille'>
                 <option value='nom'>Nom</option>
                 <option value='prix'>Prix</option>
@@ -33,20 +41,11 @@
                 <option value='millesime'>Millesime</option>
                 <option value='pays'>Pays</option>
             </select>
-            <fieldset class='row--center'>
+            
                 <input type='text' name='recherche'>
                 <input type='submit' value='recherche' />
-            </fieldset>
-        </form></section>
-            <section>
-            <h3> Vos celliers </h3>
-            <form action='index.php' method='GET'>
-            <input type='hidden' name='requete' value='SelectionCellier'/>
-            <select name='id'>";
-            foreach ($data as $cle => $celli){
-                echo "<option value='" . $celli['id_cellier'] . "'>" . $celli['nom']. "</option>";
-            }
-            echo "</select><input type='submit' value='Choisir cellier'></form></section>";
+                 </form></section>";
+
         
     foreach ($data1 as $cle => $bouteille) {
  
