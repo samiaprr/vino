@@ -3,8 +3,7 @@
 
         
                 echo "<div class='cellier column--center'>
-                    <section>
-                    <h3> Vos celliers </h3>
+                    <section class='row--center' id='choix-cellier'>
                     <form action='index.php' method='GET'>
             <input type='hidden' name='requete' value='SelectionCellier'/>
             <select name='id'>";
@@ -46,9 +45,9 @@
                 <input type='submit' value='recherche' />
                  </form></section>";
 
-        
+    
     foreach ($data1 as $cle => $bouteille) {
- 
+        
     
     echo    "<div class='bouteille column--center' data-quantite='' data-id='" . $bouteille['id_bouteille_cellier'] . "'>
             <img class='bouteille--img' src='https:" . $bouteille['image'] . "'>
@@ -87,6 +86,7 @@
         </div>
         ";     
         }
+   
     }
     else{
         echo "<div><h1>Connectez-vous pour avoir accès à votre cellier</h1></div>";
