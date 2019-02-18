@@ -26,9 +26,9 @@
             <img src="./images/quatrePoints.png" alt="menu mobile" />
 
         </div>
-        <a href="?requete=acceuil"><img id="logo" src="images/logoClear.png" alt="logo de Vino" width="35%" height="35%" /></a>
+        <a href="?requete=accueil"><img id="logo" src="images/logoClear.png" alt="logo de Vino" width="35%" height="35%" /></a>
         <nav>
-            <li><a href="?requete=acceuil">Mes celliers</a></li>
+            <li><a href="?requete=accueil">Mes celliers</a></li>
           <?php 
             if(!isset($_SESSION["UserID"])){
                 echo '<li id="signup"><a href="?requete=FormSignup">Sign Up</a></li>';

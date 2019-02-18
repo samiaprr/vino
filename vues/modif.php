@@ -8,8 +8,7 @@
     ?>
     <div class="modifierBouteille" vertical layout>
             <div>
-                <form action="index.php" method="get">
-                <input type ="hidden" name="requete" value="ModifBouteille">
+                <form action="index.php?requete=ModifBouteille" method="post">
                     <p>Nom : <input name="nom" value="<?php echo $bouteille['nom'] ?>"></p>
                     <p>Millesime : <input name="millesime" value="<?php echo $bouteille['millesime'] ?>"></p>
                     <p>Quantite : <input name="quantite" value="<?php echo $bouteille['quantite'] ?>"></p>
