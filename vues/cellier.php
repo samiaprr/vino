@@ -4,6 +4,7 @@
         
                 echo "<div class='cellier column--center'>
                         <section class='cellier-header row--center'>
+                        <li id='ajouterBouteilleCellier'><a href='?requete=ajouterNouvelleBouteilleCellier'>Ajouter une bouteille au cellier</a></li>
                             <form class='filtre row--center' action='?requete=triBouteille' method='POST'>
                                 <p> Trier:</p>
                                 <select name='categorie' class='categorieBouteille'>
@@ -22,7 +23,7 @@
             </form>
             </section>
             <section>    
-            <form class='filtre row--center' action='index.php?requete=rechercheBouteille' method='POST'>
+            <form class='filtre column--center' action='index.php?requete=rechercheBouteille' method='POST'>
             <p> Recherche :</p>
             <select name='categorie' class='categorieBouteille'>
                 <option value='nom'>Nom</option>
@@ -32,16 +33,20 @@
                 <option value='millesime'>Millesime</option>
                 <option value='pays'>Pays</option>
             </select>
-            <input type='text' name='recherche'>
-            <input type='submit' value='recherche' />
+            <fieldset class='row--center'>
+                <input type='text' name='recherche'>
+                <input type='submit' value='recherche' />
+            </fieldset>
         </form></section>
             <section>
             <h3> Vos celliers </h3>
-            <ul>";
+            <form action='index.php' method='GET'>
+            <input type='hidden' name='requete' value='SelectionCellier'/>
+            <select name='id'>";
             foreach ($data as $cle => $celli){
-                echo "<li><a href='index.php?requete=SelectionCellier&id=" . $celli['id_cellier'] . "'>" . $celli['nom']. "</a></li>";
+                echo "<option value='" . $celli['id_cellier'] . "'>" . $celli['nom']. "</option>";
             }
-            echo "</ul></section>";
+            echo "</select><input type='submit' value='Choisir cellier'></form></section>";
         
     foreach ($data1 as $cle => $bouteille) {
  
