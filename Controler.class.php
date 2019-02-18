@@ -143,7 +143,6 @@ class Controler
 		}
 		private function triBouteille()
 		{
-<<<<<<< HEAD
 			if(isset($_SESSION["UserID"])){
 				$bte = new Bouteille();
 				$data = $bte->cellierParUsager($_SESSION['UserID']);
@@ -155,15 +154,6 @@ class Controler
 			}else{
 				$this->acceuil();
 			}
-=======
-			$bte = new Bouteille();
-			$username = $_SESSION["UserID"];
-			$data = $data = $bte->cellierParUsager($username);
-			$data1 = $bte->getTriBouteille($_POST["categorie"],$_POST["ordre"]);
-			include("vues/entete.php");
-			include("vues/cellier.php");
-			include("vues/pied.php");
->>>>>>> 7abc698adfb7221e02eb79e2447416b1450f96f3
 		}
 
 		private function accueil()
