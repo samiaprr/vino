@@ -4,6 +4,7 @@
         
                 echo "<div class='cellier column--center'>
                         <section class='cellier-header row--center'>
+                        <li id='ajouterBouteilleCellier'><a href='?requete=ajouterNouvelleBouteilleCellier'>Ajouter une bouteille au cellier</a></li>
                             <form class='filtre row--center' action='?requete=triBouteille' method='POST'>
                                 <p> Trier:</p>
                                 <select name='categorie' class='categorieBouteille'>
@@ -39,11 +40,12 @@
         </form></section>
             <section>
             <h3> Vos celliers </h3>
-            <ul>";
+            <form action='?requete=SelectionCellier' method='POST'>
+            <select>";
             foreach ($data as $cle => $celli){
-                echo "<li><a href='index.php?requete=SelectionCellier&id=" . $celli['id_cellier'] . "'>" . $celli['nom']. "</a></li>";
+                echo "<option value='" . $celli['id_cellier'] . "'>" . $celli['nom']. "<option>";
             }
-            echo "</ul></section>";
+            echo "</select><input type='submit' value='Choisir cellier'></form></section>";
         
     foreach ($data1 as $cle => $bouteille) {
  
