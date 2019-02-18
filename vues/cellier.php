@@ -5,12 +5,13 @@
                 echo "<div class='cellier column--center'>
                     <section>
                     <h3> Vos celliers </h3>
-                    <form action='?requete=SelectionCellier' method='POST'>
-                    <select>";
-                    foreach ($data as $cle => $celli){
-                        echo "<option value='" . $celli['id_cellier'] . "'>" . $celli['nom']. "</option>";
-                    }
-                    echo "</select><input type='submit' value='Choisir cellier'></form></section>";
+                    <form action='index.php' method='GET'>
+            <input type='hidden' name='requete' value='SelectionCellier'/>
+            <select name='id'>";
+            foreach ($data as $cle => $celli){
+                echo "<option value='" . $celli['id_cellier'] . "'>" . $celli['nom']. "</option>";
+            }
+            echo "</select><input type='submit' value='Choisir cellier'></form></section>";
                       echo "<section class='cellier-header column--center'>
                         <li id='ajouterBouteilleCellier'><a href='?requete=ajouterNouvelleBouteilleCellier'>Ajouter une bouteille au cellier</a></li>
                             <form class='filtre row--center' action='?requete=triBouteille' method='POST'>
@@ -43,11 +44,8 @@
             
                 <input type='text' name='recherche'>
                 <input type='submit' value='recherche' />
-            
-        </form></section>";
-            
-            
-           
+                 </form></section>";
+
         
     foreach ($data1 as $cle => $bouteille) {
  
