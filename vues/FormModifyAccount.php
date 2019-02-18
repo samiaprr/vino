@@ -209,7 +209,9 @@ function ajaxUpdateCellierNomFunction(id_cellier) {
             if (temp != '"true"') {
                 showMessage(ajaxRequest.responseText);
             } else {
-                showMessage('Update Success!');
+                // a changer lorsque qu'on mettera en live
+                document.location.replace('http://localhost/vino/index.php?requete=SelectionCellier&id=' + id_cellier);
+
 
             }
 
