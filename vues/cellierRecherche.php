@@ -16,6 +16,8 @@
             <input type='text' name='recherche'>
             <input type='submit' value='recherche' />
         </form></section>
+
+        <h1>Résultat de votre recherche</h1>
             ";
         
     foreach ($data1 as $cle => $bouteille) {

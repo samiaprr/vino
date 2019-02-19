@@ -145,6 +145,14 @@ h1 {
 
 /* Affichage Cellier */
 
+#ajouterBouteilleCellier {
+    background-color: red;
+    color: white;
+    padding: 1em 1.5em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
 /*  Cellier - triage */
  #recherche{
     max-width: 100%;
@@ -152,6 +160,16 @@ h1 {
     box-sizing: border-box;
     overflow: auto; 
     margin-bottom: 20px;
+    justify-content: center;
+ }
+
+ #choix-cellier {
+     background-color: rgb(247, 221, 189);
+     max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+
  }
 
 .cellier-header {
@@ -169,9 +187,9 @@ h1 {
 }
 
 .filtre {
-    width: 50%;
+    
     max-width: 90%;
-    /* margin-left: 20px; */
+   
 
 }
 
@@ -370,7 +388,7 @@ form input {
 @media only screen and (min-width:909px) {
     main {
         margin: 0 auto;
-        width: 600px;
+        width: 800px;
     }
 
 
