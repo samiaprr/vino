@@ -14,6 +14,14 @@
     <link rel="stylesheet" href="./css/normalize.css" type="text/css" media="screen">
     <link rel="stylesheet" href="./css/base_h5bp.css" type="text/css" media="screen">
     <link rel="stylesheet" href="./css/main.css" type="text/css" media="screen">
+    
+    <!--  Materialize Compiled and minified CSS -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+
+    <!-- Compiled and minified JavaScript -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> --> 
+
+
     <link href="https://fonts.googleapis.com/css?family=Galada|Istok+Web|Major+Mono+Display|Playfair+Display|Yeseva+One" rel="stylesheet">
     <base href="<?php echo BASEURL; ?>">
     <!--<script src="./js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>-->
