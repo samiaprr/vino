@@ -1,18 +1,19 @@
 <?php
     if(isset($_SESSION["UserID"])){
-
+         $UserID =  $_SESSION["UserID"];
 ?>
 
     <div id="loginAccount">
         <h1>My Account</h1>
         <form method="POST" class="column--center">
-            <h2><label for='usager'>Nom d'usager : <b> <em id='usager'> <?php echo $UserID ?>   </b></em></label></h2>
+            <h2><label for='usager'>Nom d'usager : <b> <em id='usager'> <?php echo $_SESSION["UserID"] ?>   </b></em></label></h2>
 			
-            <input type="button" value="Modify Mot de Passs" onclick='FormUpdateUser("<?php echo $UserID ?>")' />
+            <input type="button" value="Modifier le mot de passe" onclick='FormUpdateUser("<?php echo $UserID ?>")' />
 			<h2><label for='cellier'> Cellier : </label></h2>
-			<select id="cellier" name="cellier" ><option>Choissir Cellier</option></select>
+			<select id="cellier" name="cellier" ><option>Choisir Cellier</option></select>
 			
-			<input type="button" value="Modify Nom de Cellier" onclick='FormUpdateCellierNom(cellier.value)' />
+			<input type="button" value="Modifier le nom de cellier" onclick='FormUpdateCellierNom(cellier.value)'/>
+            <!--<input type="button" value="Modifier le nom de cellier" onclick='Form(cellier.value)'/>-->
         </form>
 
     </div>
