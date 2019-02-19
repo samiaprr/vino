@@ -54,10 +54,17 @@ function Signup(){
 	}else{
 		
 		ajaxFunction();
+		FormLogin();
 	}
 	//var showMessage = document.getElementById('errMessage');
 		//console.log(showMessage);
 }
+
+function FormLogin(){
+
+	this.location='./index.php?requete=FormLogin';
+}
+
 function showMessage(message){
 
 var showMessage = document.getElementById('errMessage');
@@ -69,8 +76,7 @@ showMessage.innerHTML = message;
       var i = 0;
           function change(tar) {
               i++;
-              console.log(i);
-              console.log(showMessage.style.opacity);
+
               var num = 1-i/100;
               showMessage.style.opacity=num;
               if (i === tar) {
@@ -119,6 +125,8 @@ function ajaxFunction(){
    queryString +=  "&password=" + password;
    ajaxRequest.open("GET", "./index.php" + queryString, true);
    ajaxRequest.send(null); 
+   
+  //this.location='./index.php';
 }
 
 </script>					

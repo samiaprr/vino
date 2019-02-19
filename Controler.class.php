@@ -57,6 +57,7 @@ class Controler
 					break;		
 				case 'signup':
 					$this->signup($_GET['username'],$_GET['password']);
+					//$this->accueil();
 					break;
 				case 'login':
 					$this->login($_GET['username'],$_GET['password']);
@@ -314,7 +315,7 @@ class Controler
                 $res = $u->insertUser($username,$password);
                 if($res){
 					$this->creeCellier($username);
-                    echo json_encode('Signup Success!');
+                   // echo json_encode('Signup Success!');
                 }else{
                      echo json_encode($res);
                 }
