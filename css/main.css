@@ -93,7 +93,7 @@ nav a:visited {
 
 /* menu "points" */
 
-.pointsMenu > img {
+.pointsMenu>img {
     width: 50px;
     height: 50px;
     display: grid;
@@ -126,7 +126,7 @@ h1 {
     padding: 0;
 }
 
-.liste > div {
+.liste>div {
     height: 40px;
     line-height: 40px;
     padding: 0 20px;
@@ -137,7 +137,7 @@ h1 {
     color: #FFFFFF;
 }
 
-.liste > div:hover {
+.liste>div:hover {
     color: #000000;
     transition: color 200ms ease-in-out;
 
@@ -146,50 +146,66 @@ h1 {
 /* Affichage Cellier */
 
 #ajouterBouteilleCellier {
-    background-color: red;
-    color: white;
+    margin: 20px;
+    border-radius: 15px;
+    background-color: whitesmoke;
+    color: black;
     padding: 1em 1.5em;
     text-decoration: none;
     text-transform: uppercase;
+    transition: 1s ease;
+}
+
+#ajouterBouteilleCellier:hover{
+    background-color: rgba(245, 245, 245, 0.603);
+    transform: scale(1.1);
+}
+
+#ajouterBouteilleCellier:active {
+    background-color: black;
+}
+
+#ajouterBouteilleCellier:visited {
+    background-color: whitesmoke;
 }
 
 /*  Cellier - triage */
- #recherche{
+#recherche {
     max-width: 100%;
     width: 100%;
     box-sizing: border-box;
-    overflow: auto; 
+    overflow: auto;
     margin-bottom: 20px;
     justify-content: center;
- }
+}
 
- #choix-cellier {
-     background-color: rgb(247, 221, 189);
-     max-width: 100%;
+#choix-cellier {
+    background-color: rgb(247, 221, 189);
+    max-width: 100%;
     width: 100%;
     box-sizing: border-box;
     justify-content: center;
 
- }
+}
 
 .cellier-header {
     max-width: 100%;
     width: 100%;
     box-sizing: border-box;
-    overflow: auto; 
+    overflow: auto;
     font-size: 0.80em;
     background-color: whitesmoke;
     align-self: center;
     height: 5%;
     border-radius: 10px;
-   
+
 
 }
 
 .filtre {
-    
+
     max-width: 90%;
-   
+
 
 }
 
@@ -210,7 +226,7 @@ h1 {
     height: auto;
 }
 
-.bouteille > div {
+.bouteille>div {
     margin-bottom: 15px;
 }
 
@@ -236,9 +252,9 @@ h1 {
 
 
 
-.bouteille > button,
-.options > button,
-.nouvelleBouteille > button,
+.bouteille>button,
+.options>button,
+.nouvelleBouteille>button,
 .modifierBouteille input[type='submit'] {
     background-color: #297373;
     color: white;
@@ -250,8 +266,8 @@ h1 {
 
 }
 
-.options > button:hover,
-.nouvelleBouteille > button:hover,
+.options>button:hover,
+.nouvelleBouteille>button:hover,
 .modifierBouteille input[type='submit']:hover {
     color: #297373;
     background-color: #C49242;
@@ -271,7 +287,7 @@ h1 {
 
 .ajouter,
 .modifier {
-    background-color:whitesmoke;
+    background-color: whitesmoke;
     margin: 20px;
     padding: 15px;
     border-radius: 10px;
@@ -293,7 +309,7 @@ form input {
     margin: 0 auto;
 }
 
-#loginAccount > form {
+#loginAccount>form {
     justify-content: center;
 }
 
@@ -306,7 +322,7 @@ form input {
     header {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-areas: " logo mobileMenuIcon" "menu menu";
+        grid-template-areas: " logo mobileMenuIcon""menu menu";
         justify-items: end;
         padding: 15px;
         background-color: #F8EEE2;
@@ -327,6 +343,7 @@ form input {
         width: 50%;
         height: auto;
     }
+
     nav a {
         font-size: 17px;
         display: block;
@@ -341,7 +358,7 @@ form input {
 
 
 
-    .cellier > h1 {
+    .cellier>h1 {
         display: none;
     }
 
@@ -350,6 +367,7 @@ form input {
         border-radius: 0;
         width: 100%;
     }
+
     .description {
         display: none;
 
@@ -379,7 +397,7 @@ form input {
         height: 10%;
     }
 
-    .bouteille > h1 {
+    .bouteille>h1 {
         display: none;
     }
 
@@ -429,8 +447,8 @@ form input {
 
     }
 
-    .options > button,
-    .nouvelleBouteille > button {
+    .options>button,
+    .nouvelleBouteille>button {
 
         border-radius: 10px;
         padding: 5px;
