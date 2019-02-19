@@ -27,39 +27,19 @@
 
         </div>
         <a href="?requete=accueil"><img id="logo" src="images/logoClear.png" alt="logo de Vino" width="35%" height="35%" /></a>
-        <nav>
-            <li><a href="?requete=accueil">Mes celliers</a></li>
+        <nav>  
           <?php 
             if(!isset($_SESSION["UserID"])){
                 echo '<li id="signup"><a href="?requete=FormSignup">Sign Up</a></li>';
                 echo '<li id="login"><a href="?requete=FormLogin">Login</a></li>';
             }
-          
-          ?>  
-            
-           
-            
-            <li id="myaccount"><a href="?requete=FormModifyAccount">Mon Compte[<span id="UserID">
-<?php
-	if(isset($_SESSION["UserID"]))
-            {
-                $UserID=$_SESSION["UserID"] ;
-            }
-            else
-            {
-                 $UserID="NULL";
-            }
-			echo $UserID;
-
-?></span>]</a></li>
-<?php
-    if(isset($_SESSION["UserID"]))
-            {
+            else{
+                echo "<li><a href='?requete=accueil'>Mes celliers</a></li>";
+                echo "<li id='myaccount'><a href='?requete=FormModifyAccount'>Mon Compte[<span id='UserID'>" .$_SESSION["UserID"] .  "</span>]</a></li>";
                 echo "<li id='ajout'><a href='?requete=FormCellier&User=" . $_SESSION["UserID"] . "'>Ajouter un cellier</a></li>";
+                echo "<li id='logou'><a href='?requete=Logout'>Se déconnecter</a></li>";
             }
-            ?>
-			<li id="logout"><a href="?requete=Logout">Se déconnecter</a></li>
-            </ul>
+          ?>  
         </nav>
 
     </header>
