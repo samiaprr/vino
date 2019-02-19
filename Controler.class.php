@@ -57,6 +57,7 @@ class Controler
 					break;		
 				case 'signup':
 					$this->signup($_GET['username'],$_GET['password']);
+					//$this->accueil();
 					break;
 				case 'login':
 					$this->login($_GET['username'],$_GET['password']);
@@ -123,12 +124,12 @@ class Controler
 			include("vues/pied.php");
 		}
 
-		private function SelectCellier()
+		private function SelectCellier($id)
 		{
 			if(isset($_SESSION["UserID"])){
 				$username = $_SESSION["UserID"];
 				$bte = new Bouteille();
-				$data1 = $bte->getListeBouteilleCellierByIdCellier($_GET['id']);
+				$data1 = $bte->getListeBouteilleCellierByIdCellier($id);
 				$data = $bte->cellierParUsager($username);
 				include("vues/entete.php");
 				include("vues/cellier.php");
@@ -152,7 +153,7 @@ class Controler
 				include("vues/cellier.php");
 				include("vues/pied.php");
 			}else{
-				$this->acceuil();
+				$this->accueil();
 			}
 		}
 
@@ -288,13 +289,13 @@ class Controler
 		private function ModifBouteille()
 		{
 			$bte = new Bouteille();
-			$resultat = $bte->ModifBouteille($_GET);
-
+			$resultat = $bte->ModifBouteille($_POST);
+			
 			if (isset($erreur)) {
 				$this->FormModif($erreur);
 			}
 			else{
-				$this->accueil();
+				$this->SelectCellier($_POST['id']);
 			}
 			
 		}
@@ -314,7 +315,7 @@ class Controler
                 $res = $u->insertUser($username,$password);
                 if($res){
 					$this->creeCellier($username);
-                    echo json_encode('Signup Success!');
+                   // echo json_encode('Signup Success!');
                 }else{
                      echo json_encode($res);
                 }
