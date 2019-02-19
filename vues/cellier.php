@@ -16,7 +16,6 @@
             }
             echo "</select><input type='submit' value='Choisir cellier'></form></section>";
                       echo "<section class='cellier-header column--center'>
-                        <li id='ajouterBouteilleCellier'><a href='?requete=ajouterNouvelleBouteilleCellier'>Ajouter une bouteille au cellier</a></li>
                             <form class='filtre row--center' action='?requete=triBouteille' method='POST'>
                                 <p> Trier:</p>
                                 <select name='categorie' class='categorieBouteille'>
@@ -52,10 +51,11 @@
 
             if(empty($data1)){
                 echo "<div>
-                    <h1> Chosisir un cellier </h1>
+                    <h1> Choisir un cellier </h1>
                 </div>";   
             }
             else{ 
+                 echo " <a id='ajouterBouteilleCellier' href='?requete=ajouterNouvelleBouteilleCellier'>Ajouter une bouteille au cellier</a>";
                 foreach ($data1 as $cle => $bouteille) {
                     echo    "<div class='bouteille column--center' data-quantite='' data-id='" . $bouteille['id_bouteille_cellier'] . "'>
                     <img class='bouteille--img' src='https:" . $bouteille['image'] . "'>
@@ -65,20 +65,20 @@
                     </h1>
                     <button class='voir-plus'>Voir plus</button>
                     <div class='description column--center'>
-                        <p class='nom'>Nom :" . 
+                        <p class='nom'>Nom: " . 
                             $bouteille['nom'] . "
                         </p>
-                        <p class='quantite'>Quantité : <strong class='int'>" . $bouteille['quantite'] . "</strong></p>
-                        <p class='pays'>Pays :" . 
+                        <p class='quantite'>Quantité: <strong class='int'>" . $bouteille['quantite'] . "</strong></p>
+                        <p class='pays'>Pays: " . 
                             $bouteille['pays'] . "
                         </p>
-                        <p class='type'>Type :" . 
+                        <p class='type'>Type: " . 
                             $bouteille['types'] . "
                         </p>
-                        <p class='millesime'>Millesime :" . 
+                        <p class='millesime'>Millesime: " . 
                         $bouteille['millesime'] . "
                         </p>
-                        <p class='prix'>Prix :" . 
+                        <p class='prix'>Prix: " . 
                             $bouteille['prix'] . "
                         </p>
 

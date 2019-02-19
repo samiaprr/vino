@@ -145,8 +145,12 @@ h1 {
 
 /* Affichage Cellier */
 
-.cellier {
-    
+#ajouterBouteilleCellier {
+    background-color: red;
+    color: white;
+    padding: 1em 1.5em;
+    text-decoration: none;
+    text-transform: uppercase;
 }
 
 /*  Cellier - triage */
@@ -384,7 +388,7 @@ form input {
 @media only screen and (min-width:909px) {
     main {
         margin: 0 auto;
-        width: 600px;
+        width: 800px;
     }
 
 
