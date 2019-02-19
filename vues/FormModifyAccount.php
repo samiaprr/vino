@@ -4,7 +4,7 @@
 ?>
 
     <div id="loginAccount">
-        <h1>My Account</h1>
+        <h1>Mon Compte</h1>
         <form method="POST" class="column--center">
             <h2><label for='usager'>Nom d'usager : <b> <em id='usager'> <?php echo $_SESSION["UserID"] ?>   </b></em></label></h2>
 			
@@ -311,7 +311,8 @@ function FormUpdateUser(username) {
     <label for="password">Répéter Mot de passe : </label>
     <input type="password" name="mdp2" />
 
-    <input type="button" value="Modify" onclick='UpdateUser("<?php echo $UserID ?>")' />
+    <input type="button" value="Modifier" onclick='UpdateUser("<?php echo $UserID ?>")' />
+    <input type="button" value="Annuler" onclick='QuitUpdate()' />
 
 	</form>
 
@@ -357,8 +358,8 @@ function FormUpdateCellierNom(id_cellier) {
 
             <input type="text" id="cellier" name="cellier" /><br>
             
-            <input type="button" value="Modify" onclick="UpdateCellierNom('`+id_cellier+`')" />
-			<input type="button" value="Cancel" onclick='QuitUpdate()' />
+            <input type="button" value="Modifier" onclick="UpdateCellierNom('`+id_cellier+`')" />
+			<input type="button" value="Annuler" onclick='QuitUpdate()' />
         </form>
         <div id="errMessage"></div>`;
 

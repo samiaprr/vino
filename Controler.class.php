@@ -319,10 +319,12 @@ class Controler
 			$resultat = $u->getUserByUsername($username);
             
             if(!$resultat){
-                $res = $u->insertUser($username,$password);
+				$passwordEncrypte = password_hash($password, PASSWORD_DEFAULT);
+				$res = $u->insertUser($username,$passwordEncrypte);
+				//$res = $u->insertUser($username,$password);
                 if($res){
 					$this->creeCellier($username);
-                   // echo json_encode('Signup Success!');
+                    echo json_encode('Signup Success!');
                 }else{
                      echo json_encode($res);
                 }
@@ -411,7 +413,28 @@ class Controler
 
             }else
             {
-				if($resultat['password'] != $password){
+				//if (password_verify($password, $hash)) {
+					if (password_verify($password, $resultat['password'])) {
+						// Pass
+						$c = new Cellier();
+					$donnees["celliers"] = $c->getCellierByUsername($username);
+
+					foreach($donnees["celliers"]  as $c)
+					{
+						$_SESSION["id_cellier"] =$c['id_cellier'];
+						$_SESSION["cellier_nom"] =$c['nom'];
+					}
+					
+					$_SESSION["UserID"] =$username;
+					echo json_encode('true');
+						
+					}
+					else {
+						echo json_encode('Password pas correct!');
+						// Invalid
+					}
+			/*
+			if($resultat['password'] != $password){
 					echo json_encode('Password pas correct!');
 				}else{
 					
@@ -426,8 +449,9 @@ class Controler
 					
 					$_SESSION["UserID"] =$username;
 					echo json_encode('true');
-				}
+				}*/
             }
+			
 		}
 		
 		private function updateUser($username,$password)
