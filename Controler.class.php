@@ -104,13 +104,20 @@ class Controler
 				case 'SelectionCellier':
 					$this->SelectCellier($_GET['id']);
 					break;
+				case 'SuppressionCellier':
+					$this->SuppressionCellier($_GET['Id']);
 				default:
 					$this->accueil();
 					break;
 			}
 		}
-		}
+	}
 
+		private function SuppressionCellier()
+		{
+			$bte = new Bouteille();
+			$bte->SuppressionCellier($_GET['Id']);
+		}
 
 		private function rechercheBouteille()
 		{
