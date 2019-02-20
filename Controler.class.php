@@ -270,6 +270,8 @@ class Controler
 				echo json_encode($resultat);
 			}
 			else{
+				$bte = new Bouteille();
+				$resultat = $bte->cellierParUsager($_SESSION["UserID"]);
 				include("vues/entete.php");
 				include("vues/ajouter.php");
 				include("vues/pied.php");
