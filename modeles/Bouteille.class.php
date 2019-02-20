@@ -453,6 +453,21 @@ class Bouteille extends Modele {
 		$res = $this->_db->query($requete); 
 		return $res;
 	}
+
+	/**
+	 * Méthode qui supprime un cellier à l'aide du ID envoyé en paramètre
+	 * 
+	 * @param string $id = Id du cellier
+	 * 
+	 * 
+	 * @return array retourne true ou false comme résultat de requête
+	 */
+	public function SuppressionCellier($id)
+	{
+		$requete = "DELETE FROM cellier WHERE id_cellier ='" . $id . "'";
+		$res = $this->_db->query($requete); 
+		return $res;
+	}
 }
 
 

@@ -61,8 +61,8 @@ function showMessage(message){
       var i = 0;
           function change(tar) {
               i++;
-              console.log(i);
-              console.log(showMessage.style.opacity);
+             // console.log(i);
+            //  console.log(showMessage.style.opacity);
               var num = 1-i/100;
               showMessage.style.opacity=num;
               if (i === tar) {

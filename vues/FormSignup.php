@@ -54,7 +54,7 @@ function Signup(){
 	}else{
 		
 		ajaxFunction();
-		FormLogin();
+		//FormLogin();
 	}
 	//var showMessage = document.getElementById('errMessage');
 		//console.log(showMessage);
@@ -110,7 +110,17 @@ function ajaxFunction(){
       if(ajaxRequest.readyState == 4){
          var ajaxDisplay = document.getElementById('errMessage');
           //ajaxDisplay.innerHTML = ajaxRequest.responseText;
-          showMessage(ajaxRequest.responseText);
+          //showMessage(ajaxRequest.responseText);
+		  
+		     var temp = trim(ajaxRequest.responseText);
+
+            console.log('repose='+temp)
+            if (temp == '"Username already Signup"') {
+                showMessage(ajaxRequest.responseText);
+			}else{
+			
+				 location.href = "./index.php";
+            }
           
       }
    }
@@ -127,6 +137,10 @@ function ajaxFunction(){
    ajaxRequest.send(null); 
    
   //this.location='./index.php';
+}
+
+function trim(str) {　　
+    return str.replace(/(^\s*)|(\s*$)/g, "");　　
 }
 
 </script>					
