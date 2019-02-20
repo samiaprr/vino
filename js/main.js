@@ -15,7 +15,7 @@ window.addEventListener('load', function() {
     const BaseURL = window.location.origin + window.location.pathname;
     console.log("load");
     console.log("allo");
-    DisplayLogin();
+   
     document.querySelectorAll(".btnBoire").forEach(function(element) {
         console.log(element);
 
@@ -222,6 +222,7 @@ window.addEventListener('load', function() {
     let btnMenuMobile = document.querySelector(".pointsMenu > img");
     let menu = document.querySelector("nav");
 
+    console.log(btnMenuMobile);
     btnMenuMobile.addEventListener("click", function() {
 
         console.log("menu");
@@ -245,38 +246,7 @@ window.addEventListener('load', function() {
 
 });
 
-function DisplayLogin() {
-    var UserID = trim(document.getElementById('UserID').textContent);
-    var monCellier = document.getElementById('monCellier');
-    var ajouterBouteilleCellier = document.getElementById('ajouterBouteilleCellier');
-    var login = document.getElementById('login');
-    var logout = document.getElementById('logout');
-    var signup = document.getElementById('signup');
-    var myaccount = document.getElementById('myaccount');
 
-
-/* 
-    if (UserID == "NULL") {
-        myaccount.style.display = "none";
-        logout.style.display = "none";
-        monCellier.style.display = "none";
-        ajouterBouteilleCellier.style.display = "none";
-
-    } else {
-      
-        ajouterBouteilleCellier.style.display = "block";
-        myaccount.style.display = "block";
-        logout.style.display = "block";
-
-
-        signup.style.display = "none";
-        login.style.display = "none";
-
-
-    } */
-
-
-}
 
 function trim(str) {　　
     return str.replace(/(^\s*)|(\s*$)/g, "");

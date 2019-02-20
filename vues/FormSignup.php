@@ -4,19 +4,20 @@
     {
 ?>
   
-		
-    <h1>SignUp</h1>
-		<form method="POST">
+	<div id="formSignUp" >	
+    <h1>Inscription</h1>
+		<form method="POST" class="column--center">
 			<label for='usager'>Nom d'usager : </label>
 			<input type="text" id="username" name="username"/><br>
 			<label for='password'>Mot de passe : </label>
 			<input type="password" name="mdp"/><br>
-			<label for='password'>Répéter mdp  : </label>
+			<label for='password'>Répéter mot de passe  : </label>
 			<input type="password" name="mdp2"/><br>
             <!-- <input type="password" name="nom"/> préférable pour un mot de passe -->
             <input type="hidden" name="requete" value="signup"/>
 			<input type="button" value="SignUp" onclick="Signup()"/>
-		</form>		
+        </form>
+    </div>  		
 		<div id="errMessage"></div>
 <?php
     }

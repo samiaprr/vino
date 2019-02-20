@@ -154,10 +154,10 @@ h1 {
 #recherche {
     grid-area: recherche;
     max-width: 100%;
-    width: 100%;
+    width: 50%;
     box-sizing: border-box;
-    overflow: auto;
-    margin: 20px;
+    /* overflow: auto; */
+    margin: 0 auto;
     justify-content: center;
 }
 
@@ -180,7 +180,7 @@ h1 {
     font-size: 1em;
     background-color: whitesmoke;
     align-self: center;
-    height: 5%;
+   padding: 5px;
     border-radius: 10px;
 
 
@@ -282,9 +282,10 @@ form input {
 }
 
 
-/* Page login */
+/* Page login et Signup */
 
-#loginAccount {
+#loginAccount, #formSignUp {
+    padding: 10px;
     background-color: whitesmoke;
     width: 75%;
     justify-content: center;
@@ -292,14 +293,16 @@ form input {
     margin-top: 15px;
 }
 
-#loginAccount > form {
+#loginAccount > form, #formSignUp > form {
     justify-content: center;
 }
 
 
-#loginAccount input, #loginAccount label {
+#loginAccount input, #loginAccount label, #formSignUp input, #formSignUp label {
     margin: 10px;
 }
+
+/* Formulaire sign up */
 
 
 @media all and (max-width:765px) {
