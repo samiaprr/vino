@@ -296,9 +296,11 @@ class Bouteille extends Modele {
 		$rows = Array();
 		$nom = $this->_db->real_escape_string($nom);
 		$nom = preg_replace("/\*/","%" , $nom);
-		 
+
 		//echo $nom;
-		//var_dump($requete);
+		$requete ="SELECT id, nom FROM vino__saq where LOWER(nom) like LOWER('%". $nom ."%') LIMIT 0,". $nb_resultat; 
+		var_dump($requete);
+		 
 		if(($res = $this->_db->query($requete)) ==	 true)
 		{
 			if($res->num_rows)

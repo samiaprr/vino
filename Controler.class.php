@@ -82,7 +82,6 @@ class Controler
 
                 case 'choissirCellier':
 					$this->choissirCellier($_GET['id_cellier']);
-                  
 					break;
 					
 				case "FormCellier":
@@ -135,6 +134,7 @@ class Controler
 		{
 			if(isset($_SESSION["UserID"])){
 				$username = $_SESSION["UserID"];
+				$_SESSION["idCell"] = $id;
 				$bte = new Bouteille();
 				$data1 = $bte->getListeBouteilleCellierByIdCellier($id);
 				$data = $bte->cellierParUsager($username);

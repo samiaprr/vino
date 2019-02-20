@@ -51,10 +51,11 @@
 
             if(empty($data1)){
                 echo "<div>
-                    <h1> Choisir un cellier </h1>
+                    <h1> Ce cellier est vide </h1>
                 </div>";   
             }
-            else{ 
+            if(isset($_SESSION["idCell"]))
+            {
                  echo " <a id='ajouterBouteilleCellier' href='?requete=ajouterNouvelleBouteilleCellier'>Ajouter une bouteille au cellier</a>";
                 foreach ($data1 as $cle => $bouteille) {
                     echo    "<div class='bouteille column--center' data-quantite='' data-id='" . $bouteille['id_bouteille_cellier'] . "'>
