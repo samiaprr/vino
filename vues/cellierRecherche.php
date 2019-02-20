@@ -3,6 +3,7 @@
 
         
                 echo "
+                <section class='cellier-header column--center'>
             <section id='recherche' class='row--center' >    
             <form  class='filtre row--center' action='index.php?requete=rechercheBouteille' method='POST'>
             <select name='categorie' class='categorieBouteille'>
@@ -15,7 +16,7 @@
             </select>
             <input type='text' name='recherche'>
             <input type='submit' value='recherche' />
-        </form></section>
+        </form></section></section> 
 
         <h1>Résultat de votre recherche</h1>
             ";

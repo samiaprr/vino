@@ -29,6 +29,10 @@ a {
     text-decoration: none;
 }
 
+i {
+    color: white;
+}
+
 li {
     list-style: none;
 }
@@ -83,7 +87,7 @@ nav a:hover {
 nav a {
     font-family: 'Yeseva One', cursive;
     color: #297373;
-    margin-bottom: 10px;
+    margin: 10px;
 
 }
 
@@ -93,7 +97,7 @@ nav a:visited {
 
 /* menu "points" */
 
-.pointsMenu>img {
+.pointsMenu > img {
     width: 50px;
     height: 50px;
     display: grid;
@@ -117,39 +121,12 @@ h1 {
 }
 
 
-.liste {
-    display: block;
-    border-top: 1px solid #ccc;
-    border-bottom: none;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.liste>div {
-    height: 40px;
-    line-height: 40px;
-    padding: 0 20px;
-    border-bottom: 1px solid #ccc;
-    cursor: pointer;
-    transition: color 200ms ease-in-out;
-    background-color: #e85e30;
-    color: #FFFFFF;
-}
-
-.liste > div:hover {
-    color: #000000;
-    transition: color 200ms ease-in-out;
-
-}
-
-
-
 
 
 /* Affichage Cellier */
 
 #ajouterBouteilleCellier {
+    text-align: center;
     margin: 20px;
     border-radius: 15px;
     background-color: whitesmoke;
@@ -180,7 +157,7 @@ h1 {
     width: 100%;
     box-sizing: border-box;
     overflow: auto;
-    margin-bottom: 20px;
+    margin: 20px;
     justify-content: center;
 }
 
@@ -217,6 +194,7 @@ h1 {
 /* Affichage de bouteille*/
 
 .bouteille {
+    font-size: 0.7em;
     background-color: whitesmoke;
     justify-content: center;
     margin-bottom: 30px;
@@ -228,6 +206,7 @@ h1 {
     align-self: center;
     display: block;
     max-width: 100%;
+    width: 40%;
     height: auto;
 }
 
@@ -259,8 +238,7 @@ h1 {
 
 .bouteille>button,
 .options>button,
-.nouvelleBouteille>button,
-.modifierBouteille input[type='submit'] {
+.modifierBouteille input[type='submit']{
     background-color: #297373;
     color: white;
     border-radius: 10px;
