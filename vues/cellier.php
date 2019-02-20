@@ -89,8 +89,8 @@
                     </div>
                     <div class='options' data-id='" . $bouteille['id_bouteille_cellier'] . "'>
                         <button class='btnModif'>Modifier</button>
-                        <button class='btnAjouter'>Ajouter</button>
-                        <button class='btnBoire'>Boire</button>
+                        <button class='btnAjouter'><i class='fa fa-plus'></i></button>
+                        <button class='btnBoire'><i class='fa fa-minus'></i></button>
                     </div>
                 </div>";     
             }
