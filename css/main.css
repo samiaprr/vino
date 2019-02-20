@@ -137,11 +137,15 @@ h1 {
     color: #FFFFFF;
 }
 
-.liste>div:hover {
+.liste > div:hover {
     color: #000000;
     transition: color 200ms ease-in-out;
 
 }
+
+
+
+
 
 /* Affichage Cellier */
 
@@ -171,6 +175,7 @@ h1 {
 
 /*  Cellier - triage */
 #recherche {
+    grid-area: recherche;
     max-width: 100%;
     width: 100%;
     box-sizing: border-box;
@@ -189,11 +194,13 @@ h1 {
 }
 
 .cellier-header {
+    display: grid;
+    grid-template-areas: " triage " "recherche";
     max-width: 100%;
     width: 100%;
     box-sizing: border-box;
     overflow: auto;
-    font-size: 0.80em;
+    font-size: 1em;
     background-color: whitesmoke;
     align-self: center;
     height: 5%;
@@ -202,11 +209,9 @@ h1 {
 
 }
 
-.filtre {
-
-    max-width: 90%;
-
-
+#triage {
+    grid-area: triage;
+    justify-content: center;
 }
 
 /* Affichage de bouteille*/
@@ -241,9 +246,9 @@ h1 {
 }
 
 .options {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* align-self: center; */
 }
 
 .voir-plus {
@@ -260,7 +265,6 @@ h1 {
     color: white;
     border-radius: 10px;
     padding: 10px;
-    width: 250px;
     font-family: 'Playfair Display', serif;
     font-size: 1.2em;
 
@@ -307,13 +311,15 @@ form input {
     width: 75%;
     justify-content: center;
     margin: 0 auto;
+    margin-top: 15px;
 }
 
-#loginAccount>form {
+#loginAccount > form {
     justify-content: center;
 }
 
-#loginAccount input[type="button"] {
+
+#loginAccount input, #loginAccount label {
     margin: 10px;
 }
 
@@ -458,9 +464,9 @@ form input {
     }
 
     .options {
-        display: flex;
-        flex-direction: column;
-        align-self: center;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        /* align-self: center; */
     }
 }
 

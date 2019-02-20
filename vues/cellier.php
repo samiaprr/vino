@@ -15,7 +15,7 @@
                 echo ">" .$celli['nom']. "</option>";
             }
             echo "</select><input type='submit' value='Choisir cellier'></form></section>";
-                      echo "<section class='cellier-header column--center'>
+                      echo "<section class='cellier-header column--center'><section id='triage' class='row--center'>
                             <form class='filtre row--center' action='?requete=triBouteille' method='POST'>
                                 <p> Trier:</p>
                                 <select name='categorie' class='categorieBouteille'>
@@ -46,7 +46,9 @@
             
                 <input type='text' name='recherche'>
                 <input type='submit' value='recherche' />
-                 </form></section>";
+                 </form></section>
+            </section>
+            ";
 
 
             if(empty($data1)){

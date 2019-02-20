@@ -4,9 +4,9 @@
     {
 ?>
   
-	<div id='loginAccount'>	
+	<div id='loginAccount' class='column--center'>	
     <h1>Login</h1>
-		<form method="POST">
+		<form method="POST" class='column--center'>
 			<label for='usager'>Nom d'usager : </label>
 			<input type="text" id="username" name="username"/><br>
 			<label for='password'>Mot de passe : </label>
