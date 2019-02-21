@@ -231,7 +231,7 @@ window.addEventListener('load', function() {
     // Description expanding 
 
     document.querySelectorAll(".voir-plus").forEach(function(element) {
-        
+
         if (element) {
             element.addEventListener("click", function(e) {
                 console.log(e.target);
@@ -255,25 +255,25 @@ function DisplayLogin() {
     var myaccount = document.getElementById('myaccount');
 
 
-/* 
-    if (UserID == "NULL") {
-        myaccount.style.display = "none";
-        logout.style.display = "none";
-        monCellier.style.display = "none";
-        ajouterBouteilleCellier.style.display = "none";
+    /* 
+        if (UserID == "NULL") {
+            myaccount.style.display = "none";
+            logout.style.display = "none";
+            monCellier.style.display = "none";
+            ajouterBouteilleCellier.style.display = "none";
 
-    } else {
-      
-        ajouterBouteilleCellier.style.display = "block";
-        myaccount.style.display = "block";
-        logout.style.display = "block";
-
-
-        signup.style.display = "none";
-        login.style.display = "none";
+        } else {
+          
+            ajouterBouteilleCellier.style.display = "block";
+            myaccount.style.display = "block";
+            logout.style.display = "block";
 
 
-    } */
+            signup.style.display = "none";
+            login.style.display = "none";
+
+
+        } */
 
 
 }
