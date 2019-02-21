@@ -29,6 +29,10 @@ a {
     text-decoration: none;
 }
 
+i {
+    color: white;
+}
+
 li {
     list-style: none;
 }
@@ -61,7 +65,7 @@ header {
 
 }
 
-header > img {
+#logo {
     grid-area: logo;
     width: 15%;
     height: auto;
@@ -83,7 +87,7 @@ nav a:hover {
 nav a {
     font-family: 'Yeseva One', cursive;
     color: #297373;
-    margin-bottom: 10px;
+    margin: 10px;
 
 }
 
@@ -117,56 +121,80 @@ h1 {
 }
 
 
-.liste {
-    display: block;
-    border-top: 1px solid #ccc;
-    border-bottom: none;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
 
-.liste > div {
-    height: 40px;
-    line-height: 40px;
-    padding: 0 20px;
-    border-bottom: 1px solid #ccc;
-    cursor: pointer;
-    transition: color 200ms ease-in-out;
-    background-color: #e85e30;
-    color: #FFFFFF;
-}
-
-.liste > div:hover {
-    color: #000000;
-    transition: color 200ms ease-in-out;
-
-}
 
 /* Affichage Cellier */
 
-/*  Cellier - triage */
-
-.cellier-header {
-    font-size: 0.80em;
-    background-color: whitesmoke;
+#ajouterBouteilleCellier {
+    text-align: center;
     margin: 20px;
-    align-self: center;
-    height: 5%;
-    border-radius: 10px;
+    border-radius: 15px;
+    background-color: whitesmoke;
+    color: black;
+    padding: 1em 1.5em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 1s ease;
+}
+
+#ajouterBouteilleCellier:hover{
+    background-color: rgba(245, 245, 245, 0.603);
+    transform: scale(1.1);
+}
+
+#ajouterBouteilleCellier:active {
+    background-color: black;
+}
+
+#ajouterBouteilleCellier:visited {
+    background-color: whitesmoke;
+}
+
+/*  Cellier - triage */
+#recherche {
+    grid-area: recherche;
+    max-width: 100%;
+    width: 50%;
+    box-sizing: border-box;
+    /* overflow: auto; */
+    margin: 0 auto;
+    justify-content: center;
+}
+
+#choix-cellier {
+    background-color: rgb(247, 221, 189);
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
 
 }
 
-.filtre {
-    width: 50%;
-    max-width: 90%;
-    margin-left: 20px;
+.cellier-header {
+    display: grid;
+    grid-template-areas: " triage " "recherche";
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+    font-size: 1em;
+    background-color: whitesmoke;
+    align-self: center;
+   padding: 5px;
+    border-radius: 10px;
 
+
+}
+
+#triage {
+    grid-area: triage;
+    justify-content: center;
 }
 
 /* Affichage de bouteille*/
 
 .bouteille {
+    font-size: 0.7em;
     background-color: whitesmoke;
     justify-content: center;
     margin-bottom: 30px;
@@ -178,10 +206,11 @@ h1 {
     align-self: center;
     display: block;
     max-width: 100%;
+    width: 40%;
     height: auto;
 }
 
-.bouteille > div {
+.bouteille>div {
     margin-bottom: 15px;
 }
 
@@ -196,9 +225,9 @@ h1 {
 }
 
 .options {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* align-self: center; */
 }
 
 .voir-plus {
@@ -207,22 +236,20 @@ h1 {
 
 
 
-.bouteille > button,
-.options > button,
-.nouvelleBouteille > button,
-.modifierBouteille input[type='submit'] {
+.bouteille>button,
+.options>button,
+.modifierBouteille input[type='submit']{
     background-color: #297373;
     color: white;
     border-radius: 10px;
     padding: 10px;
-    width: 250px;
     font-family: 'Playfair Display', serif;
     font-size: 1.2em;
 
 }
 
-.options > button:hover,
-.nouvelleBouteille > button:hover,
+.options>button:hover,
+.nouvelleBouteille>button:hover,
 .modifierBouteille input[type='submit']:hover {
     color: #297373;
     background-color: #C49242;
@@ -242,7 +269,7 @@ h1 {
 
 .ajouter,
 .modifier {
-    background-color:whitesmoke;
+    background-color: whitesmoke;
     margin: 20px;
     padding: 15px;
     border-radius: 10px;
@@ -255,29 +282,34 @@ form input {
 }
 
 
-/* Page login */
+/* Page login et Signup */
 
-#loginAccount {
+#loginAccount, #formSignUp {
+    padding: 10px;
     background-color: whitesmoke;
     width: 75%;
     justify-content: center;
     margin: 0 auto;
+    margin-top: 15px;
 }
 
-#loginAccount > form {
+#loginAccount > form, #formSignUp > form {
     justify-content: center;
 }
 
-#loginAccount input[type="button"] {
+
+#loginAccount input, #loginAccount label, #formSignUp input, #formSignUp label {
     margin: 10px;
 }
+
+/* Formulaire sign up */
 
 
 @media all and (max-width:765px) {
     header {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-areas: " logo mobileMenuIcon" "menu menu";
+        grid-template-areas: " logo mobileMenuIcon""menu menu";
         justify-items: end;
         padding: 15px;
         background-color: #F8EEE2;
@@ -294,10 +326,10 @@ form input {
         display: none;
     }
 
-    header > img {
-        display: none;
+    #logo {
+        width: 50%;
+        height: auto;
     }
-
 
     nav a {
         font-size: 17px;
@@ -313,7 +345,7 @@ form input {
 
 
 
-    .cellier > h1 {
+    .cellier>h1 {
         display: none;
     }
 
@@ -322,6 +354,7 @@ form input {
         border-radius: 0;
         width: 100%;
     }
+
     .description {
         display: none;
 
@@ -351,7 +384,7 @@ form input {
         height: 10%;
     }
 
-    .bouteille > h1 {
+    .bouteille>h1 {
         display: none;
     }
 
@@ -360,7 +393,7 @@ form input {
 @media only screen and (min-width:909px) {
     main {
         margin: 0 auto;
-        width: 600px;
+        width: 800px;
     }
 
 
@@ -401,8 +434,8 @@ form input {
 
     }
 
-    .options > button,
-    .nouvelleBouteille > button {
+    .options>button,
+    .nouvelleBouteille>button {
 
         border-radius: 10px;
         padding: 5px;
@@ -412,9 +445,9 @@ form input {
     }
 
     .options {
-        display: flex;
-        flex-direction: column;
-        align-self: center;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        /* align-self: center; */
     }
 }
 

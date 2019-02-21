@@ -1,18 +1,19 @@
 <?php
     if(isset($_SESSION["UserID"])){
-
+         $UserID =  $_SESSION["UserID"];
 ?>
 
     <div id="loginAccount">
-        <h1>My Account</h1>
+        <h1>Mon Compte</h1>
         <form method="POST" class="column--center">
-            <h2><label for='usager'>Nom d'usager : <b> <em id='usager'> <?php echo $UserID ?>   </b></em></label></h2>
+            <h2><label for='usager'>Nom d'usager : <b> <em id='usager'> <?php echo $_SESSION["UserID"] ?>   </b></em></label></h2>
 			
-            <input type="button" value="Modify Mot de Passs" onclick='FormUpdateUser("<?php echo $UserID ?>")' />
+            <input type="button" value="Modifier le mot de passe" onclick='FormUpdateUser("<?php echo $UserID ?>")' />
 			<h2><label for='cellier'> Cellier : </label></h2>
-			<select id="cellier" name="cellier" ><option>Choissir Cellier</option></select>
+			<select id="cellier" name="cellier" ><option>Choisir Cellier</option></select>
 			
-			<input type="button" value="Modify Nom de Cellier" onclick='FormUpdateCellierNom(cellier.value)' />
+			<input type="button" value="Modifier le nom de cellier" onclick='FormUpdateCellierNom(cellier.value)'/>
+            <input type="button" value="Supprimer le cellier" onclick='SupressionCellierParId(cellier.value)'/>
         </form>
 
     </div>
@@ -209,7 +210,9 @@ function ajaxUpdateCellierNomFunction(id_cellier) {
             if (temp != '"true"') {
                 showMessage(ajaxRequest.responseText);
             } else {
-                showMessage('Update Success!');
+                // a changer lorsque qu'on mettera en live
+                document.location.replace('http://localhost/vino/index.php?requete=SelectionCellier&id=' + id_cellier);
+
 
             }
 
@@ -229,6 +232,33 @@ function ajaxUpdateCellierNomFunction(id_cellier) {
 
 function QuitUpdate() {
     location.href = "./index.php";
+}
+
+// Fonction qui supprime un cellier qui prend un IDcellier en paramètre.
+function SupressionCellierParId(id){
+    var result = confirm('Confirmé la suppression');
+    if(result)
+    {
+
+        var ajaxRequest; // La variable pour Ajax
+        ajaxRequest = new XMLHttpRequest();
+
+        ajaxRequest.onreadystatechange = function(){
+            if (ajaxRequest.readyState == 4)
+            {
+                var temp = trim(ajaxRequest.responseText);
+                if (temp != '"true"') {
+                    document.location.replace('http://localhost/vino/index.php?requete=Accueil');
+                }else{
+                    
+                }
+
+            }
+        }
+        var queryString = "?requete=SuppressionCellier&Id=" + id;
+        ajaxRequest.open("GET", "./index.php" + queryString, true);
+        ajaxRequest.send(null);
+    }
 }
 
 function ajaxGetCellierNomFunction(username1) {
@@ -281,12 +311,12 @@ function FormUpdateUser(username) {
     <label for="password">Répéter Mot de passe : </label>
     <input type="password" name="mdp2" />
 
-    <input type="button" value="Modify" onclick='UpdateUser("<?php echo $UserID ?>")' />
+    <input type="button" value="Modifier" onclick='UpdateUser("<?php echo $UserID ?>")' />
+    <input type="button" value="Annuler" onclick='QuitUpdate()' />
 
 	</form>
 
 		<div id="errMessage"></div>`;
-
 		var loginAccount = document.getElementById('loginAccount');
 		loginAccount.innerHTML = stringHTML;
 
@@ -328,8 +358,8 @@ function FormUpdateCellierNom(id_cellier) {
 
             <input type="text" id="cellier" name="cellier" /><br>
             
-            <input type="button" value="Modify" onclick="UpdateCellierNom('`+id_cellier+`')" />
-			<input type="button" value="Cancel" onclick='QuitUpdate()' />
+            <input type="button" value="Modifier" onclick="UpdateCellierNom('`+id_cellier+`')" />
+			<input type="button" value="Annuler" onclick='QuitUpdate()' />
         </form>
         <div id="errMessage"></div>`;
 

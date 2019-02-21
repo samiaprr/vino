@@ -4,9 +4,9 @@
     {
 ?>
   
-	<div id='loginAccount'>	
+	<div id='loginAccount' class='column--center'>	
     <h1>Login</h1>
-		<form method="POST">
+		<form method="POST" action="index.php?requete=acceuil" class='column--center'>
 			<label for='usager'>Nom d'usager : </label>
 			<input type="text" id="username" name="username"/><br>
 			<label for='password'>Mot de passe : </label>
@@ -61,8 +61,8 @@ function showMessage(message){
       var i = 0;
           function change(tar) {
               i++;
-              console.log(i);
-              console.log(showMessage.style.opacity);
+             // console.log(i);
+            //  console.log(showMessage.style.opacity);
               var num = 1-i/100;
               showMessage.style.opacity=num;
               if (i === tar) {

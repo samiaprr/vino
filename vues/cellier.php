@@ -3,8 +3,19 @@
 
         
                 echo "<div class='cellier column--center'>
-                        <section class='cellier-header row--center'>
-                        <li id='ajouterBouteilleCellier'><a href='?requete=ajouterNouvelleBouteilleCellier'>Ajouter une bouteille au cellier</a></li>
+                    <section class='row--center' id='choix-cellier'>
+                    <form action='index.php' method='GET'>
+            <input type='hidden' name='requete' value='SelectionCellier'/>
+            <select name='id'>";
+            foreach ($data as $cle => $celli){
+                echo "<option value='" . $celli['id_cellier'] . "'";
+                if(isset($_GET['id']) && ($_GET['id'] == $celli['id_cellier'])){
+                     echo "selected";
+                } 
+                echo ">" .$celli['nom']. "</option>";
+            }
+            echo "</select><input type='submit' value='Choisir cellier'></form></section>";
+                      echo "<section class='cellier-header column--center'><section id='triage' class='row--center'>
                             <form class='filtre row--center' action='?requete=triBouteille' method='POST'>
                                 <p> Trier:</p>
                                 <select name='categorie' class='categorieBouteille'>
@@ -22,9 +33,8 @@
             <input type='submit' value='filtre' />
             </form>
             </section>
-            <section>    
-            <form class='filtre column--center' action='index.php?requete=rechercheBouteille' method='POST'>
-            <p> Recherche :</p>
+            <section id='recherche' class='row--center'>    
+            <form class='filtre row--center' action='index.php?requete=rechercheBouteille' method='POST'>
             <select name='categorie' class='categorieBouteille'>
                 <option value='nom'>Nom</option>
                 <option value='prix'>Prix</option>
@@ -33,61 +43,60 @@
                 <option value='millesime'>Millesime</option>
                 <option value='pays'>Pays</option>
             </select>
-            <fieldset class='row--center'>
+            
                 <input type='text' name='recherche'>
                 <input type='submit' value='recherche' />
-            </fieldset>
-        </form></section>
-            <section>
-            <h3> Vos celliers </h3>
-            <form action='index.php' method='GET'>
-            <input type='hidden' name='requete' value='SelectionCellier'/>
-            <select name='id'>";
-            foreach ($data as $cle => $celli){
-                echo "<option value='" . $celli['id_cellier'] . "'>" . $celli['nom']. "</option>";
+                 </form></section>
+            </section>
+            ";
+
+
+            if(empty($data1)){
+                echo "<div>
+                    <h1> Ce cellier est vide </h1>
+                </div>";   
             }
-            echo "</select><input type='submit' value='Choisir cellier'></form></section>";
-        
-    foreach ($data1 as $cle => $bouteille) {
- 
+            if(isset($_SESSION["idCell"]))
+            {
+                 echo " <a id='ajouterBouteilleCellier' href='?requete=ajouterNouvelleBouteilleCellier'>Ajouter une bouteille au cellier</a>";
+                foreach ($data1 as $cle => $bouteille) {
+                    echo    "<div class='bouteille column--center' data-quantite='' data-id='" . $bouteille['id_bouteille_cellier'] . "'>
+                    <img class='bouteille--img' src='https:" . $bouteille['image'] . "'>
+
+                    <h1>" . 
+                        $bouteille['nom'] . "
+                    </h1>
+                    <button class='voir-plus'>Voir plus</button>
+                    <div class='description column--center'>
+                        <p class='nom'>Nom: " . 
+                            $bouteille['nom'] . "
+                        </p>
+                        <p class='quantite'>Quantité: <strong class='int'>" . $bouteille['quantite'] . "</strong></p>
+                        <p class='pays'>Pays: " . 
+                            $bouteille['pays'] . "
+                        </p>
+                        <p class='type'>Type: " . 
+                            $bouteille['types'] . "
+                        </p>
+                        <p class='millesime'>Millesime: " . 
+                        $bouteille['millesime'] . "
+                        </p>
+                        <p class='prix'>Prix: " . 
+                            $bouteille['prix'] . "
+                        </p>
+
+                        <p><a href='" . $bouteille['url_saq'] . "'>Voir SAQ</a></p>
+                    </div>
+                    <div class='options' data-id='" . $bouteille['id_bouteille_cellier'] . "'>
+                        <button class='btnModif'>Modifier</button>
+                        <button class='btnAjouter'><i class='fa fa-plus'></i></button>
+                        <button class='btnBoire'><i class='fa fa-minus'></i></button>
+                    </div>
+                </div>";     
+            }
     
-    echo    "<div class='bouteille column--center' data-quantite='' data-id='" . $bouteille['id_bouteille_cellier'] . "'>
-            <img class='bouteille--img' src='https:" . $bouteille['image'] . "'>
-
-            <h1>" . 
-                 $bouteille['nom'] . "
-            </h1>
-            <button class='voir-plus'>Voir plus</button>
-            <div class='description column--center'>
-                <p class='nom'>Nom :" . 
-                    $bouteille['nom'] . "
-                </p>
-                <p class='quantite'>Quantité : <strong class='int'>" . $bouteille['quantite'] . "</strong></p>
-                <p class='pays'>Pays :" . 
-                    $bouteille['pays'] . "
-                </p>
-                <p class='type'>Type :" . 
-                    $bouteille['types'] . "
-                </p>
-                <p class='millesime'>Millesime :" . 
-                   $bouteille['millesime'] . "
-                </p>
-                <p class='prix'>Prix :" . 
-                    $bouteille['prix'] . "
-                </p>
-
-                <p><a href='" . $bouteille['url_saq'] . "'>Voir SAQ</a></p>
-            </div>
-            <div class='options' data-id='" . $bouteille['id_bouteille_cellier'] . "'>
-                <button class='btnModif'>Modifier</button>
-                <button class='btnAjouter'>Ajouter</button>
-                <button class='btnBoire'>Boire</button>
-
-            </div>
-			
-        </div>
-        ";     
         }
+   
     }
     else{
         echo "<div><h1>Connectez-vous pour avoir accès à votre cellier</h1></div>";

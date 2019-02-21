@@ -3,9 +3,9 @@
 
         
                 echo "
-            <section>    
-            <form class='filtre row--center' action='index.php?requete=rechercheBouteille' method='POST'>
-            <p> Recherche :</p>
+                <section class='cellier-header column--center'>
+            <section id='recherche' class='row--center' >    
+            <form  class='filtre row--center' action='index.php?requete=rechercheBouteille' method='POST'>
             <select name='categorie' class='categorieBouteille'>
                 <option value='nom'>Nom</option>
                 <option value='prix'>Prix</option>
@@ -16,14 +16,10 @@
             </select>
             <input type='text' name='recherche'>
             <input type='submit' value='recherche' />
-        </form></section>
-            <section>
-            <h3> Vos celliers </h3>
-            <ul>";
-            foreach ($data as $cle => $celli){
-                echo "<li><a href='index.php?requete=SelectionCellier&id=" . $celli['id_cellier'] . "'>" . $celli['nom']. "</a></li>";
-            }
-            echo "</ul></section>";
+        </form></section></section> 
+
+        <h1>Résultat de votre recherche</h1>
+            ";
         
     foreach ($data1 as $cle => $bouteille) {
  

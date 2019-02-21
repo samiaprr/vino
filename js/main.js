@@ -15,7 +15,7 @@ window.addEventListener('load', function() {
     const BaseURL = window.location.origin + window.location.pathname;
     console.log("load");
     console.log("allo");
-    DisplayLogin();
+
     document.querySelectorAll(".btnBoire").forEach(function(element) {
         console.log(element);
 
@@ -67,6 +67,7 @@ window.addEventListener('load', function() {
         })
 
     });
+
     document.querySelectorAll(".btnModif").forEach(function(element) {
         //console.log(element);
         element.addEventListener("click", function(evt) {
@@ -165,20 +166,29 @@ window.addEventListener('load', function() {
             millesime: document.querySelector("[name='millesime']"),
             quantite: document.querySelector("[name='quantite']"),
             date_achat: document.querySelector("[name='date_achat']"),
+            types: document.querySelector("[name='types']"),
+            pays: document.querySelector("[name='pays']"),
             prix: document.querySelector("[name='prix']"),
             garde_jusqua: document.querySelector("[name='garde_jusqua']"),
             notes: document.querySelector("[name='notes']"),
+            //  idCellier: <?php echo $_SESSION['id_cellier']; ?>),
+
         };
-
-
         liste.addEventListener("click", function(evt) {
             console.dir(evt.target)
             if (evt.target.tagName == "LI") {
-                bouteille.nom.dataset.id = evt.target.dataset.id;
+                console.log(evt.target.innerHTML);
                 bouteille.nom.innerHTML = evt.target.innerHTML;
-
+                console.log(evt.target.dataset.id);
                 liste.innerHTML = "";
                 inputNomBouteille.value = "";
+
+                var idSaq = document.querySelector("[name='idSaq']");
+                var nom = document.querySelector("[name='nom']");
+                nom.value = evt.target.innerHTML;
+                idSaq.value = evt.target.dataset.id;
+                console.log(idSaq.value);
+                console.log(nom.value);
 
             }
         });
@@ -186,21 +196,33 @@ window.addEventListener('load', function() {
         let btnAjouter = document.querySelector("[name='ajouterBouteilleCellier']");
         if (btnAjouter) {
             btnAjouter.addEventListener("click", function(evt) {
+
+                var idSaq = document.querySelector("[name='idSaq']");
+                var nom = document.querySelector("[name='nom']");
+                console.log(idSaq.value);
+                console.log(nom.value);
+
+                /*
                 var param = {
                     "id_bouteille": bouteille.nom.dataset.id,
                     "date_achat": bouteille.date_achat.value,
                     "garde_jusqua": bouteille.garde_jusqua.value,
-                    "notes": bouteille.date_achat.value,
+                    "nom": nom.innerHTML,
+                    "pays": bouteille.pays.value,
+                    "notes": bouteille.notes.value,
                     "prix": bouteille.prix.value,
+                    "types": bouteille.types.value,
                     "quantite": bouteille.quantite.value,
                     "millesime": bouteille.millesime.value,
                 };
-                let requete = new Request(BaseURL + "?requete=ajouterNouvelleBouteilleCellier", {
+                console.log(param);
+                let requete = new Request(BaseURL + "index.php?requete=ajouterNouvelleBouteilleCellier", {
                     method: 'POST',
                     body: JSON.stringify(param)
                 });
                 fetch(requete)
                     .then(response => {
+                        console.log(response);
                         if (response.status === 200) {
                             return response.json();
                         } else {
@@ -212,7 +234,7 @@ window.addEventListener('load', function() {
 
                     }).catch(error => {
                         console.error(error);
-                    });
+                    });*/
 
             });
         }
@@ -222,6 +244,7 @@ window.addEventListener('load', function() {
     let btnMenuMobile = document.querySelector(".pointsMenu > img");
     let menu = document.querySelector("nav");
 
+    console.log(btnMenuMobile);
     btnMenuMobile.addEventListener("click", function() {
 
         console.log("menu");
@@ -245,38 +268,7 @@ window.addEventListener('load', function() {
 
 });
 
-function DisplayLogin() {
-    var UserID = trim(document.getElementById('UserID').textContent);
-    var monCellier = document.getElementById('monCellier');
-    var ajouterBouteilleCellier = document.getElementById('ajouterBouteilleCellier');
-    var login = document.getElementById('login');
-    var logout = document.getElementById('logout');
-    var signup = document.getElementById('signup');
-    var myaccount = document.getElementById('myaccount');
 
-
-    /* 
-        if (UserID == "NULL") {
-            myaccount.style.display = "none";
-            logout.style.display = "none";
-            monCellier.style.display = "none";
-            ajouterBouteilleCellier.style.display = "none";
-
-        } else {
-          
-            ajouterBouteilleCellier.style.display = "block";
-            myaccount.style.display = "block";
-            logout.style.display = "block";
-
-
-            signup.style.display = "none";
-            login.style.display = "none";
-
-
-        } */
-
-
-}
 
 function trim(str) {　　
     return str.replace(/(^\s*)|(\s*$)/g, "");
