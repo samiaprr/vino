@@ -136,12 +136,14 @@ class Bouteille extends Modele {
 	 * 
 	 * @return array id et nom de la bouteille trouvée dans le catalogue
 	 */
-	public function getRechercheBouteille($categorie,$recherche){
+	public function getRechercheBouteille($categorie,$recherche,$userID, $idCellier){
 		$rows = Array();
 		$categorie = $this->_db->real_escape_string($categorie);
 		$recherche = $this->_db->real_escape_string($recherche);
-		
-		// echo $categorie . $recherche ;
+		$userID = $this->_db->real_escape_string($userID);
+		$idCellier = $this->_db->real_escape_string($idCellier);
+
+		 // echo $userID;
 		$requete ='SELECT 
 		c.id as id_bouteille_cellier,
 			c.id_bouteille_saq, 
@@ -162,7 +164,9 @@ class Bouteille extends Modele {
 			t.types 
 				from bouteille__cellier c 
 				JOIN vino__saq b ON c.id_bouteille_saq = b.id
-				JOIN vino__types t ON t.id = b.types WHERE c.'.$categorie.' LIKE "%'.$recherche.'%"'; 
+				JOIN vino__types t ON t.id = b.types
+				JOIN cellier ce ON ce.id_cellier = c.id_cellier
+				JOIN usager u ON u.username = ce.id_user WHERE u.username = "'. $userID .'" AND c.'.$categorie.' LIKE "%'.$recherche.'%" AND ce.id_cellier = '.$idCellier; 
 		if(($res = $this->_db->query($requete)) == true){
 			if($res->num_rows)
 			{
@@ -249,11 +253,13 @@ class Bouteille extends Modele {
 	 * 
 	 * @return array id et nom de la bouteille trouvée dans le catalogue
 	 */
-	public function getTriBouteille($categorie,$ordre){
+	public function getTriBouteille($categorie,$ordre,$userID,$idCellier){
 		$rows = Array();
 		$categorie = $this->_db->real_escape_string($categorie);
 		$ordre = $this->_db->real_escape_string($ordre);
-		
+		$userID = $this->_db->real_escape_string($userID);
+		$idCellier = $this->_db->real_escape_string($idCellier);
+
 		// echo $categorie . $ordre ;
 		$requete ='SELECT 
 		c.id as id_bouteille_cellier,
@@ -275,7 +281,10 @@ class Bouteille extends Modele {
 			t.types 
 				from bouteille__cellier c 
 				INNER JOIN vino__saq b ON c.id_bouteille_saq = b.id
-				INNER JOIN vino__types t ON t.id = b.types ORDER BY '. $categorie . ' '.$ordre; 
+				INNER JOIN vino__types t ON t.id = b.types 
+				INNER JOIN cellier ce ON ce.id_cellier = c.id_cellier
+				INNER JOIN usager u ON u.username = ce.id_user WHERE u.username = "'. $userID .'" AND ce.id_cellier = '.$idCellier .'
+				ORDER BY '. $categorie . ' '.$ordre; 
 		if(($res = $this->_db->query($requete)) == true){
 			if($res->num_rows)
 			{
@@ -331,20 +340,24 @@ class Bouteille extends Modele {
 	 * 
 	 * @return Boolean Succès ou échec de l'ajout.
 	 */
-	public function ajouterBouteilleCellier($data)
+	 public function ajouterNouvelleBouteilleSaq($idSaq,$date_achat,$garde_jusqua,$nom,$pays,$notes,$prix,$types,$quantite,$millesime,$idCellier)
 	{
 		//TODO : Valider les données.
 		//var_dump($data);	
 		
-		$requete = "INSERT INTO bouteille__cellier(id_bouteille,date_achat,garde_jusqua,notes,prix,quantite,millesime) VALUES (".
-		"'".$data->id_bouteille."',".
-		"'".$data->date_achat."',".
-		"'".$data->garde_jusqua."',".
-		"'".$data->notes."',".
-		"'".$data->prix."',".
-		"'".$data->quantite."',".
-		"'".$data->millesime."')";
-
+		$requete = "INSERT INTO bouteille__cellier(id_bouteille_saq,date_achat,garde_jusqua,nom, pays,notes,prix,types,quantite,millesime,id_cellier) VALUES (".
+		"'".$idSaq."',".
+		"'".$date_achat."',".
+		"'".$garde_jusqua."',".
+		"'".$nom."',".
+		"'".$pays."',".
+		"'".$notes."',".
+		"'".$prix."',".
+		"'".$types."',".
+		"'".$quantite."',".
+		"'".$millesime."',".
+		"'".$idCellier."')";
+		//var_dump($requete);
         $res = $this->_db->query($requete);
         
 		return $res;

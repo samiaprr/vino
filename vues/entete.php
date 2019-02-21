@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <title>Un petit verre de vino</title>
 
@@ -21,7 +20,7 @@
         rel="stylesheet">
     <base href="<?php echo BASEURL; ?>">
     <!--<script src="./js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>-->
-    <script src="./js/main.js"></script>
+     <script src="./js/main.js"></script> 
 
     <!-- Icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

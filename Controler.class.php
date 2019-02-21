@@ -34,6 +34,9 @@ class Controler
 				case 'ajouterNouvelleBouteilleCellier':
 					$this->ajouterNouvelleBouteilleCellier();
 					break;
+				case 'ajouterNouvelleBouteilleSaq':
+					$this->ajouterNouvelleBouteilleSaq();
+					break;
 				case 'ajouterBouteilleCellier':
 					$this->ajouterBouteilleCellier();
 					break;
@@ -120,11 +123,11 @@ class Controler
 
 		private function rechercheBouteille()
 		{
+
 			$bte = new Bouteille();
 			$data = $bte->cellierParUsager($_SESSION['UserID']);
-
-			$data1 = $bte->getRechercheBouteille($_POST["categorie"],$_POST["recherche"]);
-			// var_dump($data1);
+			$data1 = $bte->getRechercheBouteille($_POST["categorie"],$_POST["recherche"],$_SESSION['UserID'],$_SESSION["idCell"]);
+			// var_dump($_SESSION);
 			include("vues/entete.php");
 			include("vues/cellierRecherche.php");
 			include("vues/pied.php");
@@ -149,31 +152,47 @@ class Controler
                   
 
 		}
+		private function ajouterNouvelleBouteilleSaq()
+		{
+			var_dump($_SESSION["UserID"]);
+			if(isset($_SESSION["UserID"])){
+				//var_dump($_POST);
+				$bte = new Bouteille();
+				$data = $bte->cellierParUsager($_SESSION['UserID']);
+				//var_dump($_POST);
+				$data1 = $bte->ajouterNouvelleBouteilleSaq($_POST["idSaq"],$_POST["date_achat"],$_POST["garde_jusqua"],$_POST["nom"],$_POST["pays"],$_POST["notes"],$_POST["prix"],$_POST["types"],$_POST["quantite"],$_POST["millesime"],$_SESSION["idCell"]);
+				//var_dump($data1);
+				header('Location: index.php?requete=monCellier');
+			}else{
+				$this->monCellier();
+			}
+		}
+
 		private function triBouteille()
 		{
 			if(isset($_SESSION["UserID"])){
 				$bte = new Bouteille();
 				$data = $bte->cellierParUsager($_SESSION['UserID']);
-				//var_dump($_POST);
-				$data1 = $bte->getTriBouteille($_POST["categorie"],$_POST["ordre"]);
+				// var_dump($_SESSION);
+				$data1 = $bte->getTriBouteille($_POST["categorie"],$_POST["ordre"], $_SESSION['UserID'], $_SESSION["idCell"]);
 				include("vues/entete.php");
 				include("vues/cellier.php");
 				include("vues/pied.php");
 			}else{
-				$this->accueil();
+				$this->monCellier();
 			}
 		}
 
 		private function accueil()
 		{
+			//var_dump($_SESSION);
 			//Si la personne est connecté
 			if(isset($_SESSION["UserID"])){
 				$username = $_SESSION["UserID"];
 				$bte = new Bouteille();
-				$data = $bte->cellierParUsager($username);
-				$data1 = $bte->getListeBouteilleCellierByCellier($username);
+				$data = $bte->cellierParUsager($_SESSION['UserID']);
 				include("vues/entete.php");
-				include("vues/cellier.php");
+				include("vues/choisirCellier.php");
 				include("vues/pied.php");
 			}
 			else{
@@ -187,13 +206,14 @@ class Controler
 		private function monCellier()
 		{
 			$bte = new Bouteille();
-			
-			if(isset($_SESSION["id_cellier"])){
-				$username = $_SESSION["UserID"];
-				$id_cellier = $_SESSION["id_cellier"];
-				var_dump($id_cellier);
+			$username = $_SESSION["UserID"];
+			if(isset($_SESSION["idCell"])){
+				$id_cellier = $_SESSION["idCell"];
+				//var_dump($id_cellier);
+				//var_dump($_SESSION["idCell"]);
 				$data = $bte->cellierParUsager($username);
-				$data1 = $bte->getListeBouteilleCellierByCellier($id_cellier);
+				$data1 = $bte->getListeBouteilleCellierByIdCellier($id_cellier);
+
 			}else{
 				$data = $bte->cellierParUsager($username);
 				 $data1 = $bte->getListeBouteilleCellier();
@@ -254,19 +274,20 @@ class Controler
 			include("vues/entete.php");
 			include("vues/modif.php");
 			include("vues/pied.php");		
-            
+
 		}
 
 		private function ajouterNouvelleBouteilleCellier()
-		{
+		{	
+			// echo $_SESSION['id_cellier'];
 			$body = json_decode(file_get_contents('php://input'));
-			//var_dump($body);
+			// var_dump($body);
 			if(!empty($body)){
 				$bte = new Bouteille();
 				//var_dump($_POST['data']);
 				
 				//var_dump($data);
-				$resultat = $bte->ajouterBouteilleCellier($body);
+				$resultat = $bte->ajouterBouteilleCellier($body,$_SESSION['id_cellier']);
 				echo json_encode($resultat);
 			}
 			else{
@@ -415,6 +436,8 @@ class Controler
 
             }else
             {
+
+				
 				//if (password_verify($password, $hash)) {
 					if (password_verify($password, $resultat['password'])) {
 						// Pass
@@ -427,7 +450,7 @@ class Controler
 						$_SESSION["cellier_nom"] =$c['nom'];
 					}
 					
-					$_SESSION["UserID"] =$username;
+					$_SESSION["UserID"] = $username;
 					echo json_encode('true');
 						
 					}

@@ -6,7 +6,7 @@
   
 	<div id='loginAccount' class='column--center'>	
     <h1>Login</h1>
-		<form method="POST" class='column--center'>
+		<form method="POST" action="index.php?requete=acceuil" class='column--center'>
 			<label for='usager'>Nom d'usager : </label>
 			<input type="text" id="username" name="username"/><br>
 			<label for='password'>Mot de passe : </label>
