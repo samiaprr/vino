@@ -97,11 +97,9 @@
                             echo "<button class='btnListeAchat' data-id='" . $bouteille['id_bouteille_cellier'] . "'>Ajout à la liste d'achat</button>";
                             
                         } else {
-                            foreach($dataListeAchat as $cle=> $bouteilleListe){
+                            foreach($dataListeAchat as $cle => $bouteilleListe){
                                 if($bouteille['id_bouteille_cellier'] == $bouteilleListe['id_bouteille_cellier']){
                                     $trouver = true;
-                                } else {
-                                    $trouver = false;
                                 }
                             }
                             if($trouver){

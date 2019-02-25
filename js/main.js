@@ -286,15 +286,12 @@ window.addEventListener('load', function() {
                     .then(response => {
                         if (response.status === 200) {
                             let res = response.json();
-            
+                            window.location.reload(true);
                             return res;
                         } else {
                             throw new Error('Erreur');
                         }
 
-                    })
-                    .then( response => {
-                            window.location.reload(true);
                     }).catch(error => {
                         console.error(error);
                     });
