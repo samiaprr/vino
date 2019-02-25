@@ -266,6 +266,88 @@ window.addEventListener('load', function() {
 
     })
 
+    //ajout à liste d'achat'
+
+    document.querySelectorAll(".btnListeAchat").forEach(function(element){
+        if (element) {
+            element.addEventListener("click", function(e) {
+                
+
+                $id_bouteille = this.getAttribute("data-id");
+
+                console.log($id_bouteille);
+
+                let requete = new Request(BaseURL + "?requete=ajoutListeAchat", {
+                    method: 'POST',
+                    body: '{"id_bouteille_cellier": ' + $id_bouteille + '}'
+                });
+
+                fetch(requete)
+                    .then(response => {
+                        if (response.status === 200) {
+                            let res = response.json();
+            
+                            return res;
+                        } else {
+                            throw new Error('Erreur');
+                        }
+
+                    })
+                    .then( response => {
+                            window.location.reload(true);
+                    }).catch(error => {
+                        console.error(error);
+                    });
+
+
+            
+            });
+        }
+
+    });
+
+    // Retrait liste d'achat 
+
+    document.querySelectorAll(".btnRetraitListeAchat").forEach(function(element){
+        if (element) {
+            element.addEventListener("click", function(e) {
+                
+
+                $id_bouteille = this.getAttribute("data-id");
+
+                console.log($id_bouteille);
+
+                let requete = new Request(BaseURL + "?requete=retirerListeAchat", {
+                    method: 'POST',
+                    body: '{"id_bouteille_cellier": ' + $id_bouteille + '}'
+                });
+
+                fetch(requete)
+                    .then(response => {
+                        if (response.status === 200) {
+                            let res = response.json();
+            
+                            return res;
+                        } else {
+                            throw new Error('Erreur');
+                        }
+
+                    })
+                    .then( response =>
+                        {
+                            window.location.reload(true);
+                    }).catch(error => {
+                        console.error(error);
+                    });
+
+
+            
+            });
+        }
+
+    });
+
+
 });
 
 

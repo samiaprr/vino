@@ -108,6 +108,16 @@ class Controler
 					break;
 				case 'SuppressionCellier':
 					$this->SuppressionCellier($_GET['Id']);
+					break;
+				case 'ajoutListeAchat':
+						$this->ajoutListeAchat();
+					break;
+				case 'voirListeAchat':
+					$this->afficheListeAchatParUsager();
+					break;
+				case 'retirerListeAchat':
+						$this->retirerListeAchat();
+					break;
 				default:
 					$this->accueil();
 					break;
@@ -141,6 +151,8 @@ class Controler
 				$bte = new Bouteille();
 				$data1 = $bte->getListeBouteilleCellierByIdCellier($id);
 				$data = $bte->cellierParUsager($username);
+				$dataListeAchat = $bte->listeAchatParUsager($username);
+				
 				include("vues/entete.php");
 				include("vues/cellier.php");
 				include("vues/pied.php");
@@ -327,6 +339,56 @@ class Controler
 			else{
 				$this->SelectCellier($_POST['id']);
 			}
+			
+		}
+
+		private function ajoutListeAchat()
+		{
+			$idUser = $_SESSION["UserID"];
+
+			$body = json_decode(file_get_contents('php://input'));
+
+			$id_bouteille_cellier = $body->id_bouteille_cellier;
+
+			$bte = new Bouteille();
+
+			$resultatAjoutListeAchat = $bte->ajoutListeAchat($id_bouteille_cellier, $idUser);
+
+			echo json_encode($resultatAjoutListeAchat);
+
+			return $resultatAjoutListeAchat;
+
+		}
+
+		private function retirerListeAchat()
+		{
+			$idUser = $_SESSION["UserID"];
+
+			$body = json_decode(file_get_contents('php://input'));
+
+			$id_bouteille_cellier = $body->id_bouteille_cellier;
+
+			$bte = new Bouteille();
+
+			$resultatRetraitListeAchat = $bte->retraitListeAchat($idUser, $id_bouteille_cellier);
+
+			echo json_encode($resultatRetraitListeAchat);
+
+			return $resultatRetraitListeAchat;
+		}
+
+		private function afficheListeAchatParUsager()
+		{
+			$idUser = $_SESSION["UserID"];
+
+			$bte = new Bouteille();
+
+			$dataListeAchat = $bte->listeAchatParUsager($idUser);
+
+			include("vues/entete.php");
+			include("vues/listeAchat.php");
+			include("vues/pied.php");
+
 			
 		}
 

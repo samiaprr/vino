@@ -44,6 +44,7 @@
                 echo "<a href='?requete=accueil'>Mes celliers</a>";
                 echo "<a href='?requete=FormModifyAccount'>Mon Compte[<span id='UserID'>" .$_SESSION["UserID"] .  "</span>]</a>";
                 echo "<a href='?requete=FormCellier&User=" . $_SESSION["UserID"] . "'>Ajouter un cellier</a>";
+                echo "<a href='?requete=voirListeAchat'>Ma liste d'achat</a>";
                 echo "<a href='?requete=Logout'>Se déconnecter</a>";
             }
           ?>
