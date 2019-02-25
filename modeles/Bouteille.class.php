@@ -482,6 +482,63 @@ class Bouteille extends Modele {
 		$res = $this->_db->query($requete); 
 		return $res;
 	}
+
+	/**
+	 * Méthode qui ajoute une bouteille sur la liste d'achat de l'usager
+	 * 
+	 * @param string $idUser = nom d'utilisateur de l'usager
+	 * 
+	 * @param int $id_bouteille_cellier = id de la bouteille
+	 * 
+	 * @return bool retourne true ou false comme résultat de requête
+	 */
+
+	public function ajoutListeAchat($id_bouteille_cellier, $idUser)
+	{
+		$requete = "INSERT INTO listeAchat VALUES ($id_bouteille_cellier , '". $idUser ."')";
+
+		$res = $this->_db->query($requete); 
+
+		return $res;
+
+	}
+
+	/**
+	 * Méthode qui supprime une bouteille de la liste d'achat
+	 * 
+	 * @param string $idUser = nom d'utilisateur de l'usager
+	 * 
+	 * @param int $id_bouteille_cellier = id de la bouteille
+	 * 
+	 * @return array retourne true ou false comme résultat de requête
+	 */
+	public function retraitListeAchat($idUser, $id_bouteille_cellier)
+	{
+		$requete = "DELETE FROM listeAchat WHERE id_bouteille_cellier ='" . $id_bouteille_cellier . "' AND id_user = '". $idUser ."'";
+
+		$res = $this->_db->query($requete); 
+
+		return $res;
+	}
+
+	/**
+	 * Cette méthode permet de sortir la liste d'achat d'un usager
+	 *
+	 * 
+	 * @return array Tous les infos du cellier a ce ID spécifique
+	 */
+
+	 public function listeAchatParUsager($idUser) 
+	 {
+		$requete = "SELECT * FROM bouteille__cellier b 
+		JOIN listeAchat ON b.id = listeAchat.id_bouteille_cellier
+		JOIN vino__saq v ON b.id_bouteille_saq = v.id 
+		WHERE listeAchat.id_user = '". $idUser."'";
+
+		$res = $this->_db->query($requete); 
+
+		return $res;
+	 }
 }
 
 

@@ -201,6 +201,7 @@ function ajaxUpdateCellierNomFunction(id_cellier) {
     // envoyées par le serveur et mettra à jour 
     // la div dans la page.
     ajaxRequest.onreadystatechange = function() {
+        const BaseURL = window.location.origin + window.location.pathname
 
         if (ajaxRequest.readyState == 4) {
             var ajaxDisplay = document.getElementById('errMessage');
@@ -211,7 +212,7 @@ function ajaxUpdateCellierNomFunction(id_cellier) {
                 showMessage(ajaxRequest.responseText);
             } else {
                 // a changer lorsque qu'on mettera en live
-                document.location.replace('http://localhost/vino/index.php?requete=SelectionCellier&id=' + id_cellier);
+                document.location.replace(BaseURL + '?requete=SelectionCellier&id=' + id_cellier);
 
 
             }

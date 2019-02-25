@@ -15,7 +15,7 @@
 			<input type="password" name="mdp2"/><br>
             <!-- <input type="password" name="nom"/> préférable pour un mot de passe -->
             <input type="hidden" name="requete" value="signup"/>
-			<input type="button" value="SignUp" onclick="Signup()"/>
+			<input type="button" value="S'inscrire" onclick="Signup()"/>
         </form>
     </div>  		
 		<div id="errMessage"></div>

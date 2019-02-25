@@ -221,12 +221,12 @@ h1 {
     font-size: 1.2em;
     padding: 15px;
     border-radius: 10px;
-    width: 250px;
+    text-align: center;
 }
 
 .options {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     /* align-self: center; */
 }
 
@@ -235,7 +235,7 @@ h1 {
 }
 
 
-
+.listeAchat button,
 .bouteille>button,
 .options>button,
 .modifierBouteille input[type='submit']{
@@ -248,6 +248,7 @@ h1 {
 
 }
 
+.listeAchat button:hover,
 .options>button:hover,
 .nouvelleBouteille>button:hover,
 .modifierBouteille input[type='submit']:hover {
@@ -303,6 +304,43 @@ form input {
 }
 
 /* Formulaire sign up */
+
+
+/* Liste d'achat */
+
+.listeAchat {
+    width: 90%;
+    max-width: 90%;
+    margin: 0 auto;
+    background-color: whitesmoke;
+}
+
+.listeAchat td > p {
+    text-align: center;
+    margin: 0;
+}
+
+.listeAchat-img {
+    height: 50%;
+    width: auto;
+    margin: 5px;
+}
+
+.listeAchat th, .listeAchat td {
+    padding: 10px;
+}
+
+.listeAchat th {
+    background-color: #F8EEE1;
+}
+
+.listeAchat tr:hover {
+    background-color: #867575;
+}
+
+.listeAchat tr:nth-child(even) {
+    background-color: #F8EEE1;
+}
 
 
 @media all and (max-width:765px) {
@@ -370,6 +408,10 @@ form input {
 
     .voir-plus {
         display: block;
+    }
+
+    .bouteille {
+        max-width: 60%;
     }
 
 }

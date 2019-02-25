@@ -121,3 +121,16 @@ INSERT INTO `bouteille__cellier` VALUES(13, 5, '0000-00-00', '','nom4','pays4', 
 -- --------------------------------------------------------
 
 
+--
+-- Structure de la table `listeAchat`
+--
+
+
+CREATE TABLE `listeAchat` (
+  `id_bouteille_cellier` int(11),
+  `id_user` varchar(200),
+  PRIMARY KEY(`id_user`,`id_bouteille_cellier`),
+  FOREIGN KEY (`id_user`) REFERENCES `usager`(`username`),
+  FOREIGN KEY (`id_bouteille_cellier`) REFERENCES `bouteille__cellier`(`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = latin1 AUTO_INCREMENT = 10;
+

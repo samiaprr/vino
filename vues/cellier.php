@@ -58,6 +58,7 @@
             }
             if(isset($_SESSION["idCell"]))
             {
+                $trouver = false;
                  echo " <a id='ajouterBouteilleCellier' href='?requete=ajouterNouvelleBouteilleCellier'>Ajouter une bouteille au cellier</a>";
                 foreach ($data1 as $cle => $bouteille) {
                     echo    "<div class='bouteille column--center' data-quantite='' data-id='" . $bouteille['id_bouteille_cellier'] . "'>
@@ -90,8 +91,28 @@
                     <div class='options' data-id='" . $bouteille['id_bouteille_cellier'] . "'>
                         <button class='btnModif'>Modifier</button>
                         <button class='btnAjouter'><i class='fa fa-plus'></i></button>
-                        <button class='btnBoire'><i class='fa fa-minus'></i></button>
-                    </div>
+                        <button class='btnBoire'><i class='fa fa-minus'></i></button>";
+                    
+                        if(empty($dataListeAchat)){
+                            echo "<button class='btnListeAchat' data-id='" . $bouteille['id_bouteille_cellier'] . "'>Ajout à la liste d'achat</button>";
+                            
+                        } else {
+                            foreach($dataListeAchat as $cle=> $bouteilleListe){
+                                if($bouteille['id_bouteille_cellier'] == $bouteilleListe['id_bouteille_cellier']){
+                                    $trouver = true;
+                                } else {
+                                    $trouver = false;
+                                }
+                            }
+                            if($trouver){
+                                echo "<button class='btnRetraitListeAchat' data-id='" . $bouteille['id_bouteille_cellier'] . "'>Retrait de la liste d'achat</button>";
+
+                            } else {
+                                echo "<button class='btnListeAchat' data-id='" . $bouteille['id_bouteille_cellier'] . "'>Ajout à la liste d'achat</button>";
+
+                            }
+                        }
+                        echo "</div>
                 </div>";     
             }
     
