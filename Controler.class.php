@@ -37,6 +37,9 @@ class Controler
 				case 'ajouterNouvelleBouteilleSaq':
 					$this->ajouterNouvelleBouteilleSaq();
 					break;
+				case 'ajouterNouvelleBouteilleCellierNonLister':
+					$this->ajouterNouvelleBouteilleCellierNonLister();
+				break;					
 				case 'ajouterBouteilleCellier':
 					$this->ajouterBouteilleCellier();
 					break;
@@ -117,6 +120,9 @@ class Controler
 					break;
 				case 'retirerListeAchat':
 						$this->retirerListeAchat();
+				break;
+				case 'ajouterBouteilleNonLister':
+					$this->ajouterBouteilleNonLister();
 					break;
 				default:
 					$this->accueil();
@@ -125,6 +131,76 @@ class Controler
 		}
 	}
 
+	private function ajouterBouteilleNonLister()
+	{
+		var_dump($_POST);
+		var_dump($_FILES['fichier']);
+		if (isset($_POST["submit"])) {
+            $repertoire = "images/";
+            //vous pouvez changer le nom du fichier si vous voulez, ici
+            $nomFichier = $repertoire . $_SESSION["UserID"]. basename($_FILES["fichier"]["name"]);
+            $uploadOk = true;
+            $imageType = strtolower(pathinfo($nomFichier, PATHINFO_EXTENSION));
+            // Check if image file is a actual image or fake image
+            $check = getimagesize($_FILES["fichier"]["tmp_name"]);
+            if ($check !== false) {
+                echo "Le fichier est une image - " . $check["mime"] . ".";
+                $uploadOk = true;
+            } else {
+                echo "Le fichier n'est pas une image.";
+                $uploadOk = false;
+            }
+
+
+            // Vérifier la taille du fichier
+            if ($_FILES["fichier"]["size"] > 5000000) {
+                echo "Le fichier est trop gros.";
+                $uploadOk = false;
+            }
+
+            // Vérifier le type du fichier
+            if ($imageType != "jpg" && $imageType != "png" && $imageType != "jpeg"
+                && $imageType != "gif") {
+                echo "Désolé, les extensions acceptées sont jpg, png, jpeg et gif.";
+                $uploadOk = false;
+            }
+
+
+            // S'il y a erreur, donner un msg d'erreur.
+            if ($uploadOk == false) {
+                echo "Upload impossible.";
+                // if everything is ok, try to upload file
+			} 
+				var_dump($nomFichier);
+            if (file_exists($nomFichier)) {
+                echo "Le fichier existe déjà.";
+				$uploadOk == false;
+				$bte = new Bouteille();
+				$data = $bte->cellierParUsager($_SESSION['UserID']);
+				//var_dump($_POST);
+				$data1 = $bte->ajouterNouvelleBouteilleNonLister($_POST["nom_bouteille"],$_POST["date_achat"],$_POST["garde_jusqua"],$_POST["pays"],$_POST["notes"],$_POST["prix"],$_POST["types"],$_POST["quantite"],$_POST["millesime"],$_SESSION["idCell"],$nomFichier);
+				//var_dump($data1);
+				header('Location: index.php?requete=monCellier');
+            }
+			else {
+                if (move_uploaded_file($_FILES["fichier"]["tmp_name"], $nomFichier)) {
+                    echo "Le fichier " . $nomFichier . " a été téléchargé.";
+                    $bte = new Bouteille();
+				$data = $bte->cellierParUsager($_SESSION['UserID']);
+				//var_dump($_POST);
+				$data1 = $bte->ajouterNouvelleBouteilleNonLister($_POST["nom_bouteille"],$_POST["date_achat"],$_POST["garde_jusqua"],$_POST["pays"],$_POST["notes"],$_POST["prix"],$_POST["types"],$_POST["quantite"],$_POST["millesime"],$_SESSION["idCell"],$nomFichier);
+				header('Location: index.php?requete=monCellier');
+
+
+
+
+                } else {
+                    echo "Erreur d'upload.";
+                }
+            }
+
+        }
+	}
 		private function SuppressionCellier()
 		{
 			$bte = new Bouteille();
@@ -137,7 +213,7 @@ class Controler
 			$bte = new Bouteille();
 			$data = $bte->cellierParUsager($_SESSION['UserID']);
 			$data1 = $bte->getRechercheBouteille($_POST["categorie"],$_POST["recherche"],$_SESSION['UserID'],$_SESSION["idCell"]);
-			// var_dump($_SESSION);
+			// var_dump($data1);
 			include("vues/entete.php");
 			include("vues/cellierRecherche.php");
 			include("vues/pied.php");
@@ -164,6 +240,25 @@ class Controler
                   
 
 		}
+	/*	private function ajouterBouteilleNonLister()
+		{
+			// var_dump($_SESSION["UserID"]);
+			if(isset($_SESSION["UserID"])){
+				var_dump($_POST['ajouterBouteilleCellier']);
+				var_dump($_POST['fichier']);
+
+				//$bte = new Bouteille();
+				//$data = $bte->cellierParUsager($_SESSION['UserID']);
+				//var_dump($_POST);
+				//$data1 = $bte->ajouterNouvelleBouteilleSaq($_POST["idSaq"],$_POST["date_achat"],$_POST["garde_jusqua"],$_POST["nom"],$_POST["pays"],$_POST["notes"],$_POST["prix"],$_POST["types"],$_POST["quantite"],$_POST["millesime"],$_SESSION["idCell"]);
+				//var_dump($data1);
+				//header('Location: index.php?requete=monCellier');
+			}else{
+				//$this->monCellier();
+			}
+		}
+		*/
+
 		private function ajouterNouvelleBouteilleSaq()
 		{
 			var_dump($_SESSION["UserID"]);
@@ -288,7 +383,17 @@ class Controler
 			include("vues/pied.php");		
 
 		}
+		private function ajouterNouvelleBouteilleCellierNonLister()
+		{	
 
+				$bte = new Bouteille();
+				$resultat = $bte->cellierParUsager($_SESSION["UserID"]);
+				include("vues/entete.php");
+				include("vues/ajouterNonLister.php");
+				include("vues/pied.php");
+			
+			 
+		}
 		private function ajouterNouvelleBouteilleCellier()
 		{	
 			// echo $_SESSION['id_cellier'];
