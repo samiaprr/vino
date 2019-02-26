@@ -60,58 +60,123 @@
             {
                 $trouver = false;
                  echo " <a id='ajouterBouteilleCellier' href='?requete=ajouterNouvelleBouteilleCellier'>Ajouter une bouteille au cellier</a>";
-                foreach ($data1 as $cle => $bouteille) {
-                    echo    "<div class='bouteille column--center' data-quantite='' data-id='" . $bouteille['id_bouteille_cellier'] . "'>
-                    <img class='bouteille--img' src='https:" . $bouteille['image'] . "'>
 
-                    <h1>" . 
-                        $bouteille['nom'] . "
-                    </h1>
-                    <button class='voir-plus'>Voir plus</button>
-                    <div class='description column--center'>
-                        <p class='nom'>Nom: " . 
-                            $bouteille['nom'] . "
-                        </p>
-                        <p class='quantite'>Quantité: <strong class='int'>" . $bouteille['quantite'] . "</strong></p>
-                        <p class='pays'>Pays: " . 
-                            $bouteille['pays'] . "
-                        </p>
-                        <p class='type'>Type: " . 
-                            $bouteille['types'] . "
-                        </p>
-                        <p class='millesime'>Millesime: " . 
-                        $bouteille['millesime'] . "
-                        </p>
-                        <p class='prix'>Prix: " . 
-                            $bouteille['prix'] . "
-                        </p>
+    foreach ($data1 as $cle => $bouteille) {
+ 
+        if($bouteille["code_saq"] == NULL){
+            echo    "<div class='bouteille column--center' data-quantite='' data-id='" . $bouteille['id_bouteille_cellier'] . "'>
+            <img class='bouteille--img' src='" . $bouteille['image'] . "'>
 
-                        <p><a href='" . $bouteille['url_saq'] . "'>Voir SAQ</a></p>
-                    </div>
-                    <div class='options' data-id='" . $bouteille['id_bouteille_cellier'] . "'>
-                        <button class='btnModif'>Modifier</button>
-                        <button class='btnAjouter'><i class='fa fa-plus'></i></button>
-                        <button class='btnBoire'><i class='fa fa-minus'></i></button>";
+            <h1>" . 
+                 $bouteille['nom'] . "
+            </h1>
+            <button class='voir-plus'>Voir plus</button>
+            <div class='description column--center'>
+                <p class='nom'>Nom :" . 
+                    $bouteille['nom'] . "
+                </p>
+                <p class='quantite'>Quantité : <strong class='int'>" . $bouteille['quantite'] . "</strong></p>
+                <p class='pays'>Pays :" . 
+                    $bouteille['pays'] . "
+                </p>
+                <p class='type'>Type :" . 
+                    $bouteille['types'] . "
+                </p>
+                <p class='millesime'>Millesime :" . 
+                   $bouteille['millesime'] . "
+                </p>
+                <p class='prix'>Prix :" . 
+                    $bouteille['prix'] . "
+                </p>
+                <p class='notes'>Notes :" . 
+                    $bouteille['notes'] . "
+                </p>
+
+            </div>
+            <div class='options' data-id='" . $bouteille['id_bouteille_cellier'] . "'>
+                <button class='btnModif'>Modifier</button>
+                <button class='btnAjouter'>Ajouter</button>
+                <button class='btnBoire'>Boire</button>";
+                 if(empty($dataListeAchat)){
+                    echo "<button class='btnListeAchat' data-id='" . $bouteille['id_bouteille_cellier'] . "'>Ajout à la liste d'achat</button>";
                     
-                        if(empty($dataListeAchat)){
-                            echo "<button class='btnListeAchat' data-id='" . $bouteille['id_bouteille_cellier'] . "'>Ajout à la liste d'achat</button>";
-                            
-                        } else {
-                            foreach($dataListeAchat as $cle => $bouteilleListe){
-                                if($bouteille['id_bouteille_cellier'] == $bouteilleListe['id_bouteille_cellier']){
-                                    $trouver = true;
-                                }
-                            }
-                            if($trouver){
-                                echo "<button class='btnRetraitListeAchat' data-id='" . $bouteille['id_bouteille_cellier'] . "'>Retrait de la liste d'achat</button>";
-
-                            } else {
-                                echo "<button class='btnListeAchat' data-id='" . $bouteille['id_bouteille_cellier'] . "'>Ajout à la liste d'achat</button>";
-
-                            }
+                } else {
+                    foreach($dataListeAchat as $cle => $bouteilleListe){
+                        if($bouteille['id_bouteille_cellier'] == $bouteilleListe['id_bouteille_cellier']){
+                            $trouver = true;
                         }
-                        echo "</div>
-                </div>";     
+                    }
+                    if($trouver){
+                        echo "<button class='btnRetraitListeAchat' data-id='" . $bouteille['id_bouteille_cellier'] . "'>Retrait de la liste d'achat</button>";
+
+                    } else {
+                        echo "<button class='btnListeAchat' data-id='" . $bouteille['id_bouteille_cellier'] . "'>Ajout à la liste d'achat</button>";
+
+                    }
+                }
+                echo "</div>
+			
+        </div>
+        "; 
+
+        }else{
+        echo    "<div class='bouteille column--center' data-quantite='' data-id='" . $bouteille['id_bouteille_cellier'] . "'>
+            <img class='bouteille--img' src='https:" . $bouteille['image'] . "'>
+
+            <h1>" . 
+                 $bouteille['nom'] . "
+            </h1>
+            <button class='voir-plus'>Voir plus</button>
+            <div class='description column--center'>
+                <p class='nom'>Nom :" . 
+                    $bouteille['nom'] . "
+                </p>
+                <p class='quantite'>Quantité : <strong class='int'>" . $bouteille['quantite'] . "</strong></p>
+                <p class='pays'>Pays :" . 
+                    $bouteille['pays'] . "
+                </p>
+                <p class='type'>Type :" . 
+                    $bouteille['types'] . "
+                </p>
+                <p class='millesime'>Millesime :" . 
+                   $bouteille['millesime'] . "
+                </p>
+                <p class='prix'>Prix :" . 
+                    $bouteille['prix'] . "
+                </p>
+                <p class='notes'>Notes :" . 
+                    $bouteille['notes'] . "
+                </p>
+
+                <p><a href='" . $bouteille['url_saq'] . "'>Voir SAQ</a></p>
+            </div>
+            <div class='options' data-id='" . $bouteille['id_bouteille_cellier'] . "'>
+                <button class='btnModif'>Modifier</button>
+                <button class='btnAjouter'>Ajouter</button>
+                <button class='btnBoire'>Boire</button>";
+                
+                if(empty($dataListeAchat)){
+                    echo "<button class='btnListeAchat' data-id='" . $bouteille['id_bouteille_cellier'] . "'>Ajout à la liste d'achat</button>";
+                    
+                } else {
+                    foreach($dataListeAchat as $cle => $bouteilleListe){
+                        if($bouteille['id_bouteille_cellier'] == $bouteilleListe['id_bouteille_cellier']){
+                            $trouver = true;
+                        }
+                    }
+                    if($trouver){
+                        echo "<button class='btnRetraitListeAchat' data-id='" . $bouteille['id_bouteille_cellier'] . "'>Retrait de la liste d'achat</button>";
+
+                    } else {
+                        echo "<button class='btnListeAchat' data-id='" . $bouteille['id_bouteille_cellier'] . "'>Ajout à la liste d'achat</button>";
+
+                    }
+                }
+                echo "</div>
+			
+        </div>
+        ";  }   
+        
             }
     
         }

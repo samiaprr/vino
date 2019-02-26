@@ -332,6 +332,44 @@ class Bouteille extends Modele {
 		return $rows;
 	}
 	
+	/**
+	 * Cette méthode ajoute une ou des bouteilles au cellier qui ne provient pas de la SAQ.
+	 * 
+	 * @param Array $data Tableau des données représentants la bouteille.
+	 * 
+	 * @return Boolean Succès ou échec de l'ajout.
+	 */
+	public function ajouterNouvelleBouteilleNonLister($nom,$date_achat,$garde_jusqua,$pays,$notes,$prix,$types,$quantite,$millesime,$idCellier,$nomFichier)
+	{
+		//TODO : Valider les données.
+		//var_dump($data);	
+
+		$requete = "INSERT INTO vino__saq(image,types) VALUES (".
+		"'".$nomFichier."',".	
+		"'".$types."')";
+		$res = $this->_db->query($requete);
+		var_dump($res);
+		$requete2 = "SET @last_id_in_vino__saq = LAST_INSERT_ID()";
+		$res2 = $this->_db->query($requete2);
+		var_dump($res2);
+
+		$requete3 = "INSERT INTO bouteille__cellier(id_bouteille_saq,date_achat,garde_jusqua,nom, pays,notes,prix,types,quantite,millesime,id_cellier) 
+		VALUES (@last_id_in_vino__saq,".
+		"'".$date_achat."',".
+		"'".$garde_jusqua."',".
+		"'".$nom."',".
+		"'".$pays."',".
+		"'".$notes."',".
+		"'".$prix."',".
+		"'".$types."',".
+		"'".$quantite."',".
+		"'".$millesime."',".
+		"'".$idCellier."');";
+		$res3 = $this->_db->query($requete3);
+		var_dump($res3);
+
+		return $res3;
+	}
 	
 	/**
 	 * Cette méthode ajoute une ou des bouteilles au cellier

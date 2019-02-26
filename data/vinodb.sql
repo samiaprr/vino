@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS `vino__types`;
 DROP TABLE IF EXISTS `cellier`;
 DROP TABLE IF EXISTS `usager`;
 DROP TABLE IF EXISTS `vino__saq`;
+DROP TABLE IF EXISTS `listeAchat`;
 
 -- Structure de la table `vino__bouteille`--
 
@@ -21,7 +22,7 @@ CREATE TABLE `vino__saq` (
   `url_saq` varchar(200) DEFAULT NULL,
   `url_img` varchar(200) DEFAULT NULL,
   `format` varchar(20) DEFAULT NULL,
-  `types` int(11) DEFAULT NULL,
+  `types` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
@@ -39,6 +40,7 @@ INSERT INTO `vino__saq` VALUES(7, 'Huber Riesling Engelsberg 2017', '//s7d9.scen
 INSERT INTO `vino__saq` VALUES(8, 'Dominio de Tares Estay Castilla y Léon 2015', '//s7d9.scene7.com/is/image/SAQ/13802571_is?$saq-rech-prod-gril$', '13802571', 'Espagne', 'Vin rouge\r\n         \r\n      \r\n      \r\n      Espagne, 750 ml\r\n      \r\n      \r\n      Code SAQ : 13802571', 18, 'https://www.saq.com/page/fr/saqcom/vin-rouge/dominio-de-tares-estay-castilla-y-leon-2015/13802571', '//s7d9.scene7.com/is/image/SAQ/13802571_is?$saq-rech-prod-gril$', ' 750 ml', 1);
 INSERT INTO `vino__saq` VALUES(9, 'Tessellae Old Vines Côtes du Roussillon 2016', '//s7d9.scene7.com/is/image/SAQ/12216562_is?$saq-rech-prod-gril$', '12216562', 'France', 'Vin rouge\r\n         \r\n      \r\n      \r\n      France, 750 ml\r\n      \r\n      \r\n      Code SAQ : 12216562', 21, 'https://www.saq.com/page/fr/saqcom/vin-rouge/tessellae-old-vines-cotes-du-roussillon-2016/12216562', '//s7d9.scene7.com/is/image/SAQ/12216562_is?$saq-rech-prod-gril$', ' 750 ml', 1);
 INSERT INTO `vino__saq` VALUES(10, 'Tenuta Il Falchetto Bricco Paradiso -... 2015', '//s7d9.scene7.com/is/image/SAQ/13637422_is?$saq-rech-prod-gril$', '13637422', 'Italie', 'Vin rouge\r\n         \r\n      \r\n      \r\n      Italie, 750 ml\r\n      \r\n      \r\n      Code SAQ : 13637422', 34, 'https://www.saq.com/page/fr/saqcom/vin-rouge/tenuta-il-falchetto-bricco-paradiso---barbera-dasti-superiore-docg-2015/13637422', '//s7d9.scene7.com/is/image/SAQ/13637422_is?$saq-rech-prod-gril$', ' 750 ml', 1);
+INSERT INTO `vino__saq` VALUES(11, 'ALLO Tenuta Il Falchetto Bricco Paradiso -... 2015', '//s7d9.scene7.com/is/image/SAQ/13637422_is?$saq-rech-prod-gril$', '13637422', 'Italie', 'Vin rose\r\n         \r\n      \r\n      \r\n      Italie, 750 ml\r\n      \r\n      \r\n      Code SAQ : 13637422', 34, 'https://www.saq.com/page/fr/saqcom/vin-rouge/tenuta-il-falchetto-bricco-paradiso---barbera-dasti-superiore-docg-2015/13637422', '//s7d9.scene7.com/is/image/SAQ/13637422_is?$saq-rech-prod-gril$', ' 750 ml', 3;
 
 -- --------------------------------------------------------
 -- Structure de la table `usager`
@@ -100,11 +102,10 @@ CREATE TABLE `bouteille__cellier` (
   `pays` varchar(50) DEFAULT NULL,
   `notes` varchar(200) DEFAULT NULL,
   `prix` float(7,2) DEFAULT NULL,
-  `types` int(11) NOT NULL,
+  `types` varchar(11) DEFAULT NULL,
   `quantite` int(11) DEFAULT NULL,
   `millesime` int(11) DEFAULT NULL,
   `id_cellier` int(11) NOT NULL,
-  FOREIGN KEY (`id_bouteille_saq`) REFERENCES `vino__saq`(`id`),
   FOREIGN KEY (`id_cellier`) REFERENCES `cellier`(`id_cellier`),
   FOREIGN KEY (`types`) REFERENCES `vino__types`(`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1 AUTO_INCREMENT = 10;
