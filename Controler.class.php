@@ -171,7 +171,7 @@ class Controler
                 echo "Upload impossible.";
                 // if everything is ok, try to upload file
 			} 
-				var_dump($nomFichier);
+			//	var_dump($nomFichier);
             if (file_exists($nomFichier)) {
                 echo "Le fichier existe déjà.";
 				$uploadOk == false;
