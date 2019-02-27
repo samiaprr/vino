@@ -88,6 +88,9 @@
                 <p class='prix'>Prix :" . 
                     $bouteille['prix'] . "
                 </p>
+                <p class='notes'>Notes :" . 
+                    $bouteille['notes'] . "
+                </p>
 
                 <p><a href='" . $bouteille['url_saq'] . "'>Voir SAQ</a></p>
             </div>
