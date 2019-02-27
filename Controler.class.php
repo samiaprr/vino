@@ -267,7 +267,7 @@ class Controler
 				$bte = new Bouteille();
 				$data = $bte->cellierParUsager($_SESSION['UserID']);
 				//var_dump($_POST);
-				$data1 = $bte->ajouterNouvelleBouteilleSaq($_POST["idSaq"],$_POST["date_achat"],$_POST["garde_jusqua"],$_POST["nom"],$_POST["pays"],$_POST["notes"],$_POST["prix"],$_POST["types"],$_POST["quantite"],$_POST["millesime"],$_SESSION["idCell"]);
+				$data1 = $bte->ajouterNouvelleBouteilleSaq($_POST["idSaq"],$_POST["date_achat"],$_POST["garde_jusqua"],$_POST["nom"],$_POST["pays"],$_POST["notes"],$_POST["prix"],$_POST["types"],$_POST["quantite"],$_POST["millesime"],$_POST["celly"]);
 				//var_dump($data1);
 				header('Location: index.php?requete=monCellier');
 			}else{
