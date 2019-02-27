@@ -25,9 +25,6 @@ class Controler
 				$this->accueil();
 			}else{
 			switch ($_GET['requete']) {
-				case 'listeBouteille':
-					$this->listeBouteille();
-					break;
 				case 'autocompleteBouteille':
 					$this->autocompleteBouteille();
 					break;
@@ -63,7 +60,6 @@ class Controler
 					break;		
 				case 'signup':
 					$this->signup($_GET['username'],$_GET['password']);
-					//$this->accueil();
 					break;
 				case 'login':
 					$this->login($_GET['username'],$_GET['password']);
@@ -85,7 +81,6 @@ class Controler
 				case 'monCellier':
 					$this->monCellier();
 					break;
-
                 case 'choissirCellier':
 					$this->choissirCellier($_GET['id_cellier']);
 					break;
@@ -97,13 +92,9 @@ class Controler
 					$this->AjoutCell($_GET['nom'],$_GET['username']);
 					break;			
 				case 'triBouteille':
-				//	var_dump($_POST["categorie"]);
-				//	var_dump($_POST["ordre"]);
 					$this->triBouteille();
 					break;
 				case 'rechercheBouteille':
-					//	var_dump($_POST["categorie"]);
-					//	var_dump($_POST["ordre"]);
 					$this->rechercheBouteille();
 					break;
 				case 'SelectionCellier':
@@ -119,7 +110,7 @@ class Controler
 					$this->afficheListeAchatParUsager();
 					break;
 				case 'retirerListeAchat':
-						$this->retirerListeAchat();
+					$this->retirerListeAchat();
 				break;
 				case 'ajouterBouteilleNonLister':
 					$this->ajouterBouteilleNonLister();
@@ -201,24 +192,27 @@ class Controler
 
         }
 	}
+		//supprimer un cellier
 		private function SuppressionCellier()
 		{
 			$bte = new Bouteille();
 			$bte->SuppressionCellier($_GET['Id']);
 		}
 
+		//recherche de bouteille
 		private function rechercheBouteille()
 		{
 
 			$bte = new Bouteille();
 			$data = $bte->cellierParUsager($_SESSION['UserID']);
 			$data1 = $bte->getRechercheBouteille($_POST["categorie"],$_POST["recherche"],$_SESSION['UserID'],$_SESSION["idCell"]);
-			// var_dump($data1);
+			
 			include("vues/entete.php");
 			include("vues/cellierRecherche.php");
 			include("vues/pied.php");
 		}
 
+		//selection de cellier
 		private function SelectCellier($id)
 		{
 			if(isset($_SESSION["UserID"])){
@@ -259,28 +253,30 @@ class Controler
 		}
 		*/
 
+		//Ajouter une nouvelle bouteille qui vient de la saq
 		private function ajouterNouvelleBouteilleSaq()
 		{
 			var_dump($_SESSION["UserID"]);
 			if(isset($_SESSION["UserID"])){
-				//var_dump($_POST);
+				
 				$bte = new Bouteille();
 				$data = $bte->cellierParUsager($_SESSION['UserID']);
-				//var_dump($_POST);
+				
 				$data1 = $bte->ajouterNouvelleBouteilleSaq($_POST["idSaq"],$_POST["date_achat"],$_POST["garde_jusqua"],$_POST["nom"],$_POST["pays"],$_POST["notes"],$_POST["prix"],$_POST["types"],$_POST["quantite"],$_POST["millesime"],$_POST["celly"]);
-				//var_dump($data1);
+				
 				header('Location: index.php?requete=monCellier');
 			}else{
 				$this->monCellier();
 			}
 		}
 
+		//Triage de bouteille
 		private function triBouteille()
 		{
 			if(isset($_SESSION["UserID"])){
 				$bte = new Bouteille();
 				$data = $bte->cellierParUsager($_SESSION['UserID']);
-				// var_dump($_SESSION);
+			
 				$data1 = $bte->getTriBouteille($_POST["categorie"],$_POST["ordre"], $_SESSION['UserID'], $_SESSION["idCell"]);
 				include("vues/entete.php");
 				include("vues/cellier.php");
@@ -290,9 +286,10 @@ class Controler
 			}
 		}
 
+		//Page d'accueil
 		private function accueil()
 		{
-			//var_dump($_SESSION);
+			
 			//Si la personne est connecté
 			if(isset($_SESSION["UserID"])){
 				$username = $_SESSION["UserID"];
@@ -309,15 +306,14 @@ class Controler
                  
 		}
 
-		
+		//affichage de mon cellier
 		private function monCellier()
 		{
 			$bte = new Bouteille();
 			$username = $_SESSION["UserID"];
 			if(isset($_SESSION["idCell"])){
 				$id_cellier = $_SESSION["idCell"];
-				//var_dump($id_cellier);
-				//var_dump($_SESSION["idCell"]);
+				
 				$data = $bte->cellierParUsager($username);
 				$data1 = $bte->getListeBouteilleCellierByIdCellier($id_cellier);
 
@@ -334,7 +330,7 @@ class Controler
 		}
 		
 		
-
+		//Formulaire ajout du cellier
 		private function formAjoutCellier()
 		{
 			include("vues/entete.php");
@@ -342,6 +338,7 @@ class Controler
 			include("vues/pied.php");     
 		}
 
+		//Ajout du cellier
 		private function AjoutCell()
 		{
 			$bte = new Bouteille();
@@ -352,16 +349,9 @@ class Controler
 			
 		}
 
-
-		private function listeBouteille()
-		{
-			$bte = new Bouteille();
-            $cellier = $bte->getListeBouteilleCellier();
-            
-            echo json_encode($cellier);
-                  
-		}
+	
 		
+		//autocomplete pour l'ajout bouteille
 		private function autocompleteBouteille()
 		{
 			$bte = new Bouteille();
@@ -374,6 +364,7 @@ class Controler
                   
 		}
 
+		//formulaire modification 
 		private function FormModif()
 		{		
 			$bte = new Bouteille();
@@ -383,6 +374,8 @@ class Controler
 			include("vues/pied.php");		
 
 		}
+
+		//ajouter nouvelle bouteille non lister
 		private function ajouterNouvelleBouteilleCellierNonLister()
 		{	
 
@@ -394,6 +387,8 @@ class Controler
 			
 			 
 		}
+
+		//ajouter nouvelle bouteille de la SAQ
 		private function ajouterNouvelleBouteilleCellier()
 		{	
 			// echo $_SESSION['id_cellier'];
@@ -417,6 +412,7 @@ class Controler
 			 
 		}
 
+		//fonction pour reduire quantite bouteille
 		private function boireBouteilleCellier()
 		{
 			$body = json_decode(file_get_contents('php://input'));
@@ -425,6 +421,7 @@ class Controler
 			echo json_encode($resultat);
 		}
 
+		//fonction pour ajouter quantite bouteille
 		private function ajouterBouteilleCellier()
 		{
 			$body = json_decode(file_get_contents('php://input'));
@@ -433,6 +430,7 @@ class Controler
 			echo json_encode($resultat);
 		}
 
+		//modifier  bouteille
 		private function ModifBouteille()
 		{
 			$bte = new Bouteille();
@@ -447,6 +445,7 @@ class Controler
 			
 		}
 
+		//Ajout de bouteille dans la liste d'achat
 		private function ajoutListeAchat()
 		{
 			$idUser = $_SESSION["UserID"];
@@ -465,6 +464,7 @@ class Controler
 
 		}
 
+		//Retrait de bouteille dans la liste d'achat
 		private function retirerListeAchat()
 		{
 			$idUser = $_SESSION["UserID"];
@@ -482,6 +482,8 @@ class Controler
 			return $resultatRetraitListeAchat;
 		}
 
+
+		//Retrait de bouteille dans la liste d'achat
 		private function afficheListeAchatParUsager()
 		{
 			$idUser = $_SESSION["UserID"];
@@ -497,12 +499,15 @@ class Controler
 			
 		}
 
+		//formulaire d'inscription
         private function FormSignup()
         {
 			include("vues/entete.php");
 			include("vues/FormSignup.php");
 			include("vues/pied.php");
-        }		
+		}
+		
+		//Insertion d'inscription
 		private function signup($username,$password)
 		{
             $u = new User();
@@ -522,24 +527,11 @@ class Controler
             {
                 echo json_encode('Username already Signup');
             }
-            //$resultat = $u->getAllUser();
             
-			//echo json_encode($resultat);
-            /*
-			echo 'signup' . $username . ' ' . $password;
-			if(trim($username) != "" && trim($password) != "")
-			{
-				 $passwordEncrypte = password_hash($password, PASSWORD_DEFAULT);
-				//insérer dans la BD
-				//InsertUser($_POST["username"],$passwordEncrypte);
-				echo $passwordEncrypte;
-			}
-			else
-			{
-				echo 'Signup error';
-			}*/
 		}
 
+
+		//creation de cellier
         private function creeCellier($username)
         {
 			$c = new Cellier();
@@ -547,6 +539,7 @@ class Controler
 		
         }
 		
+		//selection cellier par usager
 		private function getCellierNom($username)
         {
 			$c = new Cellier();
@@ -560,6 +553,7 @@ class Controler
 			
         }
 		
+		//formulaire de connexion
         private function FormLogin()
         {
 			include("vues/entete.php");
@@ -567,6 +561,7 @@ class Controler
 			include("vues/pied.php");
         }
 
+		//formulaire pour modifier compte
         private function FormModifyAccount()
         {
 			include("vues/entete.php");
@@ -574,6 +569,8 @@ class Controler
 			include("vues/pied.php");
         }		
 		
+
+		//selection cellier
         private function choissirCellier($id_cellier)
         {
 					
@@ -591,7 +588,8 @@ class Controler
                    
             
         }
-    
+	
+		//connexion usager
 		private function login($username,$password)
 		{
 			$u = new User();
@@ -625,27 +623,11 @@ class Controler
 						echo json_encode('Password pas correct!');
 						// Invalid
 					}
-			/*
-			if($resultat['password'] != $password){
-					echo json_encode('Password pas correct!');
-				}else{
-					
-					$c = new Cellier();
-					$donnees["celliers"] = $c->getCellierByUsername($username);
-
-					foreach($donnees["celliers"]  as $c)
-					{
-						$_SESSION["id_cellier"] =$c['id_cellier'];
-						$_SESSION["cellier_nom"] =$c['nom'];
-					}
-					
-					$_SESSION["UserID"] =$username;
-					echo json_encode('true');
-				}*/
             }
-			
+
 		}
 		
+		//update de usager
 		private function updateUser($username,$password)
 		{
 			$u = new User();
@@ -667,6 +649,7 @@ class Controler
 			
 		}
 		
+		//modification cellier
 		private function updateCellierNom($id_cellier,$nom)
 		{
 			$c = new Cellier();
@@ -688,6 +671,7 @@ class Controler
 			
 		}		
 		
+		//Deconnexion
 		private function Logout(){
 			// Détruit toutes les variables de session
 			$_SESSION = array();
