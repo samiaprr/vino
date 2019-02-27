@@ -168,7 +168,8 @@ class Bouteille extends Modele {
 	 * 
 	 * @return array id et nom de la bouteille trouvée dans le catalogue
 	 */
-	public function getRechercheBouteille($categorie,$recherche,$userID, $idCellier){
+	public function getRechercheBouteille($categorie,$recherche,$userID, $idCellier)
+	{
 		$rows = Array();
 		$categorie = $this->_db->real_escape_string($categorie);
 		$recherche = $this->_db->real_escape_string($recherche);
@@ -287,7 +288,8 @@ class Bouteille extends Modele {
 	 * 
 	 * @return array id et nom de la bouteille trouvée dans le catalogue
 	 */
-	public function getTriBouteille($categorie,$ordre,$userID,$idCellier){
+	public function getTriBouteille($categorie,$ordre,$userID,$idCellier)
+	{
 		$rows = Array();
 		$categorie = $this->_db->real_escape_string($categorie);
 		$ordre = $this->_db->real_escape_string($ordre);
