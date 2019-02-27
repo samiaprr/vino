@@ -12,14 +12,31 @@
  */
 class User extends Modele {
 	const TABLE = 'usager';
-    
+    /**
+	 * Cette méthode permet de retourner un usager  
+	 * 
+	 
+	 * @param string $username nom d'un usager.
+	 * 
+	 * @return array information d'un usager
+	 */
 	public function getUserByUsername($username)
 	{
 		$res = $this->_db->query('Select * from '. self::TABLE . ' where username="' . $username . '"');
         $row = $res->fetch_assoc();
 		return $row;
 	}
-    
+
+
+     /**
+	 * Cette méthode permet d'inserer un nouvel usager 
+	 * 
+	 
+	 * @param string $username nom d'un usager.
+	 * @param string $password password d'un usager.
+	 * 
+	 * @return bool retourne true ou false comme résultat de requête
+	 */
 	public function insertUser($username,$password)
 	{
 		//TODO : Valider les données.
@@ -34,6 +51,16 @@ class User extends Modele {
 		return $res;
 	}
 	
+
+	 /**
+	 * Cette méthode permet de modifier le mot de passe d'un usager 
+	 * 
+	 
+	 * @param string $username nom d'un usager.
+	 * @param string $password password d'un usager.
+	 * 
+	 * @return bool retourne true ou false comme résultat de requête
+	 */
 	public function updateUser($username, $password)
 	{
 		//TODO : Valider les données.			

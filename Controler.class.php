@@ -26,7 +26,6 @@ class Controler
 			}else{
 
 			switch ($_GET['requete']) {
-
 				case 'FormSignup':
 					$this->FormSignup();
 					break;
@@ -84,14 +83,10 @@ class Controler
 					break;	
 
 				case 'triBouteille':
-					//	var_dump($_POST["categorie"]);
-					//	var_dump($_POST["ordre"]);
 					$this->triBouteille();
 					break;
 
 				case 'rechercheBouteille':
-						//	var_dump($_POST["categorie"]);
-						//	var_dump($_POST["ordre"]);
 					$this->rechercheBouteille();
 					break;
 
@@ -169,7 +164,6 @@ class Controler
 		if(!$resultat){
 			$passwordEncrypte = password_hash($password, PASSWORD_DEFAULT);
 			$res = $u->insertUser($username,$passwordEncrypte);
-			//$res = $u->insertUser($username,$password);
 			if($res){
 				$this->creeCellier($username);
 				echo json_encode('Signup Success!');
@@ -207,9 +201,7 @@ class Controler
 
 		}else
 		{
-			//if (password_verify($password, $hash)) {
 				if (password_verify($password, $resultat['password'])) {
-					// Pass
 					$c = new Cellier();
 				$donnees["celliers"] = $c->getCellierByUsername($username);
 
@@ -494,15 +486,12 @@ class Controler
                 echo "Upload impossible.";
                 // if everything is ok, try to upload file
 			} 
-			//	var_dump($nomFichier);
             if (file_exists($nomFichier)) {
                 echo "Le fichier existe déjà.";
 				$uploadOk == false;
 				$bte = new Bouteille();
 				$data = $bte->cellierParUsager($_SESSION['UserID']);
-				//var_dump($_POST);
 				$data1 = $bte->ajouterNouvelleBouteilleNonLister($_POST["nom_bouteille"],$_POST["date_achat"],$_POST["garde_jusqua"],$_POST["pays"],$_POST["notes"],$_POST["prix"],$_POST["types"],$_POST["quantite"],$_POST["millesime"],$_SESSION["idCell"],$nomFichier);
-				//var_dump($data1);
 				header('Location: index.php?requete=monCellier');
             }
 			else {
@@ -510,7 +499,6 @@ class Controler
                     echo "Le fichier " . $nomFichier . " a été téléchargé.";
                     $bte = new Bouteille();
 				$data = $bte->cellierParUsager($_SESSION['UserID']);
-				//var_dump($_POST);
 				$data1 = $bte->ajouterNouvelleBouteilleNonLister($_POST["nom_bouteille"],$_POST["date_achat"],$_POST["garde_jusqua"],$_POST["pays"],$_POST["notes"],$_POST["prix"],$_POST["types"],$_POST["quantite"],$_POST["millesime"],$_SESSION["idCell"],$nomFichier);
 				header('Location: index.php?requete=monCellier');
 
