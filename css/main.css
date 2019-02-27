@@ -54,8 +54,8 @@ li {
 
 header {
     display: grid;
-    grid-column: 1fr 2fr 1fr;
-    grid-template-areas: "logo . menu";
+    grid-template-columns: 1fr 10px 2fr;
+    grid-template-areas: "logo . nav";
     align-items: center;
     justify-content: space-between;
     padding: 15px;
@@ -73,9 +73,9 @@ header {
 }
 
 nav {
-    font-size: 16px;
-    grid-area: menu;
-    margin-right: 50px;
+    font-size: 1em;
+    grid-area: nav;
+   justify-self: end;
 }
 
 
