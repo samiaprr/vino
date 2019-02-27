@@ -1,5 +1,5 @@
 <div class="ajouter">
-<h2>Ci la bouteille ne provient pas de la saq. <a title="form ajout" href="index.php?requete=ajouterNouvelleBouteilleCellierNonLister" >Cliquez-ici</a></h2>
+<h2>Si la bouteille ne provient pas de la SAQ. <a title="form ajout" href="index.php?requete=ajouterNouvelleBouteilleCellierNonLister" >Cliquez-ici</a></h2>
 
     <div class="nouvelleBouteille" vertical layout>
         Recherche : <input type="text" name="nom_bouteille">
@@ -16,11 +16,27 @@
                 <p>Date achat : <input name="date_achat" value="1"></p>
                 <p>Pays : <input name="pays" value="Canada"></p>
                 <p>Prix : <input name="prix" value="111" ></p>
+                <p>Choisir le cellier 
+                        <select name='celly'>
+                        <?php
+                        foreach ($resultat as $cle => $celli){
+                        echo "<option value='" . $celli['id_cellier'] . "'";
+                        echo ">" .$celli['nom']. "</option>";
+                        }
+                        ?>
+                        </select></p>
+                <p>Couleur du vin
+                        <select name='types'>
+                            <option value="1">Rouge</option>
+                            <option value="2">Blanc</option>
+                            <option value="3">Rosé</option>
+                        </select></p>
                 <p>Garde : <input name="garde_jusqua" value="1 ans" ></p>
                 <p>Notes <input name="notes" value="tata" ></p>
-                <input type="hidden" name="idSaq" />
+                <input type="hidden" name="idSaq"/>
+                
 
-            <button type="submit"  name="ajouterBouteilleCellier">Ajouter la bouteille</button>
+            <button type="submit">Ajouter la bouteille</button>
             </form>
             </div>
         </div>
