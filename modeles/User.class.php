@@ -15,7 +15,6 @@ class User extends Modele {
     /**
 	 * Cette méthode permet de retourner un usager  
 	 * 
-	 
 	 * @param string $username nom d'un usager.
 	 * 
 	 * @return array information d'un usager
@@ -31,7 +30,6 @@ class User extends Modele {
      /**
 	 * Cette méthode permet d'inserer un nouvel usager 
 	 * 
-	 
 	 * @param string $username nom d'un usager.
 	 * @param string $password password d'un usager.
 	 * 
@@ -40,7 +38,6 @@ class User extends Modele {
 	public function insertUser($username,$password)
 	{
 		//TODO : Valider les données.
-		//var_dump($data);	
 		
 		$requete = "INSERT INTO usager(username,password) VALUES (".
 		"'".$username."',".
@@ -65,7 +62,7 @@ class User extends Modele {
 	{
 		//TODO : Valider les données.			
 		$requete = "UPDATE usager SET  password='".$password."'  WHERE username='".$username."'";
-		//echo $requete;
+		
         $res = $this->_db->query($requete);
         
 		return $res;

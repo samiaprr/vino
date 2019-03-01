@@ -13,88 +13,6 @@
 class Bouteille extends Modele {
 	const TABLE = 'vino__bouteille';
 
-	// /**
-	//  * Cette méthode permet de retourner la liste de toutes les bouteilles 
-	//  *  
-	//  * 
-	//  * @return array liste de bouteille
-	//  */
-	// public function getListeBouteille()
-	// {
-		
-	// 	$rows = Array();
-	// 	$res = $this->_db->query('Select * from '. self::TABLE);
-	// 	if($res->num_rows)
-	// 	{
-	// 		while($row = $res->fetch_assoc())
-	// 		{
-	// 			$rows[] = $row;
-	// 		}
-	// 	}
-		
-	// 	return $rows;
-	// }
-	
-
-	// /**
-	//  * Cette méthode permet de retourner les résultats de recherche pour la fonction d'autocomplete de l'ajout des bouteilles dans le cellier
-	//  * 
-	//  * @param string $nom La chaine de caractère à rechercher
-	//  * @param integer $nb_resultat Le nombre de résultat maximal à retourner.
-	//  * 
-	//  * @throws Exception Erreur de requête sur la base de données 
-	//  * 
-	//  * @return array id et nom de la bouteille trouvée dans le catalogue
-	//  */
-	// public function getListeBouteilleCellier()
-	// {
-		
-	// 	$rows = Array();
-	// 	$requete ='SELECT 
-	// 		c.id as id_bouteille_cellier,
-	// 			c.id_bouteille_saq, 
-	// 			c.date_achat, 
-	// 			c.garde_jusqua, 
-	// 			c.notes, 
-	// 			c.prix, 
-	// 			c.quantite,
-	// 			c.millesime, 
-	// 			b.id,
-	// 			c.nom, 
-	// 			b.types, 
-	// 			b.image, 
-	// 			b.code_saq, 
-	// 			b.url_saq, 
-	// 			c.pays, 
-	// 			b.description,
-	// 			t.types 
-	// 				from bouteille__cellier c 
-	// 				INNER JOIN vino__saq b ON c.id_bouteille_saq = b.id
-	// 				INNER JOIN vino__types t ON t.id = b.types
-	// 					'; 
-	// 	if(($res = $this->_db->query($requete)) ==	 true)
-	// 	{
-	// 		if($res->num_rows)
-	// 		{
-	// 			while($row = $res->fetch_assoc())
-	// 			{
-	// 				$row['nom'] = trim(utf8_encode($row['nom']));
-	// 				$rows[] = $row;
-	// 			}
-	// 		}
-	// 	}
-	// 	else 
-	// 	{
-	// 		throw new Exception("Erreur de requête sur la base de donnée", 1);
-	// 		 //$this->_db->error;
-	// 	}
-		
-		
-		
-	// 	return $rows;
-	// }
-
-
 	 /**
 	  * Cette méthode permet de retourner une liste de bouteille par cellier sélectionné
 	  * 
@@ -148,7 +66,7 @@ class Bouteille extends Modele {
 		else 
 		{
 			throw new Exception("Erreur de requête sur la base de donnée", 1);
-			 //$this->_db->error;
+			
 		}
 		
 		
@@ -176,7 +94,7 @@ class Bouteille extends Modele {
 		$userID = $this->_db->real_escape_string($userID);
 		$idCellier = $this->_db->real_escape_string($idCellier);
 
-		 // echo $userID;
+		
 		$requete ='SELECT 
 		c.id as id_bouteille_cellier,
 			c.id_bouteille_saq, 
@@ -205,12 +123,12 @@ class Bouteille extends Modele {
 			{
 				while($row = $res->fetch_assoc())
 				{
-					//var_dump($row);
+					
 					$rows[] = $row;
 				}
 			}	
 		}
-	//	var_dump($rows);
+	
 		return $rows;
 	}
 
@@ -268,7 +186,7 @@ class Bouteille extends Modele {
 		else 
 		{
 			throw new Exception("Erreur de requête sur la base de donnée", 1);
-			 //$this->_db->error;
+		
 		}
 		
 		
@@ -326,7 +244,7 @@ class Bouteille extends Modele {
 			{
 				while($row = $res->fetch_assoc())
 				{
-					//var_dump($row);
+					
 					$rows[] = $row;
 				}
 			}	
@@ -387,8 +305,7 @@ class Bouteille extends Modele {
 	 */
 	public function ajouterNouvelleBouteilleNonLister($nom,$date_achat,$garde_jusqua,$pays,$notes,$prix,$types,$quantite,$millesime,$idCellier,$nomFichier)
 	{
-		//TODO : Valider les données.
-		//var_dump($data);	
+			
 
 		$requete = "INSERT INTO vino__saq(image,types) VALUES (".
 		"'".$nomFichier."',".	
@@ -427,7 +344,7 @@ class Bouteille extends Modele {
 	 public function ajouterNouvelleBouteilleSaq($idSaq,$date_achat,$garde_jusqua,$nom,$pays,$notes,$prix,$types,$quantite,$millesime,$idCellier)
 	{
 		
-		//var_dump($data);	
+	
 		
 		$requete = "INSERT INTO bouteille__cellier(id_bouteille_saq,date_achat,garde_jusqua,nom, pays,notes,prix,types,quantite,millesime,id_cellier) VALUES (".
 		"'".$idSaq."',".
@@ -441,7 +358,7 @@ class Bouteille extends Modele {
 		"'".$quantite."',".
 		"'".$millesime."',".
 		"'".$idCellier."')";
-		//var_dump($requete);
+	
         $res = $this->_db->query($requete);
         
 		return $res;
@@ -460,7 +377,7 @@ class Bouteille extends Modele {
 	{
 					
 		$requete = "UPDATE bouteille__cellier SET quantite = GREATEST(quantite + ". $nombre. ", 0) WHERE id = ". $id;
-		//echo $requete;
+		
         $res = $this->_db->query($requete);
         
 		return $res;
@@ -533,7 +450,7 @@ class Bouteille extends Modele {
 	public function AjoutCellier($nom, $username)
 	{
 		$requete = "INSERT INTO cellier (id_user,nom) VALUES ('" . $username . "','" .  $nom . "')";
-		//var_dump($requete);
+		
         $res = $this->_db->query($requete); 
 		return $res;
 	}

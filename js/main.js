@@ -59,7 +59,6 @@ window.addEventListener('load', function() {
                         element.disabled = false;
                     }
 
-                    
                 }).catch(error => {
                     console.error(error);
                 });
@@ -86,6 +85,7 @@ window.addEventListener('load', function() {
             });
             
             element.disabled = true;
+            
             // Je vais chercher la quantite de cette bouteille.
             
             let quantite = evt.composedPath();
@@ -143,8 +143,6 @@ window.addEventListener('load', function() {
                         }
                     })
                     .then(response => {
-                        
-
 
                         response.forEach(function(element) {
                             liste.innerHTML += "<li data-id='" + element.id + "'>" + element.nom + "</li>";
@@ -167,7 +165,7 @@ window.addEventListener('load', function() {
             prix: document.querySelector("[name='prix']"),
             garde_jusqua: document.querySelector("[name='garde_jusqua']"),
             notes: document.querySelector("[name='notes']"),
-            //  idCellier: <?php echo $_SESSION['id_cellier']; ?>),
+           
 
         };
         liste.addEventListener("click", function(evt) {
@@ -186,50 +184,6 @@ window.addEventListener('load', function() {
 
             }
         });
-
-        let btnAjouter = document.querySelector("[name='ajouterBouteilleCellier']");
-        if (btnAjouter) {
-            btnAjouter.addEventListener("click", function(evt) {
-
-                var idSaq = document.querySelector("[name='idSaq']");
-                var nom = document.querySelector("[name='nom']");
-                
-                /*
-                var param = {
-                    "id_bouteille": bouteille.nom.dataset.id,
-                    "date_achat": bouteille.date_achat.value,
-                    "garde_jusqua": bouteille.garde_jusqua.value,
-                    "nom": nom.innerHTML,
-                    "pays": bouteille.pays.value,
-                    "notes": bouteille.notes.value,
-                    "prix": bouteille.prix.value,
-                    "types": bouteille.types.value,
-                    "quantite": bouteille.quantite.value,
-                    "millesime": bouteille.millesime.value,
-                };
-                console.log(param);
-                let requete = new Request(BaseURL + "index.php?requete=ajouterNouvelleBouteilleCellier", {
-                    method: 'POST',
-                    body: JSON.stringify(param)
-                });
-                fetch(requete)
-                    .then(response => {
-                        console.log(response);
-                        if (response.status === 200) {
-                            return response.json();
-                        } else {
-                            throw new Error('Erreur');
-                        }
-                    })
-                    .then(response => {
-                        console.log(response);
-
-                    }).catch(error => {
-                        console.error(error);
-                    });*/
-
-            });
-        }
     }
 
     //Menu Mobile

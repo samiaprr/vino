@@ -16,11 +16,8 @@ class Cellier extends Modele {
 	/**
 	 * Cette méthode permet d'inserer un nouveau cellier pour un usager
 	 * 
-	
 	 * @param string $username Le username de l'usager.
-	 
 	 * 
-
 	 * 
 	 * @return bool true or false si l'insertion a fonctionnée ou non
 	 */
@@ -28,7 +25,7 @@ class Cellier extends Modele {
 	public function insertCellier($username)
 	{
 		//TODO : Valider les données.
-		//var_dump($data);	
+		
 		
 		$requete = "INSERT INTO cellier(id_user,nom) VALUES (".
 		"'".$username."',".
@@ -72,7 +69,7 @@ class Cellier extends Modele {
 		else 
 		{
 			throw new Exception("Erreur de requête sur la base de donnée", 1);
-			 //$this->_db->error;
+			
 		}
 		
 		
@@ -112,7 +109,7 @@ class Cellier extends Modele {
 		else 
 		{
 			throw new Exception("Erreur de requête sur la base de donnée", 1);
-			 //$this->_db->error;
+			
 		}
 		
 		
@@ -136,7 +133,7 @@ class Cellier extends Modele {
 	{
 		//TODO : Valider les données.			
 		$requete = "UPDATE cellier SET  nom='".$nom."'  WHERE id_cellier='". $id_cellier."'";
-		//echo $requete;
+		
         $res = $this->_db->query($requete);
         
 		return $res;
